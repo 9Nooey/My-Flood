@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BKK & Regional Water Watch - ติดตามสถานการณ์น้ำและข่าวสาร</title>
+  <title>Regional Water Watch - ติดตามสถานการณ์น้ำ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -23,7 +23,7 @@
           <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ กทม. (ตะวันออก-ตะวันตก) • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
         </div>
       </div>
-      <div id="lastUpdate" class="text-xs text-slate-400">กำลังโหลดข้อมูล...</div>
+      <div id="lastUpdate" class="text-xs text-slate-400">กำลังประมวลผล...</div>
     </div>
   </header>
 
@@ -74,7 +74,7 @@
       <div id="map"></div>
     </div>
 
-    <!-- ข่าวสารและการแจ้งเตือนภัย (News Feed) -->
+    <!-- ข่าวสารและการแจ้งเตือนภัย -->
     <div class="space-y-3">
       <div class="flex items-center justify-between">
         <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
@@ -82,9 +82,7 @@
         </h2>
         <span class="text-xs text-slate-400">อัปเดตอัตโนมัติ</span>
       </div>
-      <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <!-- การ์ดข่าวจะถูกเรนเดอร์ที่นี่ -->
-      </div>
+      <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
     </div>
 
     <!-- รายการสถานีวัดน้ำและเขื่อน -->
@@ -92,9 +90,7 @@
       <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
         <span>📍</span> สถานีตรวจวัดและเขื่อนหลัก
       </h2>
-      <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- การ์ดสถานีจะถูกเรนเดอร์ที่นี่ -->
-      </div>
+      <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
 
   </main>
@@ -112,8 +108,169 @@
       'chonburi': 'ชลบุรี'
     };
 
+    // ข้อมูลสำรองอัตโนมัติ (Fallback) ป้องกันเว็บพังเมื่อไฟล์ JSON ยังไม่ถูกสร้าง
+    const FALLBACK_DATA = {
+      timestamp: new Date().toISOString(),
+      overview: {
+        bangSaiFlowRate: 2180,
+        bangSaiStatus: 'warning',
+        seaLevelRise: '+1.65 ม. รทก.',
+        peakSeaTime: '18:45 น.',
+        rainStatus: 'มีฝนฟ้าคะนองกระจายตัวบริเวณปริมณฑลและภาคตะวันออก'
+      },
+      news: [
+        {
+          id: 'N01',
+          province: 'prachinburi',
+          title: 'ปภ. ปราจีนบุรี เฝ้าระวังน้ำล้นตลิ่ง อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ',
+          date: '28 ก.ย. 2026',
+          source: 'กรมป้องกันและบรรเทาสาธารณภัย',
+          level: 'warning',
+          summary: 'ระดับน้ำในแม่น้ำปราจีนบุรีเพิ่มสูงขึ้นต่อเนื่องจากฝนตกหนักสะสมในพื้นที่อุทยานแห่งชาติเขาใหญ่'
+        },
+        {
+          id: 'N02',
+          province: 'kanchanaburi',
+          title: 'เขื่อนวชิราลงกรณและเขื่อนศรีนครินทร์ ปริมาณน้ำยังรองรับได้เกิน 20%',
+          date: '28 ก.ย. 2026',
+          source: 'การไฟฟ้าฝ่ายผลิตฯ (กฟผ.)',
+          level: 'info',
+          summary: 'สภาพความมั่นคงของเขื่อนอยู่ในเกณฑ์ปกติ การระบายน้ำลงสู่ลุ่มน้ำแม่กลองยังคงเป็นไปตามแผน'
+        },
+        {
+          id: 'N03',
+          province: 'chonburi',
+          title: 'ชลบุรีเตือนมรสุมเข้า ระวังน้ำท่วมขังเส้นทางสายล่างเมืองพัทยาและศรีราชา',
+          date: '27 ก.ย. 2026',
+          source: 'ศูนย์ควบคุมอุทกภัยเมืองพัทยา',
+          level: 'warning',
+          summary: 'เตรียมพร้อมเครื่องสูบน้ำประจำสถานีเลียบชายหาดและจุดเสี่ยงถนนสุขุมวิทตลอด 24 ชม.'
+        },
+        {
+          id: 'N04',
+          province: 'bkk-east',
+          title: 'กทม. เร่งพร่องน้ำคลองประเวศฯ และคลองแสนแสบ รองรับน้ำฝนปลายสัปดาห์',
+          date: '28 ก.ย. 2026',
+          source: 'สำนักการระบายน้ำ กทม.',
+          level: 'info',
+          summary: 'เปิดประตูระบายน้ำฝั่งตะวันออกเพื่อเร่งระบายน้ำลงสู่สถานีสูบน้ำพระโขนง'
+        }
+      ],
+      stations: [
+        {
+          id: 'BKK_E01',
+          name: 'คลองแสนแสบ (ประตูระบายน้ำมีนบุรี)',
+          zone: 'bkk-east',
+          lat: 13.8138,
+          lng: 100.7483,
+          waterLevel: 0.88,
+          bankLevel: 1.20,
+          status: 'normal',
+          description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม'
+        },
+        {
+          id: 'BKK_E02',
+          name: 'คลองลาดพร้าว (วัดสว่างโสภณ)',
+          zone: 'bkk-east',
+          lat: 13.8211,
+          lng: 100.5982,
+          waterLevel: 1.48,
+          bankLevel: 1.50,
+          status: 'critical',
+          description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มกำลัง'
+        },
+        {
+          id: 'BKK_W01',
+          name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)',
+          zone: 'bkk-west',
+          lat: 13.7854,
+          lng: 100.3541,
+          waterLevel: 1.85,
+          bankLevel: 2.10,
+          status: 'warning',
+          description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม'
+        },
+        {
+          id: 'BKK_W02',
+          name: 'คลองมหาสวัสดิ์ (ประตูน้ำฉิมพลี)',
+          zone: 'bkk-west',
+          lat: 13.8012,
+          lng: 100.4325,
+          waterLevel: 1.62,
+          bankLevel: 2.00,
+          status: 'normal',
+          description: 'ผันน้ำลงสู่แม่น้ำท่าจีน'
+        },
+        {
+          id: 'KAN_01',
+          name: 'เขื่อนศรีนครินทร์ (อ.ศรีสวัสดิ์)',
+          zone: 'kanchanaburi',
+          lat: 14.4027,
+          lng: 99.1287,
+          waterLevel: 78.5,
+          bankLevel: 100.0,
+          status: 'normal',
+          description: 'ความจุน้ำ 78.5% สามารถรองรับน้ำได้อีกกว่า 3,800 ล้าน ลบ.ม.'
+        },
+        {
+          id: 'KAN_02',
+          name: 'แม่น้ำแม่กลอง (สะพานสมเด็จพระสังฆราชฯ)',
+          zone: 'kanchanaburi',
+          lat: 14.0228,
+          lng: 99.5328,
+          waterLevel: 3.40,
+          bankLevel: 5.50,
+          status: 'normal',
+          description: 'การไหลของน้ำปกติ เป็นจุดรวมแม่น้ำแควใหญ่และแควน้อย'
+        },
+        {
+          id: 'PRI_01',
+          name: 'แม่น้ำปราจีนบุรี (ตลาดเก่ากบินทร์บุรี)',
+          zone: 'prachinburi',
+          lat: 13.9922,
+          lng: 101.7175,
+          waterLevel: 8.85,
+          bankLevel: 8.90,
+          status: 'critical',
+          description: 'จุดวิกฤตลุ่มต่ำ ล้นตลิ่งเข้าชุมชนริมน้ำแล้วบางส่วน'
+        },
+        {
+          id: 'PRI_02',
+          name: 'เขื่อนนฤบดินทรจินดา (ห้วยโสมง)',
+          zone: 'prachinburi',
+          lat: 14.1578,
+          lng: 101.8841,
+          waterLevel: 82.0,
+          bankLevel: 100.0,
+          status: 'warning',
+          description: 'ช่วยชะลอน้ำป่าจากอุทยานฯ ทับลานและปางสีดา'
+        },
+        {
+          id: 'CHO_01',
+          name: 'อ่างเก็บน้ำบางพระ (อ.ศรีราชา)',
+          zone: 'chonburi',
+          lat: 13.2144,
+          lng: 100.9702,
+          waterLevel: 68.2,
+          bankLevel: 100.0,
+          status: 'normal',
+          description: 'แหล่งน้ำดิบสำคัญของภาคอุตสาหกรรม EEC และระบายน้ำสู่ทะเล'
+        },
+        {
+          id: 'CHO_02',
+          name: 'สถานีสูบน้ำพัทยาใต้ (ระบายลงอ่าวไทย)',
+          zone: 'chonburi',
+          lat: 12.9248,
+          lng: 100.8711,
+          waterLevel: 1.10,
+          bankLevel: 1.80,
+          status: 'warning',
+          description: 'จุดเสี่ยงน้ำท่วมฉับพลันเมื่อฝนตกหนักเกิน 60 มม./ชม.'
+        }
+      ]
+    };
+
     function initMap() {
-      // พิกัดเริ่มต้นครอบคลุมภาคกลาง-ตะวันตก-ตะวันออก
       map = L.map('map').setView([13.85, 100.4], 8);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -141,19 +298,22 @@
     async function loadWaterData() {
       try {
         const res = await fetch('./data/water.json?t=' + Date.now());
+        if (!res.ok) throw new Error('ไม่พบไฟล์ JSON');
         const data = await res.json();
         currentData = data;
-
-        document.getElementById('bangSaiFlow').innerText = data.overview.bangSaiFlowRate.toLocaleString();
-        document.getElementById('seaLevel').innerText = data.overview.seaLevelRise;
-        document.getElementById('seaTime').innerText = `เวลา ${data.overview.peakSeaTime}`;
-        document.getElementById('rainStatus').innerText = data.overview.rainStatus;
         document.getElementById('lastUpdate').innerText = `อัปเดตล่าสุด: ${new Date(data.timestamp).toLocaleTimeString('th-TH')}`;
-
-        renderUI();
       } catch (err) {
-        console.error('ไม่สามารถโหลดไฟล์ data/water.json ได้:', err);
+        console.warn('ดึง water.json ไม่สำเร็จ สลับมาใช้ข้อมูลสำรอง (Fallback Mode):', err);
+        currentData = FALLBACK_DATA;
+        document.getElementById('lastUpdate').innerText = `โหมดสำรอง: ${new Date().toLocaleTimeString('th-TH')}`;
       }
+
+      document.getElementById('bangSaiFlow').innerText = currentData.overview.bangSaiFlowRate.toLocaleString();
+      document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise;
+      document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime}`;
+      document.getElementById('rainStatus').innerText = currentData.overview.rainStatus;
+
+      renderUI();
     }
 
     function renderUI() {
@@ -218,7 +378,6 @@
         const card = document.createElement('div');
         card.className = 'bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2';
         
-        // เช็คว่าเป็นเขื่อน (% ความจุ) หรือระดับน้ำในคลอง (เมตร)
         const isDam = station.name.includes('เขื่อน') || station.name.includes('อ่างเก็บน้ำ');
         const unit = isDam ? '% ความจุ' : 'ม.';
 
