@@ -427,6 +427,9 @@
     initMap();
     renderUI(); // แสดงผลทันที 100%
     checkRemoteUpdate(); // เช็กอัปเดตใหม่
+
+    // สั่งให้เช็กข้อมูลใหม่ทุก 5 นาทีอัตโนมัติ (ใส่เพิ่มตรงนี้)
+    setInterval(checkRemoteUpdate, 300000);
   </script>
 </body>
 </html>
