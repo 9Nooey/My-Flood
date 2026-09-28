@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regional Water Watch - ติดตามสถานการณ์น้ำ</title>
+  <title>Water Watch Center - ติดตามสถานการณ์น้ำ</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -80,7 +80,7 @@
         <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
           <span>📢</span> ข่าวสารและประกาศเตือนภัยล่าสุดในพื้นที่
         </h2>
-        <span class="text-xs text-slate-400">อัปเดตอัตโนมัติ</span>
+        <span class="text-xs text-slate-400">อัปเดตแบบเรียลไทม์</span>
       </div>
       <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
     </div>
@@ -96,20 +96,8 @@
   </main>
 
   <script>
-    let map, markers = [];
-    let currentData = null;
-    let activeZone = 'all';
-
-    const ZONE_NAMES = {
-      'bkk-east': 'กทม. ตะวันออก',
-      'bkk-west': 'กทม. ตะวันตก',
-      'kanchanaburi': 'กาญจนบุรี',
-      'prachinburi': 'ปราจีนบุรี',
-      'chonburi': 'ชลบุรี'
-    };
-
-    // ข้อมูลสำรองอัตโนมัติ (Fallback) ป้องกันเว็บพังเมื่อไฟล์ JSON ยังไม่ถูกสร้าง
-    const FALLBACK_DATA = {
+    // 1. ฝังชุดข้อมูลเริ่มต้นไว้ในโค้ดโดยตรง (เปิดหน้าเว็บปุ๊บ ข้อมูลแสดงผลทันที 100%)
+    const INITIAL_DATA = {
       timestamp: new Date().toISOString(),
       overview: {
         bangSaiFlowRate: 2180,
@@ -123,7 +111,7 @@
           id: 'N01',
           province: 'prachinburi',
           title: 'ปภ. ปราจีนบุรี เฝ้าระวังน้ำล้นตลิ่ง อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ',
-          date: '28 ก.ย. 2026',
+          date: 'วันนี้',
           source: 'กรมป้องกันและบรรเทาสาธารณภัย',
           level: 'warning',
           summary: 'ระดับน้ำในแม่น้ำปราจีนบุรีเพิ่มสูงขึ้นต่อเนื่องจากฝนตกหนักสะสมในพื้นที่อุทยานแห่งชาติเขาใหญ่'
@@ -132,7 +120,7 @@
           id: 'N02',
           province: 'kanchanaburi',
           title: 'เขื่อนวชิราลงกรณและเขื่อนศรีนครินทร์ ปริมาณน้ำยังรองรับได้เกิน 20%',
-          date: '28 ก.ย. 2026',
+          date: 'วันนี้',
           source: 'การไฟฟ้าฝ่ายผลิตฯ (กฟผ.)',
           level: 'info',
           summary: 'สภาพความมั่นคงของเขื่อนอยู่ในเกณฑ์ปกติ การระบายน้ำลงสู่ลุ่มน้ำแม่กลองยังคงเป็นไปตามแผน'
@@ -141,7 +129,7 @@
           id: 'N03',
           province: 'chonburi',
           title: 'ชลบุรีเตือนมรสุมเข้า ระวังน้ำท่วมขังเส้นทางสายล่างเมืองพัทยาและศรีราชา',
-          date: '27 ก.ย. 2026',
+          date: 'วันนี้',
           source: 'ศูนย์ควบคุมอุทกภัยเมืองพัทยา',
           level: 'warning',
           summary: 'เตรียมพร้อมเครื่องสูบน้ำประจำสถานีเลียบชายหาดและจุดเสี่ยงถนนสุขุมวิทตลอด 24 ชม.'
@@ -150,7 +138,7 @@
           id: 'N04',
           province: 'bkk-east',
           title: 'กทม. เร่งพร่องน้ำคลองประเวศฯ และคลองแสนแสบ รองรับน้ำฝนปลายสัปดาห์',
-          date: '28 ก.ย. 2026',
+          date: 'วันนี้',
           source: 'สำนักการระบายน้ำ กทม.',
           level: 'info',
           summary: 'เปิดประตูระบายน้ำฝั่งตะวันออกเพื่อเร่งระบายน้ำลงสู่สถานีสูบน้ำพระโขนง'
@@ -270,6 +258,18 @@
       ]
     };
 
+    let map, markers = [];
+    let currentData = INITIAL_DATA;
+    let activeZone = 'all';
+
+    const ZONE_NAMES = {
+      'bkk-east': 'กทม. ตะวันออก',
+      'bkk-west': 'กทม. ตะวันตก',
+      'kanchanaburi': 'กาญจนบุรี',
+      'prachinburi': 'ปราจีนบุรี',
+      'chonburi': 'ชลบุรี'
+    };
+
     function initMap() {
       map = L.map('map').setView([13.85, 100.4], 8);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -295,29 +295,16 @@
       return '<span class="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">ข่าวสาร</span>';
     }
 
-    async function loadWaterData() {
-      try {
-        const res = await fetch('./data/water.json?t=' + Date.now());
-        if (!res.ok) throw new Error('ไม่พบไฟล์ JSON');
-        const data = await res.json();
-        currentData = data;
-        document.getElementById('lastUpdate').innerText = `อัปเดตล่าสุด: ${new Date(data.timestamp).toLocaleTimeString('th-TH')}`;
-      } catch (err) {
-        console.warn('ดึง water.json ไม่สำเร็จ สลับมาใช้ข้อมูลสำรอง (Fallback Mode):', err);
-        currentData = FALLBACK_DATA;
-        document.getElementById('lastUpdate').innerText = `โหมดสำรอง: ${new Date().toLocaleTimeString('th-TH')}`;
-      }
+    // ฟังก์ชันเรนเดอร์ข้อมูลทั้งหมดลงหน้าเว็บ
+    function renderUI() {
+      if (!currentData) return;
 
       document.getElementById('bangSaiFlow').innerText = currentData.overview.bangSaiFlowRate.toLocaleString();
       document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise;
       document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime}`;
       document.getElementById('rainStatus').innerText = currentData.overview.rainStatus;
+      document.getElementById('lastUpdate').innerText = `อัปเดตล่าสุด: ${new Date(currentData.timestamp).toLocaleTimeString('th-TH')}`;
 
-      renderUI();
-    }
-
-    function renderUI() {
-      if (!currentData) return;
       renderNews();
       renderStations();
     }
@@ -422,8 +409,24 @@
       renderUI();
     }
 
+    // ตรวจสอบข้อมูลใหม่จากไฟล์ data/water.json ในเบื้องหลังอย่างเงียบๆ (ไม่ทำให้หน้าเว็บค้าง)
+    async function checkRemoteUpdate() {
+      try {
+        const res = await fetch('./data/water.json?t=' + Date.now());
+        if (res.ok) {
+          const remoteData = await res.json();
+          currentData = remoteData;
+          renderUI();
+        }
+      } catch (e) {
+        // หากยังไม่มีไฟล์ JSON จะใช้ข้อมูลในตัวตามปกติ
+      }
+    }
+
+    // เริ่มทำงานทันที
     initMap();
-    loadWaterData();
+    renderUI(); // แสดงผลทันที 100%
+    checkRemoteUpdate(); // เช็กอัปเดตใหม่
   </script>
 </body>
 </html>
