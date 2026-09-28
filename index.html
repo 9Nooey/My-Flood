@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BKK Water Watch - ติดตามสถานการณ์น้ำ กทม.</title>
+  <title>BKK & Regional Water Watch - ติดตามสถานการณ์น้ำและข่าวสาร</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    #map { height: 420px; border-radius: 0.75rem; z-index: 10; }
+    #map { height: 440px; border-radius: 0.75rem; z-index: 10; }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
+  <!-- Header -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 px-4 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <span class="text-2xl">🌊</span>
         <div>
-          <h1 class="font-bold text-lg leading-tight">BKK Water Watch</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามน้ำหลากและคลองสายหลัก กทม. (ตะวันออก - ตะวันตก)</p>
+          <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ กทม. (ตะวันออก-ตะวันตก) • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
         </div>
       </div>
-      <div id="lastUpdate" class="text-xs text-slate-400">กำลังโหลด...</div>
+      <div id="lastUpdate" class="text-xs text-slate-400">กำลังโหลดข้อมูล...</div>
     </div>
   </header>
 
@@ -50,35 +51,52 @@
 
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
         <div class="text-xs text-slate-400 font-medium">สภาพกลุ่มฝนปัจจุบัน</div>
-        <div id="rainStatus" class="text-lg font-bold text-emerald-400 mt-1">กำลังตรวจเช็ก...</div>
-        <div class="text-xs text-slate-400 mt-1">เรดาร์สถานีหนองจอก & หนองแขม</div>
+        <div id="rainStatus" class="text-sm font-semibold text-emerald-400 mt-1 leading-snug">กำลังตรวจเช็ก...</div>
+        <div class="text-xs text-slate-400 mt-1">ครอบคลุมลุ่มน้ำเจ้าพระยา-แม่กลอง-ปราจีนบุรี</div>
       </div>
     </div>
 
-    <!-- แถบเลือกโซน ตะวันออก / ตะวันตก -->
-    <div class="flex items-center justify-between flex-wrap gap-2">
-      <div class="flex bg-slate-800 p-1 rounded-lg border border-slate-700">
-        <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-md text-sm font-medium transition bg-blue-600 text-white">ทั้งหมด</button>
-        <button onclick="setZoneFilter('east')" id="btn-east" class="px-3 py-1.5 rounded-md text-sm font-medium text-slate-300 hover:text-white transition">กทม. ตะวันออก</button>
-        <button onclick="setZoneFilter('west')" id="btn-west" class="px-3 py-1.5 rounded-md text-sm font-medium text-slate-300 hover:text-white transition">กทม. ตะวันตก</button>
-      </div>
-      <div class="flex items-center space-x-4 text-xs">
-        <span class="inline-flex items-center"><span class="w-3 h-3 rounded-full bg-emerald-500 mr-1.5"></span>ปกติ</span>
-        <span class="inline-flex items-center"><span class="w-3 h-3 rounded-full bg-amber-500 mr-1.5"></span>เฝ้าระวัง</span>
-        <span class="inline-flex items-center"><span class="w-3 h-3 rounded-full bg-rose-500 mr-1.5"></span>วิกฤต/ล้นตลิ่ง</span>
+    <!-- แถบเลือกโซนและจังหวัด -->
+    <div class="space-y-2">
+      <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
+      <div class="flex items-center gap-2 overflow-x-auto pb-1">
+        <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow">ทั้งหมด</button>
+        <button onclick="setZoneFilter('bkk-east')" id="btn-bkk-east" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันออก</button>
+        <button onclick="setZoneFilter('bkk-west')" id="btn-bkk-west" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันตก</button>
+        <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กาญจนบุรี (ต้นน้ำตะวันตก)</button>
+        <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ปราจีนบุรี (ต้นน้ำตะวันออก)</button>
+        <button onclick="setZoneFilter('chonburi')" id="btn-chonburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ชลบุรี (อ่าวไทยฝั่งตะวันออก)</button>
       </div>
     </div>
 
-    <!-- แผนที่ Leaflet -->
+    <!-- แผนที่แบบ Interactive -->
     <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700">
       <div id="map"></div>
     </div>
 
-    <!-- รายการการ์ดคลองสายหลัก -->
+    <!-- ข่าวสารและการแจ้งเตือนภัย (News Feed) -->
     <div class="space-y-3">
-      <h2 class="font-bold text-base text-slate-200">สถานีวัดระดับน้ำในคลองสายหลัก</h2>
-      <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <div class="flex items-center justify-between">
+        <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+          <span>📢</span> ข่าวสารและประกาศเตือนภัยล่าสุดในพื้นที่
+        </h2>
+        <span class="text-xs text-slate-400">อัปเดตอัตโนมัติ</span>
+      </div>
+      <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- การ์ดข่าวจะถูกเรนเดอร์ที่นี่ -->
+      </div>
     </div>
+
+    <!-- รายการสถานีวัดน้ำและเขื่อน -->
+    <div class="space-y-3">
+      <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+        <span>📍</span> สถานีตรวจวัดและเขื่อนหลัก
+      </h2>
+      <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- การ์ดสถานีจะถูกเรนเดอร์ที่นี่ -->
+      </div>
+    </div>
+
   </main>
 
   <script>
@@ -86,8 +104,17 @@
     let currentData = null;
     let activeZone = 'all';
 
+    const ZONE_NAMES = {
+      'bkk-east': 'กทม. ตะวันออก',
+      'bkk-west': 'กทม. ตะวันตก',
+      'kanchanaburi': 'กาญจนบุรี',
+      'prachinburi': 'ปราจีนบุรี',
+      'chonburi': 'ชลบุรี'
+    };
+
     function initMap() {
-      map = L.map('map').setView([13.7563, 100.5018], 10);
+      // พิกัดเริ่มต้นครอบคลุมภาคกลาง-ตะวันตก-ตะวันออก
+      map = L.map('map').setView([13.85, 100.4], 8);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
@@ -100,15 +127,19 @@
     }
 
     function getStatusBadge(status) {
-      if (status === 'critical') return '<span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs px-2 py-0.5 rounded-full font-medium">วิกฤต</span>';
+      if (status === 'critical') return '<span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs px-2 py-0.5 rounded-full font-medium">วิกฤต/ล้นตลิ่ง</span>';
       if (status === 'warning') return '<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs px-2 py-0.5 rounded-full font-medium">เฝ้าระวัง</span>';
       return '<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs px-2 py-0.5 rounded-full font-medium">ปกติ</span>';
     }
 
-    // ดึงไฟล์ data/water.json ที่อยู่ใน GitHub Repo
+    function getNewsBadge(level) {
+      if (level === 'danger') return '<span class="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">วิกฤต</span>';
+      if (level === 'warning') return '<span class="bg-amber-500 text-slate-900 text-[10px] px-2 py-0.5 rounded font-bold uppercase">เตือนภัย</span>';
+      return '<span class="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">ข่าวสาร</span>';
+    }
+
     async function loadWaterData() {
       try {
-        // เติม ?t= เพื่อป้องกัน Browser แคชไฟล์เดิม
         const res = await fetch('./data/water.json?t=' + Date.now());
         const data = await res.json();
         currentData = data;
@@ -119,23 +150,59 @@
         document.getElementById('rainStatus').innerText = data.overview.rainStatus;
         document.getElementById('lastUpdate').innerText = `อัปเดตล่าสุด: ${new Date(data.timestamp).toLocaleTimeString('th-TH')}`;
 
-        renderStations();
+        renderUI();
       } catch (err) {
         console.error('ไม่สามารถโหลดไฟล์ data/water.json ได้:', err);
       }
     }
 
-    function renderStations() {
+    function renderUI() {
       if (!currentData) return;
+      renderNews();
+      renderStations();
+    }
 
+    function renderNews() {
+      const container = document.getElementById('newsContainer');
+      container.innerHTML = '';
+
+      const filteredNews = currentData.news.filter(n => activeZone === 'all' || n.province === activeZone);
+
+      if (filteredNews.length === 0) {
+        container.innerHTML = '<div class="col-span-full p-4 text-center text-sm text-slate-400 bg-slate-800 rounded-xl border border-slate-700">ไม่มีประกาศเตือนภัยเร่งด่วนในพื้นที่นี้</div>';
+        return;
+      }
+
+      filteredNews.forEach(item => {
+        const newsCard = document.createElement('div');
+        newsCard.className = 'bg-slate-800/90 p-4 rounded-xl border border-slate-700 hover:border-slate-600 transition flex flex-col justify-between space-y-2';
+        newsCard.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="text-xs font-semibold text-blue-400">${ZONE_NAMES[item.province] || 'ทั่วไป'}</span>
+              ${getNewsBadge(item.level)}
+            </div>
+            <h3 class="font-semibold text-slate-100 text-sm leading-snug">${item.title}</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">${item.summary}</p>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-700/60">
+            <span>ที่มา: ${item.source}</span>
+            <span>${item.date}</span>
+          </div>
+        `;
+        container.appendChild(newsCard);
+      });
+    }
+
+    function renderStations() {
       markers.forEach(m => map.removeLayer(m));
       markers = [];
 
-      const filtered = currentData.stations.filter(s => activeZone === 'all' || s.zone === activeZone);
+      const filteredStations = currentData.stations.filter(s => activeZone === 'all' || s.zone === activeZone);
       const container = document.getElementById('stationsContainer');
       container.innerHTML = '';
 
-      filtered.forEach(station => {
+      filteredStations.forEach(station => {
         const circle = L.circleMarker([station.lat, station.lng], {
           radius: 8,
           fillColor: getPinColor(station.status),
@@ -145,23 +212,32 @@
           fillOpacity: 0.9
         }).addTo(map);
 
-        circle.bindPopup(`<b>${station.name}</b><br>ระดับน้ำ: ${station.waterLevel} ม. (ตลิ่ง ${station.bankLevel} ม.)<br>${station.description}`);
+        circle.bindPopup(`<b>${station.name}</b><br>สถานะ: ${station.waterLevel} (เกณฑ์: ${station.bankLevel})<br>${station.description}`);
         markers.push(circle);
 
         const card = document.createElement('div');
         card.className = 'bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2';
+        
+        // เช็คว่าเป็นเขื่อน (% ความจุ) หรือระดับน้ำในคลอง (เมตร)
+        const isDam = station.name.includes('เขื่อน') || station.name.includes('อ่างเก็บน้ำ');
+        const unit = isDam ? '% ความจุ' : 'ม.';
+
         card.innerHTML = `
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold uppercase text-slate-400">${station.zone === 'east' ? 'ฝั่งตะวันออก' : 'ฝั่งตะวันตก'}</span>
+            <span class="text-xs font-semibold text-blue-400">${ZONE_NAMES[station.zone] || station.zone}</span>
             ${getStatusBadge(station.status)}
           </div>
           <h3 class="font-bold text-slate-100 text-sm">${station.name}</h3>
-          <div class="text-xs text-slate-300">ระดับน้ำ: <span class="font-semibold text-white">${station.waterLevel} ม.</span> / ตลิ่ง: ${station.bankLevel} ม.</div>
+          <div class="text-xs text-slate-300">
+            ${isDam ? 'ปริมาณน้ำกักเก็บ' : 'ระดับน้ำ'}: 
+            <span class="font-semibold text-white">${station.waterLevel} ${unit}</span> 
+            ${!isDam ? `(ระดับตลิ่ง: ${station.bankLevel} ม.)` : ''}
+          </div>
           <div class="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
             <div class="h-full ${station.status === 'critical' ? 'bg-rose-500' : (station.status === 'warning' ? 'bg-amber-400' : 'bg-emerald-400')}" 
                  style="width: ${Math.min((station.waterLevel / station.bankLevel) * 100, 100)}%"></div>
           </div>
-          <p class="text-[11px] text-slate-400 pt-1">${station.description}</p>
+          <p class="text-[11px] text-slate-400 pt-1 leading-relaxed">${station.description}</p>
         `;
         container.appendChild(card);
       });
@@ -174,13 +250,17 @@
 
     function setZoneFilter(zone) {
       activeZone = zone;
-      ['all', 'east', 'west'].forEach(z => {
+      const zones = ['all', 'bkk-east', 'bkk-west', 'kanchanaburi', 'prachinburi', 'chonburi'];
+      zones.forEach(z => {
         const btn = document.getElementById(`btn-${z}`);
-        btn.className = (z === zone)
-          ? 'px-3 py-1.5 rounded-md text-sm font-medium transition bg-blue-600 text-white'
-          : 'px-3 py-1.5 rounded-md text-sm font-medium text-slate-300 hover:text-white transition';
+        if (!btn) return;
+        if (z === zone) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700';
+        }
       });
-      renderStations();
+      renderUI();
     }
 
     initMap();
