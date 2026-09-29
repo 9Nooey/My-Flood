@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-Time Water Watch Center</title>
+  <title>Real-Time Water & Rain Radar Watch Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    #map { height: 430px; border-radius: 0.75rem; z-index: 10; }
+    #map { height: 440px; border-radius: 0.75rem; z-index: 10; }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
+  <!-- Header -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 px-4 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center space-x-2">
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำและข่าวสาร กทม. • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำและเรดาร์ฝนสด กทม. • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
         </div>
       </div>
       <div class="flex items-center space-x-2">
@@ -36,18 +37,22 @@
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
+    <!-- ช่องทางแจ้งเหตุด่วนในพื้นที่ -->
     <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-300 font-medium">
-        <span>🚨 ช่องทางด่วนในพื้นที่:</span>
+        <span>🚨 ช่องทางด่วน:</span>
       </div>
       <div class="flex items-center flex-wrap gap-2">
+        <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 ดูเรดาร์ฝนสดในเว็บ
+        </button>
         <a href="tel:1784" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 px-2.5 py-1 rounded-md transition font-medium">📞 ปภ. 1784</a>
         <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 ศูนย์น้ำท่วม กทม. 02-248-5115</a>
-        <a href="https://lin.ee/2t3pGgK" target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium">📱 แจ้งเหตุผ่าน Traffy Fondue</a>
-        <a href="https://weather.bangkok.go.th/Radar" target="_blank" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-md transition font-medium">📡 เรดาร์ฝน กทม. สด</a>
+        <a href="https://lin.ee/2t3pGgK" target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium">📱 Traffy Fondue</a>
       </div>
     </div>
 
+    <!-- 3 ตัวชี้วัดสำคัญ -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-sm">
         <div class="text-xs text-slate-400 font-medium">น้ำหลากเจ้าพระยา (สถานีบางไทร C.29A)</div>
@@ -74,23 +79,98 @@
       </div>
     </div>
 
-    <div class="space-y-2">
-      <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
-      <div class="flex items-center gap-2 overflow-x-auto pb-1">
-        <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow">ทั้งหมด</button>
-        <button onclick="setZoneFilter('bkk-east')" id="btn-bkk-east" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันออก</button>
-        <button onclick="setZoneFilter('bkk-west')" id="btn-bkk-west" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันตก</button>
-        <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กาญจนบุรี</button>
-        <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ปราจีนบุรี</button>
-        <button onclick="setZoneFilter('chonburi')" id="btn-chonburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ชลบุรี</button>
+    <!-- เมนูแท็บหลัก (Navigation Tabs) -->
+    <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
+      <button id="tab-btn-map" onclick="switchMainTab('map')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap">
+        <span>🗺️ แผนที่สถานการณ์น้ำ & คลอง</span>
+      </button>
+      <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span>📡 เรดาร์ตรวจฝนสด</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white animate-pulse">LIVE</span>
+      </button>
+      <button id="tab-btn-news" onclick="switchMainTab('news')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span>📢 ข่าวสาร & เตือนภัย</span>
+        <span id="newsBadgeCount" class="text-[10px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded-full font-bold">--</span>
+      </button>
+    </div>
+
+    <!-- ==================== TAB 1: แผนที่สถานการณ์น้ำ ==================== -->
+    <section id="tab-content-map" class="space-y-6">
+      <!-- แถบเลือกโซนและจังหวัด -->
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
+        <div class="flex items-center gap-2 overflow-x-auto pb-1">
+          <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow">ทั้งหมด</button>
+          <button onclick="setZoneFilter('bkk-east')" id="btn-bkk-east" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันออก</button>
+          <button onclick="setZoneFilter('bkk-west')" id="btn-bkk-west" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันตก</button>
+          <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กาญจนบุรี</button>
+          <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ปราจีนบุรี</button>
+          <button onclick="setZoneFilter('chonburi')" id="btn-chonburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ชลบุรี</button>
+        </div>
       </div>
-    </div>
 
-    <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm">
-      <div id="map"></div>
-    </div>
+      <!-- แผนที่ Leaflet -->
+      <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm">
+        <div id="map"></div>
+      </div>
 
-    <div class="space-y-4">
+      <!-- รายการสถานีวัดน้ำและเขื่อน -->
+      <div class="space-y-3">
+        <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+          <span>📍</span> สถานีตรวจวัดระดับน้ำและเขื่อนหลัก
+        </h2>
+        <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: เรดาร์ฝนสด (LIVE RAIN RADAR) ==================== -->
+    <section id="tab-content-radar" class="space-y-4 hidden">
+      <!-- คอนโทรลบาร์ของเรดาร์ -->
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span>📡</span> แผนที่เรดาร์ตรวจฝน Doppler สด (Real-Time Rain Radar)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">ภาพเคลื่อนไหวทิศทางเมฆฝนย้อนหลัง 2 ชม. ถึงปัจจุบัน ครอบคลุม กทม. และภาคกลาง</p>
+        </div>
+        <!-- ปุ่มลัดซูมพื้นที่ในเรดาร์ -->
+        <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
+          <span class="text-slate-400 whitespace-nowrap mr-1">🔍 ซูม:</span>
+          <button onclick="zoomRadar('bkk-east')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กทม. ตะวันออก</button>
+          <button onclick="zoomRadar('bkk-west')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กทม. ตะวันตก</button>
+          <button onclick="zoomRadar('kanchanaburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กาญจนบุรี</button>
+          <button onclick="zoomRadar('prachinburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ปราจีนบุรี</button>
+          <button onclick="zoomRadar('chonburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ชลบุรี</button>
+          <button onclick="zoomRadar('all')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 rounded text-white whitespace-nowrap">ภาพรวม</button>
+        </div>
+      </div>
+
+      <!-- กรอบแสดงเรดาร์ฝนแบบเคลื่อนไหว (Embedded RainViewer Doppler Radar) -->
+      <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-lg relative overflow-hidden">
+        <iframe id="rainRadarIframe"
+                src="https://www.rainviewer.com/map.html?loc=13.7563,100.5018,9&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1" 
+                width="100%" 
+                height="540" 
+                style="border:0; border-radius: 0.75rem;" 
+                allowfullscreen>
+        </iframe>
+      </div>
+
+      <!-- สเกลระดับความแรงของฝน (Rain Intensity Legend) -->
+      <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <span class="text-slate-400 font-medium">ระดับความรุนแรงของกลุ่มฝน:</span>
+        <div class="flex items-center flex-wrap gap-3">
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cyan-400"></span> ฝนละออง / เล็กน้อย</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-400"></span> ฝนตกเบาบาง</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span> ฝนตกปานกลาง</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500"></span> ฝนตกหนัก (ระวังน้ำท่วมขัง)</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span> ฝนตกหนักมาก / ลมกระโชก</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: ข่าวสารและการเฝ้าระวัง ==================== -->
+    <section id="tab-content-news" class="space-y-4 hidden">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
@@ -106,14 +186,7 @@
       </div>
 
       <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-    </div>
-
-    <div class="space-y-3">
-      <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-        <span>📍</span> สถานีตรวจวัดระดับน้ำและเขื่อนหลัก
-      </h2>
-      <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </div>
+    </section>
 
   </main>
 
@@ -130,6 +203,42 @@
       'prachinburi': 'ปราจีนบุรี',
       'chonburi': 'ชลบุรี'
     };
+
+    // พิกัดสำหรับซูมเรดาร์
+    const RADAR_COORDS = {
+      'all': '13.7563,100.5018,9',
+      'bkk-east': '13.8200,100.7500,10', // หนองจอก - มีนบุรี
+      'bkk-west': '13.7600,100.3800,10', // ทวีวัฒนา - บางแค
+      'kanchanaburi': '14.1500,99.3000,9', // กาญจนบุรี
+      'prachinburi': '14.0500,101.5500,9', // ปราจีนบุรี
+      'chonburi': '13.1500,100.9500,9'     // ชลบุรี
+    };
+
+    function zoomRadar(key) {
+      const loc = RADAR_COORDS[key] || RADAR_COORDS['all'];
+      const iframe = document.getElementById('rainRadarIframe');
+      iframe.src = `https://www.rainviewer.com/map.html?loc=${loc}&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1`;
+    }
+
+    // ฟังก์ชันสลับแท็บหลัก
+    function switchMainTab(tab) {
+      ['map', 'radar', 'news'].forEach(t => {
+        const content = document.getElementById(`tab-content-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tab) {
+          content.classList.remove('hidden');
+          btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap';
+        } else {
+          content.classList.add('hidden');
+          btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap';
+        }
+      });
+
+      // ถ้าสลับกลับมาแท็บแผนที่ ต้องสั่งให้ Leaflet รีเฟรชขนาด
+      if (tab === 'map' && map) {
+        setTimeout(() => map.invalidateSize(), 150);
+      }
+    }
 
     function formatTimeAgo(dateString) {
       try {
@@ -185,7 +294,7 @@
           cache: 'no-store'
         });
 
-        if (!res.ok) throw new Error('กำลังรอไฟล์ water.json จาก GitHub Actions...');
+        if (!res.ok) throw new Error('กำลังรอไฟล์ water.json...');
 
         const data = await res.json();
         currentData = data;
@@ -224,6 +333,9 @@
       document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise;
       document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime}`;
       document.getElementById('rainStatus').innerText = currentData.overview.rainStatus;
+
+      const newsCount = (currentData.news || []).length;
+      document.getElementById('newsBadgeCount').innerText = newsCount;
 
       renderNews();
       renderStations();
