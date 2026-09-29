@@ -20,7 +20,7 @@
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา และเรดาร์ฝนสด กทม. • ปริมณฑล</p>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา เรดาร์ฝน และข่าวสด Facebook</p>
         </div>
       </div>
       <div class="flex items-center space-x-2">
@@ -43,14 +43,17 @@
         <span>🚨 ช่องทางด่วน:</span>
       </div>
       <div class="flex items-center flex-wrap gap-2">
-        <button onclick="switchMainTab('diagram')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
-          <span>📊</span> ดูผังน้ำเจ้าพระยา สด
+        <button onclick="switchMainTab('fb')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span>📱</span> News Facebook
+        </button>
+        <button onclick="switchMainTab('diagram')" class="bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span>📊</span> ผังน้ำเจ้าพระยา (สด)
         </button>
         <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 ดูเรดาร์ฝนสด
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 เรดาร์ฝนสด
         </button>
         <a href="tel:1784" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 px-2.5 py-1 rounded-md transition font-medium">📞 ปภ. 1784</a>
-        <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 ศูนย์น้ำท่วม กทม.</a>
+        <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 น้ำท่วม กทม.</a>
         <a href="https://lin.ee/2t3pGgK" target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium">📱 Traffy Fondue</a>
       </div>
     </div>
@@ -82,21 +85,25 @@
       </div>
     </div>
 
-    <!-- แถบเมนูแท็บหลัก (Navigation Tabs) -->
+    <!-- แถบเมนูแท็บหลัก (5 แท็บสมบูรณ์) -->
     <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
       <button id="tab-btn-map" onclick="switchMainTab('map')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap">
-        <span>🗺️ แผนที่สถานการณ์น้ำ & คลอง</span>
+        <span>🗺️ แผนที่สถานการณ์น้ำ</span>
+      </button>
+      <button id="tab-btn-fb" onclick="switchMainTab('fb')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span class="text-blue-400 font-black">f</span>
+        <span>News Facebook</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">สด</span>
       </button>
       <button id="tab-btn-diagram" onclick="switchMainTab('diagram')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
-        <span>📊 ผังน้ำเจ้าพระยา (สด)</span>
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500 text-slate-900">สสน. HII</span>
+        <span>📊 ผังน้ำเจ้าพระยา</span>
       </button>
       <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📡 เรดาร์ตรวจฝนสด</span>
         <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white animate-pulse">LIVE</span>
       </button>
       <button id="tab-btn-news" onclick="switchMainTab('news')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
-        <span>📢 ข่าวสาร & เตือนภัย</span>
+        <span>📢 รวมข่าวเตือนภัย</span>
         <span id="newsBadgeCount" class="text-[10px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded-full font-bold">--</span>
       </button>
     </div>
@@ -127,21 +134,73 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: ผังน้ำเจ้าพระยา สสน. (HII Live Diagram) ==================== -->
+    <!-- ==================== TAB 2: NEWS FACEBOOK (ใหม่ล่าสุด) ==================== -->
+    <section id="tab-content-fb" class="space-y-4 hidden">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span class="text-blue-500 font-black text-xl">f</span> News Facebook - ฟีดรายงานสถานการณ์น้ำสดจากหน่วยงาน
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">ติดตามรูปภาพระดับน้ำท่วม ประกาศด่วน และคลิปแถลงการณ์สดจากหน้าเพจทางการ</p>
+        </div>
+        <a id="fbDirectLink" href="https://www.facebook.com/bangkahome" target="_blank" rel="noopener noreferrer" 
+           class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow whitespace-nowrap">
+          <span>↗️</span> เปิดดูบน Facebook
+        </a>
+      </div>
+
+      <!-- แถบเลือกเพจ Facebook -->
+      <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-2">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div class="text-xs text-slate-400 font-medium">เลือกเพจที่ต้องการดู:</div>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+            <button onclick="changeFbPage('bma')" id="fb-btn-bma" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">สำนักการระบายน้ำ กทม.</button>
+            <button onclick="changeFbPage('ddpm')" id="fb-btn-ddpm" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรม ปภ. กลาง</button>
+            <button onclick="changeFbPage('prachin')" id="fb-btn-prachin" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ปราจีนบุรี</button>
+            <button onclick="changeFbPage('kan')" id="fb-btn-kan" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปชส. กาญจนบุรี</button>
+            <button onclick="changeFbPage('chon')" id="fb-btn-chon" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ชลบุรี</button>
+          </div>
+        </div>
+
+        <!-- ช่องใส่เพจ Facebook แบบกำหนดเอง -->
+        <div class="pt-2 border-t border-slate-700/60 flex items-center gap-2">
+          <span class="text-xs text-slate-400 whitespace-nowrap">หรือใส่ลิงก์เพจอื่น:</span>
+          <input type="text" id="customFbInput" placeholder="วางลิงก์เพจ เช่น https://www.facebook.com/prbangkok" 
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          <button onclick="applyCustomFb()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap">เปิดดู</button>
+        </div>
+      </div>
+
+      <!-- กรอบแสดง Facebook Feed แบบ Responsive -->
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-lg flex flex-col items-center justify-center min-h-[620px]">
+        <div class="w-full max-w-[500px] bg-slate-900/40 rounded-xl overflow-hidden shadow-inner flex justify-center p-1">
+          <iframe id="fbIframe" 
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbangkahome&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+                  width="500" 
+                  height="700" 
+                  style="border:none;overflow:hidden;max-width:100%;min-height:650px;" 
+                  scrolling="no" 
+                  frameborder="0" 
+                  allowfullscreen="true" 
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: ผังน้ำเจ้าพระยา สสน. ==================== -->
     <section id="tab-content-diagram" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
             <span>📊</span> ผังสถานการณ์น้ำลุ่มน้ำเจ้าพระยา (สถาบันสารสนเทศทรัพยากรน้ำ - สสน.)
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">
-            แสดงอัตราน้ำไหลผ่านเขื่อนเจ้าพระยา, สถานีบางไทร, ปริมาณน้ำเขื่อนหลัก และการผันน้ำออกฝั่งตะวันออก-ตะวันตก
-          </p>
+          <p class="text-xs text-slate-400 mt-0.5">แสดงอัตราน้ำไหลผ่านเขื่อนเจ้าพระยา, สถานีบางไทร, เขื่อนหลัก และการผันน้ำออกสองฝั่ง</p>
         </div>
         <div class="flex items-center gap-2 overflow-x-auto text-xs">
           <button onclick="setDiagramMode('full')" id="btn-diag-full" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">ผังใหญ่ (ฉบับเต็ม)</button>
-          <button onclick="setDiagramMode('small')" id="btn-diag-small" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ผังย่อ (สำหรับมือถือ)</button>
-          <button onclick="reloadDiagram()" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1" title="ดึงผังน้ำสดใหม่">
+          <button onclick="setDiagramMode('small')" id="btn-diag-small" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ผังย่อ (มือถือ)</button>
+          <button onclick="reloadDiagram()" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
             <span>🔄</span> รีเฟรชผัง
           </button>
           <a href="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
@@ -152,8 +211,8 @@
 
       <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-lg space-y-2">
         <div class="text-[11px] text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-lg px-3 py-1.5 flex items-center justify-between flex-wrap gap-1">
-          <span>💡 <b>คำแนะนำ:</b> แผนผังมีความละเอียดสูง สามารถเลื่อนซ้าย-ขวาบนหน้าจอ หรือกดสลับเป็น <b>"ผังย่อ"</b> เพื่อให้พอดีกับจอมือถือ</span>
-          <span class="text-slate-400">ข้อมูลสดจาก: tiwrm.hii.or.th</span>
+          <span>💡 <b>คำแนะนำ:</b> แผนผังมีความละเอียดสูง สามารถเลื่อนซ้าย-ขวา หรือกดสลับเป็น <b>"ผังย่อ"</b> เพื่อให้พอดีกับจอมือถือ</span>
+          <span class="text-slate-400">ข้อมูลสด: tiwrm.hii.or.th</span>
         </div>
         <div class="w-full overflow-x-auto bg-white rounded-xl shadow-inner">
           <iframe id="diagramIframe"
@@ -167,7 +226,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 3: เรดาร์ตรวจฝนสด (LIVE RAIN RADAR) ==================== -->
+    <!-- ==================== TAB 4: เรดาร์ตรวจฝนสด ==================== -->
     <section id="tab-content-radar" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -204,12 +263,12 @@
           <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-400"></span> ฝนตกเบาบาง</span>
           <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span> ฝนตกปานกลาง</span>
           <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500"></span> ฝนตกหนัก (ระวังน้ำท่วมขัง)</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span> ฝนตกหนักมาก / ลมกระโชก</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span> ฝนตกหนักมาก</span>
         </div>
       </div>
     </section>
 
-    <!-- ==================== TAB 4: ข่าวสารและการเฝ้าระวัง ==================== -->
+    <!-- ==================== TAB 5: รวมข่าวเตือนภัย ==================== -->
     <section id="tab-content-news" class="space-y-4 hidden">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -244,6 +303,46 @@
       'chonburi': 'ชลบุรี'
     };
 
+    // ลิงก์เพจ Facebook ทางการ
+    const FB_PAGES = {
+      'bma': 'https://www.facebook.com/bangkahome',
+      'ddpm': 'https://www.facebook.com/DDPMNews',
+      'prachin': 'https://www.facebook.com/PrachinburiDisaster',
+      'kan': 'https://www.facebook.com/prkanchanaburi',
+      'chon': 'https://www.facebook.com/DisasterChonburi'
+    };
+
+    function changeFbPage(key) {
+      const url = FB_PAGES[key];
+      if (!url) return;
+      loadFbPlugin(url);
+
+      ['bma', 'ddpm', 'prachin', 'kan', 'chon'].forEach(k => {
+        const btn = document.getElementById(`fb-btn-${k}`);
+        if (!btn) return;
+        if (k === key) {
+          btn.className = 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow';
+        } else {
+          btn.className = 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
+        }
+      });
+    }
+
+    function applyCustomFb() {
+      const input = document.getElementById('customFbInput');
+      const url = input.value.trim();
+      if (url) {
+        loadFbPlugin(url);
+      }
+    }
+
+    function loadFbPlugin(pageUrl) {
+      const encoded = encodeURIComponent(pageUrl);
+      const iframe = document.getElementById('fbIframe');
+      iframe.src = `https://www.facebook.com/plugins/page.php?href=${encoded}&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId`;
+      document.getElementById('fbDirectLink').href = pageUrl;
+    }
+
     const RADAR_COORDS = {
       'all': '13.7563,100.5018,9',
       'bkk-east': '13.8200,100.7500,10',
@@ -259,9 +358,9 @@
       iframe.src = `https://www.rainviewer.com/map.html?loc=${loc}&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1`;
     }
 
-    // ฟังก์ชันสลับแท็บหลัก (มี 4 แท็บ)
+    // ฟังก์ชันสลับแท็บหลัก (5 แท็บ)
     function switchMainTab(tab) {
-      ['map', 'diagram', 'radar', 'news'].forEach(t => {
+      ['map', 'fb', 'diagram', 'radar', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (!content || !btn) return;
@@ -280,7 +379,6 @@
       }
     }
 
-    // ฟังก์ชันควบคุมผังน้ำ สสน.
     function setDiagramMode(mode) {
       const iframe = document.getElementById('diagramIframe');
       const btnFull = document.getElementById('btn-diag-full');
