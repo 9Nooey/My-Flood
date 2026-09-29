@@ -8,28 +8,34 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    #map { height: 420px; border-radius: 0.75rem; z-index: 10; }
+    #map { height: 430px; border-radius: 0.75rem; z-index: 10; }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
 
-  <!-- Header -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center space-x-2">
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำและข่าวสารเรียลไทม์ กทม. • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำและข่าวสาร กทม. • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
         </div>
       </div>
-      <div id="lastUpdate" class="text-xs text-emerald-400 font-medium bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-800/50">กำลังประมวลผล...</div>
+      <div class="flex items-center space-x-2">
+        <div id="lastUpdate" class="text-xs text-emerald-400 font-medium bg-emerald-950/70 px-3 py-1 rounded-full border border-emerald-800/60 flex items-center gap-1.5 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>กำลังโหลด...</span>
+        </div>
+        <button onclick="forceRefresh()" title="กดเพื่อดึงข้อมูลสดทันที" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs px-2.5 py-1 rounded-full border border-slate-700 transition flex items-center gap-1">
+          <span>🔄</span> รีเฟรช
+        </button>
+      </div>
     </div>
   </header>
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
-    <!-- แถบช่องทางแจ้งเหตุฉุกเฉินและรายงานสด (Emergency Hotlines) -->
     <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-300 font-medium">
         <span>🚨 ช่องทางด่วนในพื้นที่:</span>
@@ -42,9 +48,8 @@
       </div>
     </div>
 
-    <!-- 3 ตัวชี้วัดสำคัญ -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-sm">
         <div class="text-xs text-slate-400 font-medium">น้ำหลากเจ้าพระยา (สถานีบางไทร C.29A)</div>
         <div class="flex items-baseline space-x-2 mt-1">
           <span id="bangSaiFlow" class="text-2xl font-bold text-amber-400">---</span>
@@ -53,7 +58,7 @@
         <div class="text-xs text-slate-400 mt-1">เกณฑ์เฝ้าระวัง: มากกว่า 2,500 ลบ.ม./วินาที</div>
       </div>
 
-      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-sm">
         <div class="text-xs text-slate-400 font-medium">น้ำทะเลหนุนสูงสุด (ป้อมพระจุลฯ)</div>
         <div class="flex items-baseline space-x-2 mt-1">
           <span id="seaLevel" class="text-2xl font-bold text-blue-400">---</span>
@@ -62,14 +67,13 @@
         <div class="text-xs text-slate-400 mt-1">ระดับคันกั้นน้ำแม่น้ำเจ้าพระยา: +2.80 ถึง +3.00 ม. รทก.</div>
       </div>
 
-      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-sm">
         <div class="text-xs text-slate-400 font-medium">สภาพกลุ่มฝนปัจจุบัน</div>
         <div id="rainStatus" class="text-sm font-semibold text-emerald-400 mt-1 leading-snug">กำลังตรวจเช็ก...</div>
         <div class="text-xs text-slate-400 mt-1">ครอบคลุมลุ่มน้ำเจ้าพระยา-แม่กลอง-ปราจีนบุรี</div>
       </div>
     </div>
 
-    <!-- แถบเลือกโซนและจังหวัด -->
     <div class="space-y-2">
       <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
       <div class="flex items-center gap-2 overflow-x-auto pb-1">
@@ -82,12 +86,10 @@
       </div>
     </div>
 
-    <!-- แผนที่แบบ Interactive -->
-    <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700">
+    <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm">
       <div id="map"></div>
     </div>
 
-    <!-- ส่วนข่าวสารแบบ Real-time ขยายใหญ่และค้นหาได้ -->
     <div class="space-y-4">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -96,7 +98,6 @@
           </h2>
           <p class="text-xs text-slate-400 mt-0.5" id="newsCountLabel">กำลังโหลดข่าว...</p>
         </div>
-        <!-- ช่องค้นหาข่าว -->
         <div class="relative w-full md:w-72">
           <input type="text" id="newsSearch" oninput="handleSearch(this.value)" 
                  placeholder="🔍 พิมพ์ค้นหา เช่น กบินทร์บุรี, ลาดพร้าว..." 
@@ -104,11 +105,9 @@
         </div>
       </div>
 
-      <!-- Grid แสดงการ์ดข่าวสาร -->
       <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
     </div>
 
-    <!-- รายการสถานีวัดน้ำและเขื่อน -->
     <div class="space-y-3">
       <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
         <span>📍</span> สถานีตรวจวัดระดับน้ำและเขื่อนหลัก
@@ -119,83 +118,8 @@
   </main>
 
   <script>
-    const INITIAL_DATA = {
-      timestamp: new Date().toISOString(),
-      overview: {
-        bangSaiFlowRate: 2180,
-        bangSaiStatus: 'warning',
-        seaLevelRise: '+1.65 ม. รทก.',
-        peakSeaTime: '18:45 น.',
-        rainStatus: 'มีฝนฟ้าคะนองกระจายตัวบริเวณปริมณฑลและภาคตะวันออก'
-      },
-      news: [
-        {
-          id: 'N01',
-          province: 'prachinburi',
-          title: 'ปภ. ปราจีนบุรี เฝ้าระวังน้ำล้นตลิ่ง อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ',
-          date: new Date(Date.now() - 1000 * 60 * 25).toISOString(),
-          source: 'ปภ. ปราจีนบุรี',
-          link: 'https://www.disaster.go.th',
-          level: 'danger',
-          summary: 'ระดับน้ำในแม่น้ำปราจีนบุรีเพิ่มสูงขึ้นต่อเนื่องจากฝนตกหนักสะสมในพื้นที่อุทยานแห่งชาติเขาใหญ่ ล้นตลิ่งจุดลุ่มต่ำ'
-        },
-        {
-          id: 'N02',
-          province: 'bkk-east',
-          title: 'กทม. เร่งระบายน้ำคลองแสนแสบและคลองลาดพร้าว รองรับน้ำเหนือและฝนตกชุก',
-          date: new Date(Date.now() - 1000 * 60 * 55).toISOString(),
-          source: 'สำนักการระบายน้ำ กทม.',
-          link: 'https://dds.bangkok.go.th',
-          level: 'warning',
-          summary: 'เดินเครื่องสูบน้ำสถานีพระโขนงเต็มกำลัง เพื่อพร่องน้ำในคลองสายหลักฝั่งตะวันออก'
-        },
-        {
-          id: 'N03',
-          province: 'bkk-west',
-          title: 'เฝ้าระวังน้ำหลากเข้าคลองทวีวัฒนาและคลองมหาสวัสดิ์ ชุมชนริมน้ำเร่งยกของ',
-          date: new Date(Date.now() - 1000 * 60 * 110).toISOString(),
-          source: 'ศูนย์เตือนภัยน้ำท่วม',
-          link: 'https://dds.bangkok.go.th',
-          level: 'warning',
-          summary: 'ปริมาณน้ำไหลผ่านประตูน้ำฉิมพลีเริ่มเพิ่มระดับต่อเนื่อง ประสานงานเจ้าหน้าที่เตรียมกระสอบทราย'
-        },
-        {
-          id: 'N04',
-          province: 'chonburi',
-          title: 'พัทยาและศรีราชา เตรียมรับมือน้ำท่วมขังผิวจราจรช่วงมรสุมฝนตกหนัก',
-          date: new Date(Date.now() - 1000 * 60 * 180).toISOString(),
-          source: 'ข่าวท้องถิ่นพัทยา',
-          link: 'https://www.pattaya.go.th',
-          level: 'warning',
-          summary: 'เตรียมพร้อมเครื่องสูบน้ำประจำสถานีเลียบชายหาดและจุดเสี่ยงถนนสุขุมวิทตลอด 24 ชม.'
-        },
-        {
-          id: 'N05',
-          province: 'kanchanaburi',
-          title: 'เขื่อนศรีนครินทร์และเขื่อนวชิราลงกรณ ปริมาณน้ำกักเก็บยังอยู่ในเกณฑ์ควบคุม',
-          date: new Date(Date.now() - 1000 * 60 * 240).toISOString(),
-          source: 'กฟผ.',
-          link: 'https://www.egat.co.th',
-          level: 'info',
-          summary: 'สภาพความมั่นคงของเขื่อนอยู่ในเกณฑ์ปกติ การระบายน้ำลงสู่ลุ่มน้ำแม่กลองยังคงเป็นไปตามแผน'
-        }
-      ],
-      stations: [
-        { id: 'BKK_E01', name: 'คลองแสนแสบ (ประตูระบายน้ำมีนบุรี)', zone: 'bkk-east', lat: 13.8138, lng: 100.7483, waterLevel: 0.88, bankLevel: 1.20, status: 'normal', description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม' },
-        { id: 'BKK_E02', name: 'คลองลาดพร้าว (วัดสว่างโสภณ)', zone: 'bkk-east', lat: 13.8211, lng: 100.5982, waterLevel: 1.48, bankLevel: 1.50, status: 'critical', description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มกำลัง' },
-        { id: 'BKK_W01', name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)', zone: 'bkk-west', lat: 13.7854, lng: 100.3541, waterLevel: 1.85, bankLevel: 2.10, status: 'warning', description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม' },
-        { id: 'BKK_W02', name: 'คลองมหาสวัสดิ์ (ประตูน้ำฉิมพลี)', zone: 'bkk-west', lat: 13.8012, lng: 100.4325, waterLevel: 1.62, bankLevel: 2.00, status: 'normal', description: 'ผันน้ำลงสู่แม่น้ำท่าจีน' },
-        { id: 'KAN_01', name: 'เขื่อนศรีนครินทร์ (อ.ศรีสวัสดิ์)', zone: 'kanchanaburi', lat: 14.4027, lng: 99.1287, waterLevel: 78.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 78.5% สามารถรองรับน้ำได้อีกกว่า 3,800 ล้าน ลบ.ม.' },
-        { id: 'KAN_02', name: 'แม่น้ำแม่กลอง (สะพานสมเด็จพระสังฆราชฯ)', zone: 'kanchanaburi', lat: 14.0228, lng: 99.5328, waterLevel: 3.40, bankLevel: 5.50, status: 'normal', description: 'การไหลของน้ำปกติ เป็นจุดรวมแม่น้ำแควใหญ่และแควน้อย' },
-        { id: 'PRI_01', name: 'แม่น้ำปราจีนบุรี (ตลาดเก่ากบินทร์บุรี)', zone: 'prachinburi', lat: 13.9922, lng: 101.7175, waterLevel: 8.85, bankLevel: 8.90, status: 'critical', description: 'จุดวิกฤตลุ่มต่ำ ล้นตลิ่งเข้าชุมชนริมน้ำแล้วบางส่วน' },
-        { id: 'PRI_02', name: 'เขื่อนนฤบดินทรจินดา (ห้วยโสมง)', zone: 'prachinburi', lat: 14.1578, lng: 101.8841, waterLevel: 82.0, bankLevel: 100.0, status: 'warning', description: 'ช่วยชะลอน้ำป่าจากอุทยานฯ ทับลานและปางสีดา' },
-        { id: 'CHO_01', name: 'อ่างเก็บน้ำบางพระ (อ.ศรีราชา)', zone: 'chonburi', lat: 13.2144, lng: 100.9702, waterLevel: 68.2, bankLevel: 100.0, status: 'normal', description: 'แหล่งน้ำดิบสำคัญของภาคอุตสาหกรรม EEC และระบายน้ำสู่ทะเล' },
-        { id: 'CHO_02', name: 'สถานีสูบน้ำพัทยาใต้ (ระบายลงอ่าวไทย)', zone: 'chonburi', lat: 12.9248, lng: 100.8711, waterLevel: 1.10, bankLevel: 1.80, status: 'warning', description: 'จุดเสี่ยงน้ำท่วมฉับพลันเมื่อฝนตกหนักเกิน 60 มม./ชม.' }
-      ]
-    };
-
     let map, markers = [];
-    let currentData = INITIAL_DATA;
+    let currentData = null;
     let activeZone = 'all';
     let searchQuery = '';
 
@@ -207,7 +131,6 @@
       'chonburi': 'ชลบุรี'
     };
 
-    // แปลงเวลาให้แสดงผลแบบอ่านง่าย (เช่น "12 นาทีที่แล้ว")
     function formatTimeAgo(dateString) {
       try {
         const past = new Date(dateString);
@@ -255,6 +178,45 @@
       renderNews();
     }
 
+    async function loadWaterData() {
+      try {
+        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(7);
+        const res = await fetch(`./data/water.json?nocache=${cacheBuster}`, {
+          cache: 'no-store'
+        });
+
+        if (!res.ok) throw new Error('กำลังรอไฟล์ water.json จาก GitHub Actions...');
+
+        const data = await res.json();
+        currentData = data;
+
+        const updateDate = new Date(data.timestamp);
+        const timeStr = updateDate.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+        const dateStr = updateDate.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
+        
+        document.getElementById('lastUpdate').innerHTML = `
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>ข้อมูลล่าสุด: ${dateStr}, ${timeStr} น.</span>
+        `;
+
+        renderUI();
+      } catch (err) {
+        console.warn(err.message);
+        document.getElementById('lastUpdate').innerHTML = `
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          <span>กำลังเชื่อมต่อข้อมูล...</span>
+        `;
+      }
+    }
+
+    function forceRefresh() {
+      document.getElementById('lastUpdate').innerHTML = `
+        <span class="w-2 h-2 rounded-full bg-blue-400 animate-spin"></span>
+        <span>กำลังซิงค์ข้อมูลล่าสุด...</span>
+      `;
+      loadWaterData();
+    }
+
     function renderUI() {
       if (!currentData) return;
 
@@ -262,7 +224,6 @@
       document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise;
       document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime}`;
       document.getElementById('rainStatus').innerText = currentData.overview.rainStatus;
-      document.getElementById('lastUpdate').innerText = `อัปเดต: ${new Date(currentData.timestamp).toLocaleTimeString('th-TH')}`;
 
       renderNews();
       renderStations();
@@ -272,7 +233,7 @@
       const container = document.getElementById('newsContainer');
       container.innerHTML = '';
 
-      let filtered = currentData.news.filter(n => activeZone === 'all' || n.province === activeZone);
+      let filtered = (currentData.news || []).filter(n => activeZone === 'all' || n.province === activeZone);
 
       if (searchQuery) {
         filtered = filtered.filter(n => 
@@ -282,10 +243,10 @@
         );
       }
 
-      document.getElementById('newsCountLabel').innerText = `พบ ${filtered.length} ข่าวสารและประกาศเตือนภัยล่าสุด`;
+      document.getElementById('newsCountLabel').innerText = `พบ ${filtered.length} ข่าวสารและประกาศเตือนภัย`;
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div class="col-span-full p-6 text-center text-sm text-slate-400 bg-slate-800 rounded-xl border border-slate-700">ไม่พบข่าวสารที่ตรงกับคำค้นหาในขณะนี้</div>';
+        container.innerHTML = '<div class="col-span-full p-6 text-center text-sm text-slate-400 bg-slate-800 rounded-xl border border-slate-700">ไม่พบข่าวสารในพื้นที่นี้ขณะนี้</div>';
         return;
       }
 
@@ -317,7 +278,7 @@
       markers.forEach(m => map.removeLayer(m));
       markers = [];
 
-      const filtered = currentData.stations.filter(s => activeZone === 'all' || s.zone === activeZone);
+      const filtered = (currentData.stations || []).filter(s => activeZone === 'all' || s.zone === activeZone);
       const container = document.getElementById('stationsContainer');
       container.innerHTML = '';
 
@@ -338,7 +299,7 @@
         const unit = isDam ? '% ความจุ' : 'ม.';
 
         const card = document.createElement('div');
-        card.className = 'bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2';
+        card.className = 'bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2 shadow-sm';
         card.innerHTML = `
           <div class="flex items-center justify-between">
             <span class="text-xs font-semibold text-blue-400">${ZONE_NAMES[station.zone] || station.zone}</span>
@@ -380,24 +341,9 @@
       renderUI();
     }
 
-    async function checkRemoteUpdate() {
-      try {
-        const res = await fetch('./data/water.json?t=' + Date.now());
-        if (res.ok) {
-          const remoteData = await res.json();
-          currentData = remoteData;
-          renderUI();
-        }
-      } catch (e) {}
-    }
-
-    // เริ่มทำงานทันที
     initMap();
-    renderUI();
-    checkRemoteUpdate();
-
-    // ดึงข้อมูลใหม่อัตโนมัติทุก 5 นาที
-    setInterval(checkRemoteUpdate, 300000);
+    loadWaterData();
+    setInterval(loadWaterData, 180000);
   </script>
 </body>
 </html>
