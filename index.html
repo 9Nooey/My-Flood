@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-Time Water & Rain Radar Watch Center</title>
+  <title>Real-Time Water Watch Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -134,48 +134,73 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: NEWS FACEBOOK (ใหม่ล่าสุด) ==================== -->
+    <!-- ==================== TAB 2: NEWS FACEBOOK (อัปเกรด 6 เพจที่ระบุ) ==================== -->
     <section id="tab-content-fb" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-            <span class="text-blue-500 font-black text-xl">f</span> News Facebook - ฟีดรายงานสถานการณ์น้ำสดจากหน่วยงาน
+            <span class="text-blue-500 font-black text-xl">f</span> News Facebook - ศูนย์รวมรายงานสถานการณ์น้ำสด
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">ติดตามรูปภาพระดับน้ำท่วม ประกาศด่วน และคลิปแถลงการณ์สดจากหน้าเพจทางการ</p>
+          <p class="text-xs text-slate-400 mt-0.5" id="fbPageTitle">กำลังแสดง: สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)</p>
         </div>
-        <a id="fbDirectLink" href="https://www.facebook.com/bangkahome" target="_blank" rel="noopener noreferrer" 
+        <a id="fbDirectLink" href="https://www.facebook.com/RegionalIrrigationOffice13" target="_blank" rel="noopener noreferrer" 
            class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow whitespace-nowrap">
-          <span>↗️</span> เปิดดูบน Facebook
+          <span>↗️</span> เปิดดูในแอป Facebook
         </a>
       </div>
 
-      <!-- แถบเลือกเพจ Facebook -->
-      <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-2">
-        <div class="flex items-center justify-between flex-wrap gap-2">
-          <div class="text-xs text-slate-400 font-medium">เลือกเพจที่ต้องการดู:</div>
+      <!-- แถบเลือกเพจ Facebook แบ่งตามหมวดหมู่ชัดเจน -->
+      <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 space-y-3">
+        <!-- หมวดที่ 1: ลุ่มน้ำแม่กลอง & กาญจนบุรี (ต้นน้ำตะวันตก) -->
+        <div class="space-y-1.5">
+          <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
+            <span>🌊</span> ลุ่มน้ำแม่กลอง • กาญจนบุรี (ต้นน้ำตะวันตก)
+          </div>
           <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
-            <button onclick="changeFbPage('bma')" id="fb-btn-bma" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">สำนักการระบายน้ำ กทม.</button>
-            <button onclick="changeFbPage('ddpm')" id="fb-btn-ddpm" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรม ปภ. กลาง</button>
-            <button onclick="changeFbPage('prachin')" id="fb-btn-prachin" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ปราจีนบุรี</button>
-            <button onclick="changeFbPage('kan')" id="fb-btn-kan" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปชส. กาญจนบุรี</button>
-            <button onclick="changeFbPage('chon')" id="fb-btn-chon" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ชลบุรี</button>
+            <button onclick="changeFbPage('rio13')" id="fb-btn-rio13" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">สำนักงานชลประทานที่ 13</button>
+            <button onclick="changeFbPage('maeklong')" id="fb-btn-maeklong" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">คบ.แม่กลอง (เขื่อนแม่กลอง)</button>
+            <button onclick="changeFbPage('rattanavudh')" id="fb-btn-rattanavudh" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">มูลนิธิขุนรัตนาวุธ (กู้ภัยกาญจนบุรี)</button>
           </div>
         </div>
 
-        <!-- ช่องใส่เพจ Facebook แบบกำหนดเอง -->
+        <!-- หมวดที่ 2: สภาพอากาศ & จราจรน้ำท่วม กทม. -->
+        <div class="space-y-1.5 pt-2 border-t border-slate-700/60">
+          <div class="text-[11px] font-bold text-cyan-400 uppercase tracking-wide flex items-center gap-1.5">
+            <span>🚗</span> สภาพอากาศ & รายงานน้ำท่วม กทม. / ถนนสายหลัก
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+            <button onclick="changeFbPage('js100')" id="fb-btn-js100" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">จส.100 (JS100 Radio)</button>
+            <button onclick="changeFbPage('tmd')" id="fb-btn-tmd" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรมอุตุนิยมวิทยา</button>
+            <button onclick="changeFbPage('bma')" id="fb-btn-bma" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">สำนักการระบายน้ำ กทม.</button>
+          </div>
+        </div>
+
+        <!-- หมวดที่ 3: สื่อหลัก & ศูนย์เตือนภัย -->
+        <div class="space-y-1.5 pt-2 border-t border-slate-700/60">
+          <div class="text-[11px] font-bold text-rose-400 uppercase tracking-wide flex items-center gap-1.5">
+            <span>📢</span> สื่อข่าวหลัก & ศูนย์เตือนภัยระดับประเทศ
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+            <button onclick="changeFbPage('morning3')" id="fb-btn-morning3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">เรื่องเล่าเช้านี้ (ช่อง 3)</button>
+            <button onclick="changeFbPage('ddpm')" id="fb-btn-ddpm" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรม ปภ. กลาง</button>
+            <button onclick="changeFbPage('prachin')" id="fb-btn-prachin" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ปราจีนบุรี</button>
+          </div>
+        </div>
+
+        <!-- ช่องใส่เพจ Facebook อื่นๆ ตามใจชอบ -->
         <div class="pt-2 border-t border-slate-700/60 flex items-center gap-2">
           <span class="text-xs text-slate-400 whitespace-nowrap">หรือใส่ลิงก์เพจอื่น:</span>
-          <input type="text" id="customFbInput" placeholder="วางลิงก์เพจ เช่น https://www.facebook.com/prbangkok" 
+          <input type="text" id="customFbInput" placeholder="วางลิงก์ เช่น https://www.facebook.com/..." 
                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
           <button onclick="applyCustomFb()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap">เปิดดู</button>
         </div>
       </div>
 
-      <!-- กรอบแสดง Facebook Feed แบบ Responsive -->
-      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-lg flex flex-col items-center justify-center min-h-[620px]">
+      <!-- กรอบแสดง Facebook Feed สด -->
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-lg flex flex-col items-center justify-center min-h-[640px]">
         <div class="w-full max-w-[500px] bg-slate-900/40 rounded-xl overflow-hidden shadow-inner flex justify-center p-1">
           <iframe id="fbIframe" 
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbangkahome&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FRegionalIrrigationOffice13&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
                   width="500" 
                   height="700" 
                   style="border:none;overflow:hidden;max-width:100%;min-height:650px;" 
@@ -303,21 +328,27 @@
       'chonburi': 'ชลบุรี'
     };
 
-    // ลิงก์เพจ Facebook ทางการ
+    // รวมเพจ Facebook ทั้ง 6 เพจที่ระบุ + เพจหลัก
     const FB_PAGES = {
-      'bma': 'https://www.facebook.com/bangkahome',
-      'ddpm': 'https://www.facebook.com/DDPMNews',
-      'prachin': 'https://www.facebook.com/PrachinburiDisaster',
-      'kan': 'https://www.facebook.com/prkanchanaburi',
-      'chon': 'https://www.facebook.com/DisasterChonburi'
+      'rio13': { name: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)', url: 'https://www.facebook.com/RegionalIrrigationOffice13' },
+      'maeklong': { name: 'โครงการส่งน้ำและบำรุงรักษาแม่กลอง', url: 'https://www.facebook.com/profile.php?id=100091282013774' },
+      'rattanavudh': { name: 'มูลนิธิขุนรัตนาวุธ (กู้ภัยกาญจนบุรี)', url: 'https://www.facebook.com/profile.php?id=100082320879046' },
+      'js100': { name: 'จส.100 (JS100 Radio)', url: 'https://www.facebook.com/js100radio' },
+      'tmd': { name: 'กรมอุตุนิยมวิทยา', url: 'https://www.facebook.com/tmd.go.th' },
+      'morning3': { name: 'เรื่องเล่าเช้านี้ (ช่อง 3)', url: 'https://www.facebook.com/MorningNewsTV3' },
+      'bma': { name: 'สำนักการระบายน้ำ กทม.', url: 'https://www.facebook.com/bangkahome' },
+      'ddpm': { name: 'กรมป้องกันและบรรเทาสาธารณภัย (DDPM)', url: 'https://www.facebook.com/DDPMNews' },
+      'prachin': { name: 'สำนักงาน ปภ. จังหวัดปราจีนบุรี', url: 'https://www.facebook.com/PrachinburiDisaster' }
     };
 
     function changeFbPage(key) {
-      const url = FB_PAGES[key];
-      if (!url) return;
-      loadFbPlugin(url);
+      const page = FB_PAGES[key];
+      if (!page) return;
 
-      ['bma', 'ddpm', 'prachin', 'kan', 'chon'].forEach(k => {
+      loadFbPlugin(page.url);
+      document.getElementById('fbPageTitle').innerText = `กำลังแสดง: ${page.name}`;
+
+      Object.keys(FB_PAGES).forEach(k => {
         const btn = document.getElementById(`fb-btn-${k}`);
         if (!btn) return;
         if (k === key) {
@@ -333,6 +364,7 @@
       const url = input.value.trim();
       if (url) {
         loadFbPlugin(url);
+        document.getElementById('fbPageTitle').innerText = `กำลังแสดง: เพจที่ระบุเอง`;
       }
     }
 
@@ -358,7 +390,6 @@
       iframe.src = `https://www.rainviewer.com/map.html?loc=${loc}&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1`;
     }
 
-    // ฟังก์ชันสลับแท็บหลัก (5 แท็บ)
     function switchMainTab(tab) {
       ['map', 'fb', 'diagram', 'radar', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
