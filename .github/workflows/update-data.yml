@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 22
 
       - name: Fetch Water Data
         run: node scripts/fetch-data.js
@@ -28,4 +28,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/water.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update water data [skip ci]" && git push)
+          git diff --staged --quiet || (git commit -m "Auto-update water data: $(date +'%Y-%m-%d %H:%M:%S')" && git push)
