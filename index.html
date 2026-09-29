@@ -20,7 +20,7 @@
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำและเรดาร์ฝนสด กทม. • กาญจนบุรี • ปราจีนบุรี • ชลบุรี</p>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา และเรดาร์ฝนสด กทม. • ปริมณฑล</p>
         </div>
       </div>
       <div class="flex items-center space-x-2">
@@ -37,17 +37,20 @@
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
-    <!-- ช่องทางแจ้งเหตุด่วนในพื้นที่ -->
+    <!-- ช่องทางด่วนและชอร์ตคัต -->
     <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-300 font-medium">
         <span>🚨 ช่องทางด่วน:</span>
       </div>
       <div class="flex items-center flex-wrap gap-2">
+        <button onclick="switchMainTab('diagram')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span>📊</span> ดูผังน้ำเจ้าพระยา สด
+        </button>
         <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 ดูเรดาร์ฝนสดในเว็บ
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 ดูเรดาร์ฝนสด
         </button>
         <a href="tel:1784" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 px-2.5 py-1 rounded-md transition font-medium">📞 ปภ. 1784</a>
-        <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 ศูนย์น้ำท่วม กทม. 02-248-5115</a>
+        <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 ศูนย์น้ำท่วม กทม.</a>
         <a href="https://lin.ee/2t3pGgK" target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium">📱 Traffy Fondue</a>
       </div>
     </div>
@@ -79,10 +82,14 @@
       </div>
     </div>
 
-    <!-- เมนูแท็บหลัก (Navigation Tabs) -->
+    <!-- แถบเมนูแท็บหลัก (Navigation Tabs) -->
     <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
       <button id="tab-btn-map" onclick="switchMainTab('map')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap">
         <span>🗺️ แผนที่สถานการณ์น้ำ & คลอง</span>
+      </button>
+      <button id="tab-btn-diagram" onclick="switchMainTab('diagram')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span>📊 ผังน้ำเจ้าพระยา (สด)</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500 text-slate-900">สสน. HII</span>
       </button>
       <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📡 เรดาร์ตรวจฝนสด</span>
@@ -96,7 +103,6 @@
 
     <!-- ==================== TAB 1: แผนที่สถานการณ์น้ำ ==================== -->
     <section id="tab-content-map" class="space-y-6">
-      <!-- แถบเลือกโซนและจังหวัด -->
       <div class="space-y-2">
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
         <div class="flex items-center gap-2 overflow-x-auto pb-1">
@@ -109,12 +115,10 @@
         </div>
       </div>
 
-      <!-- แผนที่ Leaflet -->
       <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm">
         <div id="map"></div>
       </div>
 
-      <!-- รายการสถานีวัดน้ำและเขื่อน -->
       <div class="space-y-3">
         <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
           <span>📍</span> สถานีตรวจวัดระดับน้ำและเขื่อนหลัก
@@ -123,9 +127,48 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: เรดาร์ฝนสด (LIVE RAIN RADAR) ==================== -->
+    <!-- ==================== TAB 2: ผังน้ำเจ้าพระยา สสน. (HII Live Diagram) ==================== -->
+    <section id="tab-content-diagram" class="space-y-4 hidden">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span>📊</span> ผังสถานการณ์น้ำลุ่มน้ำเจ้าพระยา (สถาบันสารสนเทศทรัพยากรน้ำ - สสน.)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            แสดงอัตราน้ำไหลผ่านเขื่อนเจ้าพระยา, สถานีบางไทร, ปริมาณน้ำเขื่อนหลัก และการผันน้ำออกฝั่งตะวันออก-ตะวันตก
+          </p>
+        </div>
+        <div class="flex items-center gap-2 overflow-x-auto text-xs">
+          <button onclick="setDiagramMode('full')" id="btn-diag-full" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">ผังใหญ่ (ฉบับเต็ม)</button>
+          <button onclick="setDiagramMode('small')" id="btn-diag-small" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ผังย่อ (สำหรับมือถือ)</button>
+          <button onclick="reloadDiagram()" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1" title="ดึงผังน้ำสดใหม่">
+            <span>🔄</span> รีเฟรชผัง
+          </button>
+          <a href="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
+            <span>↗️</span> เปิดแยกหน้าต่าง
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-lg space-y-2">
+        <div class="text-[11px] text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-lg px-3 py-1.5 flex items-center justify-between flex-wrap gap-1">
+          <span>💡 <b>คำแนะนำ:</b> แผนผังมีความละเอียดสูง สามารถเลื่อนซ้าย-ขวาบนหน้าจอ หรือกดสลับเป็น <b>"ผังย่อ"</b> เพื่อให้พอดีกับจอมือถือ</span>
+          <span class="text-slate-400">ข้อมูลสดจาก: tiwrm.hii.or.th</span>
+        </div>
+        <div class="w-full overflow-x-auto bg-white rounded-xl shadow-inner">
+          <iframe id="diagramIframe"
+                  src="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" 
+                  width="100%" 
+                  height="740" 
+                  style="border:0; min-width: 960px;" 
+                  loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: เรดาร์ตรวจฝนสด (LIVE RAIN RADAR) ==================== -->
     <section id="tab-content-radar" class="space-y-4 hidden">
-      <!-- คอนโทรลบาร์ของเรดาร์ -->
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
@@ -133,7 +176,6 @@
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">ภาพเคลื่อนไหวทิศทางเมฆฝนย้อนหลัง 2 ชม. ถึงปัจจุบัน ครอบคลุม กทม. และภาคกลาง</p>
         </div>
-        <!-- ปุ่มลัดซูมพื้นที่ในเรดาร์ -->
         <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
           <span class="text-slate-400 whitespace-nowrap mr-1">🔍 ซูม:</span>
           <button onclick="zoomRadar('bkk-east')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กทม. ตะวันออก</button>
@@ -145,7 +187,6 @@
         </div>
       </div>
 
-      <!-- กรอบแสดงเรดาร์ฝนแบบเคลื่อนไหว (Embedded RainViewer Doppler Radar) -->
       <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-lg relative overflow-hidden">
         <iframe id="rainRadarIframe"
                 src="https://www.rainviewer.com/map.html?loc=13.7563,100.5018,9&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1" 
@@ -156,7 +197,6 @@
         </iframe>
       </div>
 
-      <!-- สเกลระดับความแรงของฝน (Rain Intensity Legend) -->
       <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
         <span class="text-slate-400 font-medium">ระดับความรุนแรงของกลุ่มฝน:</span>
         <div class="flex items-center flex-wrap gap-3">
@@ -169,7 +209,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 3: ข่าวสารและการเฝ้าระวัง ==================== -->
+    <!-- ==================== TAB 4: ข่าวสารและการเฝ้าระวัง ==================== -->
     <section id="tab-content-news" class="space-y-4 hidden">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -204,14 +244,13 @@
       'chonburi': 'ชลบุรี'
     };
 
-    // พิกัดสำหรับซูมเรดาร์
     const RADAR_COORDS = {
       'all': '13.7563,100.5018,9',
-      'bkk-east': '13.8200,100.7500,10', // หนองจอก - มีนบุรี
-      'bkk-west': '13.7600,100.3800,10', // ทวีวัฒนา - บางแค
-      'kanchanaburi': '14.1500,99.3000,9', // กาญจนบุรี
-      'prachinburi': '14.0500,101.5500,9', // ปราจีนบุรี
-      'chonburi': '13.1500,100.9500,9'     // ชลบุรี
+      'bkk-east': '13.8200,100.7500,10',
+      'bkk-west': '13.7600,100.3800,10',
+      'kanchanaburi': '14.1500,99.3000,9',
+      'prachinburi': '14.0500,101.5500,9',
+      'chonburi': '13.1500,100.9500,9'
     };
 
     function zoomRadar(key) {
@@ -220,11 +259,13 @@
       iframe.src = `https://www.rainviewer.com/map.html?loc=${loc}&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1`;
     }
 
-    // ฟังก์ชันสลับแท็บหลัก
+    // ฟังก์ชันสลับแท็บหลัก (มี 4 แท็บ)
     function switchMainTab(tab) {
-      ['map', 'radar', 'news'].forEach(t => {
+      ['map', 'diagram', 'radar', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
+        if (!content || !btn) return;
+
         if (t === tab) {
           content.classList.remove('hidden');
           btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap';
@@ -234,10 +275,35 @@
         }
       });
 
-      // ถ้าสลับกลับมาแท็บแผนที่ ต้องสั่งให้ Leaflet รีเฟรชขนาด
       if (tab === 'map' && map) {
         setTimeout(() => map.invalidateSize(), 150);
       }
+    }
+
+    // ฟังก์ชันควบคุมผังน้ำ สสน.
+    function setDiagramMode(mode) {
+      const iframe = document.getElementById('diagramIframe');
+      const btnFull = document.getElementById('btn-diag-full');
+      const btnSmall = document.getElementById('btn-diag-small');
+      const t = Date.now();
+
+      if (mode === 'small') {
+        iframe.src = `https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/small/chaopraya.php?t=${t}`;
+        iframe.style.minWidth = '100%';
+        btnSmall.className = 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow';
+        btnFull.className = 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
+      } else {
+        iframe.src = `https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php?t=${t}`;
+        iframe.style.minWidth = '960px';
+        btnFull.className = 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow';
+        btnSmall.className = 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
+      }
+    }
+
+    function reloadDiagram() {
+      const iframe = document.getElementById('diagramIframe');
+      const currentSrc = iframe.src.split('?')[0];
+      iframe.src = `${currentSrc}?t=${Date.now()}`;
     }
 
     function formatTimeAgo(dateString) {
@@ -324,6 +390,7 @@
         <span>กำลังซิงค์ข้อมูลล่าสุด...</span>
       `;
       loadWaterData();
+      reloadDiagram();
     }
 
     function renderUI() {
