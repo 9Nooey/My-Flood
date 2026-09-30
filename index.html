@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-Time Water Watch Center</title>
+  <title>Real-Time Water & Rain Watch Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -20,10 +20,16 @@
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา เรดาร์ฝน และข่าวสด Facebook</p>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา เรดาร์ และแจ้งเตือนฝนตกสด</p>
         </div>
       </div>
-      <div class="flex items-center space-x-2">
+      <div class="flex items-center space-x-2 flex-wrap gap-1">
+        <!-- ปุ่มเปิด/ปิด การแจ้งเตือนผ่าน Web Notification -->
+        <button id="notifyBtn" onclick="toggleRainNotification()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700 transition flex items-center gap-1.5 shadow-sm">
+          <span id="notifyIcon">🔔</span>
+          <span id="notifyText">เปิดแจ้งเตือนฝนตก</span>
+        </button>
+
         <div id="lastUpdate" class="text-xs text-emerald-400 font-medium bg-emerald-950/70 px-3 py-1 rounded-full border border-emerald-800/60 flex items-center gap-1.5 shadow-sm">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>กำลังโหลด...</span>
@@ -37,20 +43,34 @@
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
+    <!-- 🚨 แถบแจ้งเตือนฝนตกแบบ Real-Time (แสดงผลอัตโนมัติตามสถานการณ์จริง) -->
+    <div id="rainAlertBanner" class="p-3.5 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-slate-800/80 border-slate-700">
+      <div class="flex items-center gap-2.5">
+        <span id="rainAlertIcon" class="text-lg">🌤️</span>
+        <div>
+          <span id="rainAlertTitle" class="font-bold text-slate-200">ระบบตรวจวัดกลุ่มฝนสด:</span>
+          <span id="rainAlertDesc" class="text-slate-400 ml-1">กำลังเชื่อมต่อข้อมูลดาวเทียมตรวจฝน...</span>
+        </div>
+      </div>
+      <button onclick="switchMainTab('radar')" class="text-xs bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-3 py-1 rounded-lg font-medium transition flex items-center gap-1">
+        <span>📡</span> ดูเรดาร์สด
+      </button>
+    </div>
+
     <!-- ช่องทางด่วนและชอร์ตคัต -->
     <div class="bg-slate-800/60 border border-slate-700/80 rounded-xl p-3 flex items-center justify-between flex-wrap gap-2 text-xs">
       <div class="flex items-center space-x-2 text-slate-300 font-medium">
         <span>🚨 ช่องทางด่วน:</span>
       </div>
       <div class="flex items-center flex-wrap gap-2">
+        <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 เรดาร์ฝนสด
+        </button>
         <button onclick="switchMainTab('fb')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span>📱</span> News Facebook
         </button>
         <button onclick="switchMainTab('diagram')" class="bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span>📊</span> ผังน้ำเจ้าพระยา (สด)
-        </button>
-        <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 เรดาร์ฝนสด
         </button>
         <a href="tel:1784" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 px-2.5 py-1 rounded-md transition font-medium">📞 ปภ. 1784</a>
         <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 น้ำท่วม กทม.</a>
@@ -79,9 +99,9 @@
       </div>
 
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-sm">
-        <div class="text-xs text-slate-400 font-medium">สภาพกลุ่มฝนปัจจุบัน</div>
-        <div id="rainStatus" class="text-sm font-semibold text-emerald-400 mt-1 leading-snug">กำลังตรวจเช็ก...</div>
-        <div class="text-xs text-slate-400 mt-1">ครอบคลุมลุ่มน้ำเจ้าพระยา-แม่กลอง-ปราจีนบุรี</div>
+        <div class="text-xs text-slate-400 font-medium">สภาพกลุ่มฝนสด (ตรวจวัดเรียลไทม์)</div>
+        <div id="rainStatus" class="text-sm font-semibold text-emerald-400 mt-1 leading-snug">กำลังตรวจเช็กดาวเทียม...</div>
+        <div class="text-xs text-slate-400 mt-1" id="rainStatusSub">ครอบคลุม 5 พื้นที่เป้าหมาย</div>
       </div>
     </div>
 
@@ -90,6 +110,10 @@
       <button id="tab-btn-map" onclick="switchMainTab('map')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap">
         <span>🗺️ แผนที่สถานการณ์น้ำ</span>
       </button>
+      <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span>📡 เรดาร์ตรวจฝนสด</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white animate-pulse">LIVE</span>
+      </button>
       <button id="tab-btn-fb" onclick="switchMainTab('fb')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span class="text-blue-400 font-black">f</span>
         <span>News Facebook</span>
@@ -97,10 +121,6 @@
       </button>
       <button id="tab-btn-diagram" onclick="switchMainTab('diagram')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📊 ผังน้ำเจ้าพระยา</span>
-      </button>
-      <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
-        <span>📡 เรดาร์ตรวจฝนสด</span>
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white animate-pulse">LIVE</span>
       </button>
       <button id="tab-btn-news" onclick="switchMainTab('news')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📢 รวมข่าวเตือนภัย</span>
@@ -114,11 +134,11 @@
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
         <div class="flex items-center gap-2 overflow-x-auto pb-1">
           <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow">ทั้งหมด</button>
-          <button onclick="setZoneFilter('bkk-east')" id="btn-bkk-east" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันออก</button>
-          <button onclick="setZoneFilter('bkk-west')" id="btn-bkk-west" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันตก</button>
-          <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กาญจนบุรี</button>
-          <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ปราจีนบุรี</button>
-          <button onclick="setZoneFilter('chonburi')" id="btn-chonburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ชลบุรี</button>
+          <button onclick="setZoneFilter('bkk-east')" id="btn-bkk-east" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันออก <span id="badge-rain-bkk-east" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span></button>
+          <button onclick="setZoneFilter('bkk-west')" id="btn-bkk-west" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กทม. ตะวันตก <span id="badge-rain-bkk-west" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️️ ฝนตก</span></button>
+          <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">กาญจนบุรี <span id="badge-rain-kanchanaburi" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span></button>
+          <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ปราจีนบุรี <span id="badge-rain-prachinburi" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span></button>
+          <button onclick="setZoneFilter('chonburi')" id="btn-chonburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">ชลบุรี <span id="badge-rain-chonburi" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span></button>
         </div>
       </div>
 
@@ -134,124 +154,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: NEWS FACEBOOK (อัปเกรด 6 เพจที่ระบุ) ==================== -->
-    <section id="tab-content-fb" class="space-y-4 hidden">
-      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
-        <div>
-          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-            <span class="text-blue-500 font-black text-xl">f</span> News Facebook - ศูนย์รวมรายงานสถานการณ์น้ำสด
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5" id="fbPageTitle">กำลังแสดง: สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)</p>
-        </div>
-        <a id="fbDirectLink" href="https://www.facebook.com/RegionalIrrigationOffice13" target="_blank" rel="noopener noreferrer" 
-           class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow whitespace-nowrap">
-          <span>↗️</span> เปิดดูในแอป Facebook
-        </a>
-      </div>
-
-      <!-- แถบเลือกเพจ Facebook แบ่งตามหมวดหมู่ชัดเจน -->
-      <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 space-y-3">
-        <!-- หมวดที่ 1: ลุ่มน้ำแม่กลอง & กาญจนบุรี (ต้นน้ำตะวันตก) -->
-        <div class="space-y-1.5">
-          <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
-            <span>🌊</span> ลุ่มน้ำแม่กลอง • กาญจนบุรี (ต้นน้ำตะวันตก)
-          </div>
-          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
-            <button onclick="changeFbPage('rio13')" id="fb-btn-rio13" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">สำนักงานชลประทานที่ 13</button>
-            <button onclick="changeFbPage('maeklong')" id="fb-btn-maeklong" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">คบ.แม่กลอง (เขื่อนแม่กลอง)</button>
-            <button onclick="changeFbPage('rattanavudh')" id="fb-btn-rattanavudh" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">มูลนิธิขุนรัตนาวุธ (กู้ภัยกาญจนบุรี)</button>
-          </div>
-        </div>
-
-        <!-- หมวดที่ 2: สภาพอากาศ & จราจรน้ำท่วม กทม. -->
-        <div class="space-y-1.5 pt-2 border-t border-slate-700/60">
-          <div class="text-[11px] font-bold text-cyan-400 uppercase tracking-wide flex items-center gap-1.5">
-            <span>🚗</span> สภาพอากาศ & รายงานน้ำท่วม กทม. / ถนนสายหลัก
-          </div>
-          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
-            <button onclick="changeFbPage('js100')" id="fb-btn-js100" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">จส.100 (JS100 Radio)</button>
-            <button onclick="changeFbPage('tmd')" id="fb-btn-tmd" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรมอุตุนิยมวิทยา</button>
-            <button onclick="changeFbPage('bma')" id="fb-btn-bma" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">สำนักการระบายน้ำ กทม.</button>
-          </div>
-        </div>
-
-        <!-- หมวดที่ 3: สื่อหลัก & ศูนย์เตือนภัย -->
-        <div class="space-y-1.5 pt-2 border-t border-slate-700/60">
-          <div class="text-[11px] font-bold text-rose-400 uppercase tracking-wide flex items-center gap-1.5">
-            <span>📢</span> สื่อข่าวหลัก & ศูนย์เตือนภัยระดับประเทศ
-          </div>
-          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
-            <button onclick="changeFbPage('morning3')" id="fb-btn-morning3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">เรื่องเล่าเช้านี้ (ช่อง 3)</button>
-            <button onclick="changeFbPage('ddpm')" id="fb-btn-ddpm" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรม ปภ. กลาง</button>
-            <button onclick="changeFbPage('prachin')" id="fb-btn-prachin" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ปราจีนบุรี</button>
-          </div>
-        </div>
-
-        <!-- ช่องใส่เพจ Facebook อื่นๆ ตามใจชอบ -->
-        <div class="pt-2 border-t border-slate-700/60 flex items-center gap-2">
-          <span class="text-xs text-slate-400 whitespace-nowrap">หรือใส่ลิงก์เพจอื่น:</span>
-          <input type="text" id="customFbInput" placeholder="วางลิงก์ เช่น https://www.facebook.com/..." 
-                 class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
-          <button onclick="applyCustomFb()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap">เปิดดู</button>
-        </div>
-      </div>
-
-      <!-- กรอบแสดง Facebook Feed สด -->
-      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-lg flex flex-col items-center justify-center min-h-[640px]">
-        <div class="w-full max-w-[500px] bg-slate-900/40 rounded-xl overflow-hidden shadow-inner flex justify-center p-1">
-          <iframe id="fbIframe" 
-                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FRegionalIrrigationOffice13&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
-                  width="500" 
-                  height="700" 
-                  style="border:none;overflow:hidden;max-width:100%;min-height:650px;" 
-                  scrolling="no" 
-                  frameborder="0" 
-                  allowfullscreen="true" 
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-          </iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== TAB 3: ผังน้ำเจ้าพระยา สสน. ==================== -->
-    <section id="tab-content-diagram" class="space-y-4 hidden">
-      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
-        <div>
-          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-            <span>📊</span> ผังสถานการณ์น้ำลุ่มน้ำเจ้าพระยา (สถาบันสารสนเทศทรัพยากรน้ำ - สสน.)
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">แสดงอัตราน้ำไหลผ่านเขื่อนเจ้าพระยา, สถานีบางไทร, เขื่อนหลัก และการผันน้ำออกสองฝั่ง</p>
-        </div>
-        <div class="flex items-center gap-2 overflow-x-auto text-xs">
-          <button onclick="setDiagramMode('full')" id="btn-diag-full" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">ผังใหญ่ (ฉบับเต็ม)</button>
-          <button onclick="setDiagramMode('small')" id="btn-diag-small" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ผังย่อ (มือถือ)</button>
-          <button onclick="reloadDiagram()" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
-            <span>🔄</span> รีเฟรชผัง
-          </button>
-          <a href="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
-            <span>↗️</span> เปิดแยกหน้าต่าง
-          </a>
-        </div>
-      </div>
-
-      <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-lg space-y-2">
-        <div class="text-[11px] text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-lg px-3 py-1.5 flex items-center justify-between flex-wrap gap-1">
-          <span>💡 <b>คำแนะนำ:</b> แผนผังมีความละเอียดสูง สามารถเลื่อนซ้าย-ขวา หรือกดสลับเป็น <b>"ผังย่อ"</b> เพื่อให้พอดีกับจอมือถือ</span>
-          <span class="text-slate-400">ข้อมูลสด: tiwrm.hii.or.th</span>
-        </div>
-        <div class="w-full overflow-x-auto bg-white rounded-xl shadow-inner">
-          <iframe id="diagramIframe"
-                  src="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" 
-                  width="100%" 
-                  height="740" 
-                  style="border:0; min-width: 960px;" 
-                  loading="lazy">
-          </iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== TAB 4: เรดาร์ตรวจฝนสด ==================== -->
+    <!-- ==================== TAB 2: เรดาร์ตรวจฝนสด ==================== -->
     <section id="tab-content-radar" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -293,6 +196,117 @@
       </div>
     </section>
 
+    <!-- ==================== TAB 3: NEWS FACEBOOK ==================== -->
+    <section id="tab-content-fb" class="space-y-4 hidden">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span class="text-blue-500 font-black text-xl">f</span> News Facebook - ศูนย์รวมรายงานสถานการณ์น้ำสด
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5" id="fbPageTitle">กำลังแสดง: สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)</p>
+        </div>
+        <a id="fbDirectLink" href="https://www.facebook.com/RegionalIrrigationOffice13" target="_blank" rel="noopener noreferrer" 
+           class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow whitespace-nowrap">
+          <span>↗️</span> เปิดดูในแอป Facebook
+        </a>
+      </div>
+
+      <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 space-y-3">
+        <div class="space-y-1.5">
+          <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
+            <span>🌊</span> ลุ่มน้ำแม่กลอง • กาญจนบุรี (ต้นน้ำตะวันตก)
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+            <button onclick="changeFbPage('rio13')" id="fb-btn-rio13" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">สำนักงานชลประทานที่ 13</button>
+            <button onclick="changeFbPage('maeklong')" id="fb-btn-maeklong" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">คบ.แม่กลอง (เขื่อนแม่กลอง)</button>
+            <button onclick="changeFbPage('rattanavudh')" id="fb-btn-rattanavudh" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">มูลนิธิขุนรัตนาวุธ (กู้ภัยกาญจนบุรี)</button>
+          </div>
+        </div>
+
+        <div class="space-y-1.5 pt-2 border-t border-slate-700/60">
+          <div class="text-[11px] font-bold text-cyan-400 uppercase tracking-wide flex items-center gap-1.5">
+            <span>🚗</span> สภาพอากาศ & รายงานน้ำท่วม กทม. / ถนนสายหลัก
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+            <button onclick="changeFbPage('js100')" id="fb-btn-js100" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">จส.100 (JS100 Radio)</button>
+            <button onclick="changeFbPage('tmd')" id="fb-btn-tmd" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรมอุตุนิยมวิทยา</button>
+            <button onclick="changeFbPage('bma')" id="fb-btn-bma" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">สำนักการระบายน้ำ กทม.</button>
+          </div>
+        </div>
+
+        <div class="space-y-1.5 pt-2 border-t border-slate-700/60">
+          <div class="text-[11px] font-bold text-rose-400 uppercase tracking-wide flex items-center gap-1.5">
+            <span>📢</span> สื่อข่าวหลัก & ศูนย์เตือนภัยระดับประเทศ
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+            <button onclick="changeFbPage('morning3')" id="fb-btn-morning3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">เรื่องเล่าเช้านี้ (ช่อง 3)</button>
+            <button onclick="changeFbPage('ddpm')" id="fb-btn-ddpm" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">กรม ปภ. กลาง</button>
+            <button onclick="changeFbPage('prachin')" id="fb-btn-prachin" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ปภ. ปราจีนบุรี</button>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-700/60 flex items-center gap-2">
+          <span class="text-xs text-slate-400 whitespace-nowrap">หรือใส่ลิงก์เพจอื่น:</span>
+          <input type="text" id="customFbInput" placeholder="วางลิงก์ เช่น https://www.facebook.com/..." 
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
+          <button onclick="applyCustomFb()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold whitespace-nowrap">เปิดดู</button>
+        </div>
+      </div>
+
+      <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-lg flex flex-col items-center justify-center min-h-[640px]">
+        <div class="w-full max-w-[500px] bg-slate-900/40 rounded-xl overflow-hidden shadow-inner flex justify-center p-1">
+          <iframe id="fbIframe" 
+                  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FRegionalIrrigationOffice13&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" 
+                  width="500" 
+                  height="700" 
+                  style="border:none;overflow:hidden;max-width:100%;min-height:650px;" 
+                  scrolling="no" 
+                  frameborder="0" 
+                  allowfullscreen="true" 
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: ผังน้ำเจ้าพระยา สสน. ==================== -->
+    <section id="tab-content-diagram" class="space-y-4 hidden">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span>📊</span> ผังสถานการณ์น้ำลุ่มน้ำเจ้าพระยา (สถาบันสารสนเทศทรัพยากรน้ำ - สสน.)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">แสดงอัตราน้ำไหลผ่านเขื่อนเจ้าพระยา, สถานีบางไทร, เขื่อนหลัก และการผันน้ำออกสองฝั่ง</p>
+        </div>
+        <div class="flex items-center gap-2 overflow-x-auto text-xs">
+          <button onclick="setDiagramMode('full')" id="btn-diag-full" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">ผังใหญ่ (ฉบับเต็ม)</button>
+          <button onclick="setDiagramMode('small')" id="btn-diag-small" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">ผังย่อ (มือถือ)</button>
+          <button onclick="reloadDiagram()" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
+            <span>🔄</span> รีเฟรชผัง
+          </button>
+          <a href="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition flex items-center gap-1">
+            <span>↗️</span> เปิดแยกหน้าต่าง
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-lg space-y-2">
+        <div class="text-[11px] text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-lg px-3 py-1.5 flex items-center justify-between flex-wrap gap-1">
+          <span>💡 <b>คำแนะนำ:</b> แผนผังมีความละเอียดสูง สามารถเลื่อนซ้าย-ขวา หรือกดสลับเป็น <b>"ผังย่อ"</b> เพื่อให้พอดีกับจอมือถือ</span>
+          <span class="text-slate-400">ข้อมูลสด: tiwrm.hii.or.th</span>
+        </div>
+        <div class="w-full overflow-x-auto bg-white rounded-xl shadow-inner">
+          <iframe id="diagramIframe"
+                  src="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" 
+                  width="100%" 
+                  height="740" 
+                  style="border:0; min-width: 960px;" 
+                  loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== TAB 5: รวมข่าวเตือนภัย ==================== -->
     <section id="tab-content-news" class="space-y-4 hidden">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
@@ -319,6 +333,8 @@
     let currentData = null;
     let activeZone = 'all';
     let searchQuery = '';
+    let notificationEnabled = false;
+    let lastRainingZones = new Set();
 
     const ZONE_NAMES = {
       'bkk-east': 'กทม. ตะวันออก',
@@ -328,7 +344,191 @@
       'chonburi': 'ชลบุรี'
     };
 
-    // รวมเพจ Facebook ทั้ง 6 เพจที่ระบุ + เพจหลัก
+    // พิกัดเจาะจง 5 พื้นที่เป้าหมาย สำหรับเช็กปริมาณฝนสด
+    const ZONE_COORDS = [
+      { id: 'bkk-east', name: 'กทม. ตะวันออก', lat: 13.81, lng: 100.74 },
+      { id: 'bkk-west', name: 'กทม. ตะวันตก', lat: 13.78, lng: 100.35 },
+      { id: 'kanchanaburi', name: 'กาญจนบุรี', lat: 14.02, lng: 99.53 },
+      { id: 'prachinburi', name: 'ปราจีนบุรี', lat: 13.99, lng: 101.71 },
+      { id: 'chonburi', name: 'ชลบุรี', lat: 12.92, lng: 100.87 }
+    ];
+
+    // ==================== ระบบแจ้งเตือนฝนตก REAL-TIME ====================
+
+    // เล่นเสียงเตือนฝนตกเบาๆ ด้วย Web Audio API (ไม่ต้องโหลดไฟล์เสียงภายนอก)
+    function playRainAlertSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.6);
+      } catch (e) {}
+    }
+
+    // สลับเปิด/ปิด Web Notification
+    function toggleRainNotification() {
+      if (!("Notification" in window)) {
+        alert("เบราว์เซอร์ของคุณไม่รองรับการแจ้งเตือน Pop-up");
+        return;
+      }
+
+      if (Notification.permission === "granted") {
+        notificationEnabled = !notificationEnabled;
+        updateNotifyBtnState();
+        if (notificationEnabled) {
+          new Notification("Water Watch Center", {
+            body: "เปิดการแจ้งเตือนฝนตกเรียลไทม์แล้ว ระบบจะเตือนทันทีเมื่อตรวจพบกลุ่มฝน",
+            icon: "https://cdn-icons-png.flaticon.com/512/1163/1163624.png"
+          });
+        }
+      } else {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            notificationEnabled = true;
+            updateNotifyBtnState();
+            new Notification("Water Watch Center", {
+              body: "เปิดการแจ้งเตือนฝนตกเรียลไทม์สำเร็จแล้ว",
+              icon: "https://cdn-icons-png.flaticon.com/512/1163/1163624.png"
+            });
+          }
+        });
+      }
+    }
+
+    function updateNotifyBtnState() {
+      const btn = document.getElementById('notifyBtn');
+      const icon = document.getElementById('notifyIcon');
+      const text = document.getElementById('notifyText');
+
+      if (notificationEnabled && Notification.permission === "granted") {
+        btn.className = 'bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1 rounded-full border border-emerald-500 transition flex items-center gap-1.5 shadow-sm';
+        icon.innerText = '🔔';
+        text.innerText = 'เปิดแจ้งเตือนแล้ว';
+      } else {
+        btn.className = 'bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700 transition flex items-center gap-1.5 shadow-sm';
+        icon.innerText = '🔕';
+        text.innerText = 'เปิดแจ้งเตือนฝนตก';
+      }
+    }
+
+    // ฟังก์ชันยิงเช็กปริมาณฝนจริงจาก Open-Meteo Weather API
+    async function checkRealtimeRain() {
+      try {
+        const latList = ZONE_COORDS.map(z => z.lat).join(',');
+        const lngList = ZONE_COORDS.map(z => z.lng).join(',');
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latList}&longitude=${lngList}&current=precipitation,rain,weather_code&timezone=Asia%2FBangkok`;
+
+        const res = await fetch(url);
+        if (!res.ok) return;
+
+        const data = await res.json();
+        const results = Array.isArray(data) ? data : [data];
+
+        const rainingAreas = [];
+        const currentRainingSet = new Set();
+
+        results.forEach((item, index) => {
+          const zoneInfo = ZONE_COORDS[index];
+          if (!zoneInfo) return;
+
+          const current = item.current || {};
+          const precip = current.precipitation || current.rain || 0;
+          const wCode = current.weather_code || 0;
+
+          const badge = document.getElementById(`badge-rain-${zoneInfo.id}`);
+
+          // เกณฑ์ฝนตก: มีฝนสะสม > 0.1 มม./ชม. หรือรหัสสภาพอากาศกลุ่มฝน
+          const isRaining = precip > 0.1 || [51, 53, 55, 61, 63, 65, 80, 81, 82, 95, 96, 99].includes(wCode);
+
+          if (badge) {
+            if (isRaining) {
+              badge.classList.remove('hidden');
+              badge.innerText = `🌧️ ${precip.toFixed(1)} มม.`;
+            } else {
+              badge.classList.add('hidden');
+            }
+          }
+
+          if (isRaining) {
+            currentRainingSet.add(zoneInfo.id);
+            let intensity = 'ฝนตกเล็กน้อย';
+            if (precip >= 10.0) intensity = 'ฝนตกหนักมาก';
+            else if (precip >= 4.0) intensity = 'ฝนตกหนัก';
+            else if (precip >= 1.0) intensity = 'ฝนตกปานกลาง';
+
+            rainingAreas.push({
+              name: zoneInfo.name,
+              intensity: intensity,
+              precip: precip
+            });
+          }
+        });
+
+        // อัปเดตแบนเนอร์แจ้งเตือนด้านบน
+        const banner = document.getElementById('rainAlertBanner');
+        const icon = document.getElementById('rainAlertIcon');
+        const title = document.getElementById('rainAlertTitle');
+        const desc = document.getElementById('rainAlertDesc');
+        const cardRain = document.getElementById('rainStatus');
+        const cardRainSub = document.getElementById('rainStatusSub');
+
+        if (rainingAreas.length > 0) {
+          banner.className = 'p-3.5 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-rose-950/40 border-rose-600/60 shadow-lg';
+          icon.innerHTML = '<span class="animate-bounce">🌧️</span>';
+          title.className = 'font-bold text-rose-300';
+          title.innerText = `แจ้งเตือนฝนตกขณะนี้ (${rainingAreas.length} พื้นที่):`;
+
+          const areaText = rainingAreas.map(a => `${a.name} (${a.intensity} ${a.precip.toFixed(1)} มม./ชม.)`).join(' • ');
+          desc.className = 'text-rose-200 ml-1 font-medium';
+          desc.innerText = `${areaText} — โปรดระวังน้ำท่วมขังบนผิวจราจร`;
+
+          cardRain.className = 'text-sm font-semibold text-rose-400 mt-1 leading-snug';
+          cardRain.innerText = `ตรวจพบฝนตกใน ${rainingAreas.length} พื้นที่`;
+          cardRainSub.innerText = rainingAreas.map(a => a.name).join(', ');
+
+          // ตรวจสอบว่ามีพื้นที่ฝนตกใหม่ที่ยังไม่ได้เตือนหรือไม่ -> ส่ง Push Notification & เสียง
+          let hasNewRain = false;
+          currentRainingSet.forEach(zid => {
+            if (!lastRainingZones.has(zid)) hasNewRain = true;
+          });
+
+          if (hasNewRain) {
+            playRainAlertSound();
+            if (notificationEnabled && Notification.permission === "granted") {
+              new Notification("🌧️ แจ้งเตือนตรวจพบกลุ่มฝนตก!", {
+                body: `ขณะนี้มีฝนตกที่: ${areaText}`,
+                icon: "https://cdn-icons-png.flaticon.com/512/1163/1163624.png"
+              });
+            }
+          }
+        } else {
+          banner.className = 'p-3 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-emerald-950/30 border-emerald-700/40';
+          icon.innerText = '☀️️';
+          title.className = 'font-bold text-emerald-300';
+          title.innerText = 'สถานะกลุ่มฝนสด:';
+          desc.className = 'text-slate-300 ml-1';
+          desc.innerText = 'ทุกพื้นที่สภาพอากาศปกติ ไม่พบกลุ่มฝนตกในขณะนี้ (ตรวจวัดเรียลไทม์)';
+
+          cardRain.className = 'text-sm font-semibold text-emerald-400 mt-1 leading-snug';
+          cardRain.innerText = 'ทุกพื้นที่ยังไม่มีฝนตก';
+          cardRainSub.innerText = 'ครอบคลุม 5 พื้นที่เป้าหมาย';
+        }
+
+        lastRainingZones = currentRainingSet;
+      } catch (err) {
+        console.warn('เช็กฝนตกสดไม่สำเร็จ:', err);
+      }
+    }
+
+    // ==================== สลับเพจ FACEBOOK ====================
     const FB_PAGES = {
       'rio13': { name: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)', url: 'https://www.facebook.com/RegionalIrrigationOffice13' },
       'maeklong': { name: 'โครงการส่งน้ำและบำรุงรักษาแม่กลอง', url: 'https://www.facebook.com/profile.php?id=100091282013774' },
@@ -391,7 +591,7 @@
     }
 
     function switchMainTab(tab) {
-      ['map', 'fb', 'diagram', 'radar', 'news'].forEach(t => {
+      ['map', 'radar', 'fb', 'diagram', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (!content || !btn) return;
@@ -520,6 +720,7 @@
       `;
       loadWaterData();
       reloadDiagram();
+      checkRealtimeRain();
     }
 
     function renderUI() {
@@ -528,7 +729,6 @@
       document.getElementById('bangSaiFlow').innerText = currentData.overview.bangSaiFlowRate.toLocaleString();
       document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise;
       document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime}`;
-      document.getElementById('rainStatus').innerText = currentData.overview.rainStatus;
 
       const newsCount = (currentData.news || []).length;
       document.getElementById('newsBadgeCount').innerText = newsCount;
@@ -649,8 +849,15 @@
       renderUI();
     }
 
+    // เริ่มทำงานทันที
     initMap();
     loadWaterData();
+    checkRealtimeRain(); // ตรวจวัดฝนตกสดทันทีเมื่อเปิดเว็บ
+
+    // ตั้งเวลาตรวจวัดฝนใหม่ทุก 2 นาที (120,000 มิลลิวินาที)
+    setInterval(checkRealtimeRain, 120000);
+
+    // ตั้งเวลาโหลดข้อมูลสถานีและข่าวทุก 3 นาที
     setInterval(loadWaterData, 180000);
   </script>
 </body>
