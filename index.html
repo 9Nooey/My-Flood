@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    #map { height: 480px; border-radius: 0.75rem; z-index: 10; }
+    #map { height: 500px; border-radius: 0.75rem; z-index: 10; }
   </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
@@ -20,7 +20,7 @@
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามแม่น้ำเจ้าพระยา ผังน้ำ สภาพฝน และไทม์ไลน์สด Facebook</p>
+          <p class="text-xs text-slate-400">ระบบติดตามน้ำเหนือ • ลุ่มน้ำเจ้าพระยา • เรดาร์ฝน และไทม์ไลน์สด Facebook</p>
         </div>
       </div>
       <div class="flex items-center space-x-2 flex-wrap gap-1">
@@ -42,7 +42,7 @@
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
-    <!-- แถบแจ้งเตือนฝนตกสด Real-Time -->
+    <!-- 🚨 แถบแจ้งเตือนฝนตกสด Real-Time -->
     <div id="rainAlertBanner" class="p-3.5 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-slate-800/80 border-slate-700">
       <div class="flex items-center gap-2.5">
         <span id="rainAlertIcon" class="text-lg">🌤️</span>
@@ -100,7 +100,7 @@
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-sm">
         <div class="text-xs text-slate-400 font-medium">สภาพกลุ่มฝนสด (ตรวจวัดเรียลไทม์)</div>
         <div id="rainStatus" class="text-sm font-semibold text-emerald-400 mt-1 leading-snug">กำลังตรวจเช็กดาวเทียม...</div>
-        <div class="text-xs text-slate-400 mt-1" id="rainStatusSub">ครอบคลุมทุกลุ่มน้ำเป้าหมาย</div>
+        <div class="text-xs text-slate-400 mt-1" id="rainStatusSub">ครอบคลุมตั้งแต่ภาคเหนือถึงอ่าวไทย</div>
       </div>
     </div>
 
@@ -133,39 +133,44 @@
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
         <div class="flex items-center gap-2 overflow-x-auto pb-1">
           <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow">ทั้งหมด</button>
+          <button onclick="setZoneFilter('north')" id="btn-north" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
+            ⛰️ ภาคเหนือ (ต้นน้ำ ปิง-วัง-ยม-น่าน)
+          </button>
           <button onclick="setZoneFilter('chaopraya')" id="btn-chaopraya" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
-            🌊 ลุ่มน้ำเจ้าพระยา (C.2 - C.13 - บางไทร)
+            🌊 ลุ่มน้ำเจ้าพระยา (C.2 - เขื่อนเจ้าพระยา - บางไทร)
           </button>
           <button onclick="setZoneFilter('bangkok')" id="btn-bangkok" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
             กรุงเทพมหานคร <span id="badge-rain-bangkok" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span>
           </button>
           <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
-            กาญจนบุรี (แม่กลอง) <span id="badge-rain-kanchanaburi" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span>
+            กาญจนบุรี (แม่กลอง)
           </button>
           <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
-            ปราจีนบุรี <span id="badge-rain-prachinburi" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span>
+            ปราจีนบุรี
           </button>
           <button onclick="setZoneFilter('chonburi')" id="btn-chonburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
-            ชลบุรี <span id="badge-rain-chonburi" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span>
+            ชลบุรี
           </button>
         </div>
       </div>
 
-      <!-- กล่องแผนที่ Leaflet + แถบ Legend เส้นทางแม่น้ำ -->
+      <!-- กล่องแผนที่ Leaflet + Legend เส้นทางแม่น้ำ -->
       <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm relative">
         <div id="map"></div>
-        <!-- Legend แสดงเส้นแม่น้ำ -->
         <div class="mt-2 p-2.5 bg-slate-900/80 rounded-xl border border-slate-700/80 flex items-center justify-between flex-wrap gap-2 text-xs">
-          <span class="text-slate-400 font-medium">แนวเส้นทางแม่น้ำสายหลัก:</span>
+          <span class="text-slate-400 font-medium">แนวเส้นทางน้ำหลากสู่ กทม.:</span>
           <div class="flex items-center flex-wrap gap-3">
+            <span class="inline-flex items-center gap-1.5 text-amber-300">
+              <span class="w-4 h-1 bg-amber-400 rounded-full inline-block"></span> แม่น้ำปิง (เชียงใหม่ $\rightarrow$ เขื่อนภูมิพล $\rightarrow$ นครสวรรค์)
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-rose-300">
+              <span class="w-4 h-1 bg-rose-400 rounded-full inline-block"></span> แม่น้ำน่าน-ยม (สิริกิติ์ $\rightarrow$ สุโขทัย $\rightarrow$ บางระกำ)
+            </span>
             <span class="inline-flex items-center gap-1.5 text-sky-300">
               <span class="w-4 h-1 bg-sky-400 rounded-full inline-block"></span> แม่น้ำเจ้าพระยา (C.2 นครสวรรค์ $\rightarrow$ บางไทร $\rightarrow$ กทม.)
             </span>
             <span class="inline-flex items-center gap-1.5 text-emerald-300">
-              <span class="w-4 h-1 bg-emerald-400 rounded-full inline-block"></span> แม่น้ำแม่กลอง (กาญจนบุรี)
-            </span>
-            <span class="inline-flex items-center gap-1.5 text-purple-300">
-              <span class="w-4 h-1 bg-purple-400 rounded-full inline-block"></span> แม่น้ำปราจีนบุรี-บางปะกง
+              <span class="w-4 h-1 bg-emerald-400 rounded-full inline-block"></span> แม่กลอง
             </span>
           </div>
         </div>
@@ -173,7 +178,7 @@
 
       <div class="space-y-3">
         <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-          <span>📍</span> สถานีตรวจวัดระดับน้ำ เขื่อน และจุดยุทธศาสตร์แม่น้ำเจ้าพระยา
+          <span>📍</span> สถานีตรวจวัดระดับน้ำ เขื่อนต้นน้ำเหนือ และจุดยุทธศาสตร์เจ้าพระยา
         </h2>
         <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
@@ -283,6 +288,7 @@
         </div>
         <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
           <span class="text-slate-400 whitespace-nowrap mr-1">🔍 ซูม:</span>
+          <button onclick="zoomRadar('north')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ภาคเหนือ</button>
           <button onclick="zoomRadar('bangkok')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กรุงเทพฯ</button>
           <button onclick="zoomRadar('kanchanaburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กาญจนบุรี</button>
           <button onclick="zoomRadar('prachinburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ปราจีนบุรี</button>
@@ -293,7 +299,7 @@
 
       <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-lg relative overflow-hidden">
         <iframe id="rainRadarIframe"
-                src="https://www.rainviewer.com/map.html?loc=13.7563,100.5018,9&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1" 
+                src="https://www.rainviewer.com/map.html?loc=14.5000,100.3000,8&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1" 
                 width="100%" 
                 height="540" 
                 style="border:0; border-radius: 0.75rem;" 
@@ -324,7 +330,7 @@
         </div>
         <div class="relative w-full md:w-72">
           <input type="text" id="newsSearch" oninput="handleSearch(this.value)" 
-                 placeholder="🔍 พิมพ์ค้นหา เช่น มีนบุรี, บางแค, กบินทร์บุรี..." 
+                 placeholder="🔍 พิมพ์ค้นหา เช่น สุโขทัย, นครสวรรค์, บางไทร, ลาดพร้าว..." 
                  class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
         </div>
       </div>
@@ -335,96 +341,105 @@
   </main>
 
   <script>
-    // ==================== 1. ชุดสถานีเริ่มต้น + จุดยุทธศาสตร์แม่น้ำเจ้าพระยา ====================
+    // ==================== ชุดสถานีเริ่มต้น (รวมภาคเหนือ + เจ้าพระยา) ====================
     const DEFAULT_STATIONS = [
-      // สถานีหลักบนลำน้ำเจ้าพระยา (C.2 -> C.13 -> C.29A -> กทม.)
-      { id: 'RIV_C2', name: 'สถานี C.2 นครสวรรค์ (จุดรวมแม่น้ำปิง-วัง-ยม-น่าน)', zone: 'chaopraya', lat: 15.672, lng: 100.121, waterLevel: 2420, bankLevel: 3590, status: 'warning', description: 'อัตราน้ำหลากต้นน้ำเจ้าพระยา มุ่งหน้าสู่เขื่อนเจ้าพระยา (ลบ.ม./วิ)' },
-      { id: 'RIV_C13', name: 'สถานี C.13 เขื่อนเจ้าพระยา (จ.ชัยนาท)', zone: 'chaopraya', lat: 15.158, lng: 100.183, waterLevel: 2190, bankLevel: 2840, status: 'warning', description: 'อัตราการระบายน้ำลงท้ายเขื่อนสู่ลุ่มน้ำภาคกลาง (ลบ.ม./วิ)' },
-      { id: 'RIV_C29A', name: 'สถานี C.29A บางไทร (จุดวัดน้ำหลากก่อนเข้า กทม.)', zone: 'chaopraya', lat: 14.135, lng: 100.505, waterLevel: 2160, bankLevel: 3500, status: 'warning', description: 'จุดวัดสำคัญในการประเมินน้ำท่วมกรุงเทพฯ และปริมณฑล (ลบ.ม./วิ)' },
-      { id: 'RIV_BKK', name: 'แม่น้ำเจ้าพระยา (สะพานพุทธยอดฟ้า กทม.)', zone: 'chaopraya', lat: 13.740, lng: 100.498, waterLevel: 1.85, bankLevel: 2.80, status: 'warning', description: 'จุดเฝ้าระวังระดับน้ำเจ้าพระยาในเขตเมืองหลวงเมื่อมีน้ำทะเลหนุน (ม.รทก.)' },
+      // ภาคเหนือ
+      { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% สามารถรองรับน้ำเหนือจากเชียงใหม่-ลำพูนได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
+      { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: 74.2, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน ชะลอน้ำก่อนลงพิษณุโลก' },
+      { id: 'NORTH_03', name: 'แม่น้ำยม สถานี Y.4 (อ.เมือง จ.สุโขทัย)', zone: 'north', lat: 17.0090, lng: 99.8240, waterLevel: 6.80, bankLevel: 7.45, status: 'warning', description: 'จุดวิกฤตลุ่มน้ำยม (ไม่มีเขื่อนใหญ่กัก) ผันน้ำเข้าคลองหกบาทและทุ่งบางระกำ' },
+      { id: 'NORTH_04', name: 'ทุ่งบางระกำโมเดล (สถานี Y.14A จ.พิษณุโลก)', zone: 'north', lat: 16.7485, lng: 100.1170, waterLevel: 42.5, bankLevel: 100.0, status: 'normal', description: 'แก้มลิงธรรมชาติรับน้ำหน่วงยอดน้ำหลากจากสุโขทัย ชะลอน้ำเข้าสู่นครสวรรค์' },
 
-      // คลองและสถานี กทม.
+      // เจ้าพระยาสายหลัก
+      { id: 'RIV_C2', name: 'สถานี C.2 นครสวรรค์ (จุดรวมแม่น้ำปิง-วัง-ยม-น่าน)', zone: 'chaopraya', lat: 15.6720, lng: 100.1210, waterLevel: 2420, bankLevel: 3590, status: 'warning', description: 'อัตราน้ำหลากต้นน้ำเจ้าพระยา มุ่งหน้าสู่เขื่อนเจ้าพระยา (ลบ.ม./วิ)' },
+      { id: 'RIV_C13', name: 'สถานี C.13 เขื่อนเจ้าพระยา (จ.ชัยนาท)', zone: 'chaopraya', lat: 15.1580, lng: 100.1830, waterLevel: 2190, bankLevel: 2840, status: 'warning', description: 'อัตราการระบายน้ำลงท้ายเขื่อนสู่ลุ่มน้ำภาคกลาง (ลบ.ม./วิ)' },
+      { id: 'RIV_C29A', name: 'สถานี C.29A บางไทร (จุดวัดน้ำหลากก่อนเข้า กทม.)', zone: 'chaopraya', lat: 14.1350, lng: 100.5050, waterLevel: 2160, bankLevel: 3500, status: 'warning', description: 'จุดวัดสำคัญในการประเมินน้ำท่วมกรุงเทพฯ และปริมณฑล (ลบ.ม./วิ)' },
+      { id: 'RIV_BKK', name: 'แม่น้ำเจ้าพระยา (สะพานพุทธยอดฟ้า กทม.)', zone: 'chaopraya', lat: 13.7400, lng: 100.4980, waterLevel: 1.85, bankLevel: 2.80, status: 'warning', description: 'จุดเฝ้าระวังระดับน้ำเจ้าพระยาในเขตเมืองหลวงเมื่อมีน้ำทะเลหนุน (ม.รทก.)' },
+
+      // กทม.
       { id: 'BKK_01', name: 'คลองแสนแสบ (ประตูระบายน้ำมีนบุรี)', zone: 'bangkok', lat: 13.8138, lng: 100.7483, waterLevel: 0.88, bankLevel: 1.20, status: 'normal', description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม' },
       { id: 'BKK_02', name: 'คลองลาดพร้าว (วัดสว่างโสภณ)', zone: 'bangkok', lat: 13.8211, lng: 100.5982, waterLevel: 1.48, bankLevel: 1.50, status: 'critical', description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มกำลัง' },
       { id: 'BKK_03', name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)', zone: 'bangkok', lat: 13.7854, lng: 100.3541, waterLevel: 1.82, bankLevel: 2.10, status: 'warning', description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม' },
       { id: 'BKK_04', name: 'คลองมหาสวัสดิ์ (ประตูน้ำฉิมพลี)', zone: 'bangkok', lat: 13.8012, lng: 100.4325, waterLevel: 1.60, bankLevel: 2.00, status: 'normal', description: 'จุดผันน้ำออกสู่แม่น้ำท่าจีน' },
       { id: 'BKK_05', name: 'สถานีสูบน้ำพระโขนง', zone: 'bangkok', lat: 13.7088, lng: 100.5958, waterLevel: -0.15, bankLevel: 1.00, status: 'normal', description: 'สถานีสูบน้ำหลักระบายลงสู่แม่น้ำเจ้าพระยา' },
 
-      // กาญจนบุรี
+      // กาญจนบุรี / ปราจีนบุรี / ชลบุรี
       { id: 'KAN_01', name: 'เขื่อนศรีนครินทร์ (อ.ศรีสวัสดิ์)', zone: 'kanchanaburi', lat: 14.4027, lng: 99.1287, waterLevel: 78.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำอยู่ในเกณฑ์ปกติ รองรับน้ำได้อีกกว่า 3,800 ล้าน ลบ.ม.' },
       { id: 'KAN_02', name: 'แม่น้ำแม่กลอง (สะพานสมเด็จพระสังฆราชฯ)', zone: 'kanchanaburi', lat: 14.0228, lng: 99.5328, waterLevel: 3.38, bankLevel: 5.50, status: 'normal', description: 'การไหลของน้ำปกติ เป็นจุดรวมแม่น้ำแควใหญ่และแควน้อย' },
-
-      // ปราจีนบุรี
       { id: 'PRI_01', name: 'แม่น้ำปราจีนบุรี (ตลาดเก่ากบินทร์บุรี)', zone: 'prachinburi', lat: 13.9922, lng: 101.7175, waterLevel: 8.85, bankLevel: 8.90, status: 'critical', description: 'จุดวิกฤตลุ่มต่ำ ล้นตลิ่งเข้าชุมชนริมน้ำแล้วบางส่วน' },
       { id: 'PRI_02', name: 'เขื่อนนฤบดินทรจินดา (ห้วยโสมง)', zone: 'prachinburi', lat: 14.1578, lng: 101.8841, waterLevel: 81.9, bankLevel: 100.0, status: 'warning', description: 'ช่วยชะลอน้ำป่าจากอุทยานฯ ทับลานและปางสีดา' },
-
-      // ชลบุรี
       { id: 'CHO_01', name: 'อ่างเก็บน้ำบางพระ (อ.ศรีราชา)', zone: 'chonburi', lat: 13.2144, lng: 100.9702, waterLevel: 68.1, bankLevel: 100.0, status: 'normal', description: 'แหล่งน้ำดิบสำคัญของภาคอุตสาหกรรม EEC และระบายน้ำสู่ทะเล' },
       { id: 'CHO_02', name: 'สถานีสูบน้ำพัทยาใต้ (ระบายลงอ่าวไทย)', zone: 'chonburi', lat: 12.9248, lng: 100.8711, waterLevel: 1.08, bankLevel: 1.80, status: 'warning', description: 'จุดเสี่ยงน้ำท่วมฉับพลันเมื่อฝนตกหนักเกิน 60 มม./ชม.' }
     ];
 
-    // ==================== 2. แนวเส้นทางแม่น้ำ (River Polylines) ====================
+    // ==================== แนวเส้นทางแม่น้ำสายเหนือและเจ้าพระยา ====================
     const RIVERS_DATA = [
       {
+        name: 'แม่น้ำปิง (Ping River) - ต้นน้ำสายตะวันตก',
+        color: '#f59e0b', // สีส้มอำพัน
+        weight: 3.5,
+        desc: 'ไหลจากเชียงใหม่ -> ลงเขื่อนภูมิพล (ตาก) -> กำแพงเพชร -> ไหลรวมเป็นเจ้าพระยาที่นครสวรรค์',
+        coords: [
+          [18.790, 98.995], // เชียงใหม่
+          [18.270, 98.670],
+          [17.243, 98.973], // เขื่อนภูมิพล
+          [16.880, 99.120], // ตัวเมืองตาก
+          [16.480, 99.520], // กำแพงเพชร
+          [15.700, 100.144]  // ปากน้ำโพ นครสวรรค์
+        ]
+      },
+      {
+        name: 'แม่น้ำยมและแม่น้ำน่าน (Yom & Nan Rivers) - ต้นน้ำสายตะวันออก',
+        color: '#f43f5e', // สีชมพูกุหลาบ
+        weight: 3.5,
+        desc: 'แม่น้ำน่านถูกสกัดด้วยเขื่อนสิริกิติ์ / แม่น้ำยมหลากผ่านสุโขทัย -> เข้าทุ่งบางระกำ -> ไหลรวมที่นครสวรรค์',
+        coords: [
+          [17.766, 100.560], // เขื่อนสิริกิติ์
+          [17.620, 100.100], // อุตรดิตถ์
+          [17.009, 99.824],  // สุโขทัย (แม่น้ำยม)
+          [16.748, 100.117], // ทุ่งบางระกำ พิษณุโลก
+          [16.440, 100.350], // พิจิตร
+          [15.700, 100.144]  // ปากน้ำโพ นครสวรรค์
+        ]
+      },
+      {
         name: 'แม่น้ำเจ้าพระยา (Chao Phraya River)',
-        color: '#38bdf8', // ฟ้าสด
+        color: '#38bdf8', // ฟ้าสดใส
         weight: 4.5,
-        desc: 'เส้นทางน้ำหลากหลักผ่านนครสวรรค์ (C.2) -> เขื่อนเจ้าพระยา (C.13) -> บางไทร (C.29A) -> กทม. -> ปากน้ำสมุทรปราการ',
+        desc: 'รวมน้ำ 4 สายที่นครสวรรค์ (C.2) -> เขื่อนเจ้าพระยา (C.13) -> บางไทร (C.29A) -> กทม. -> อ่าวไทย',
         coords: [
           [15.700, 100.144], // นครสวรรค์ ปากน้ำโพ
           [15.672, 100.121], // C.2
-          [15.420, 100.220],
           [15.158, 100.183], // C.13 เขื่อนเจ้าพระยา
-          [14.980, 100.310],
           [14.891, 100.404], // สิงห์บุรี
           [14.589, 100.455], // อ่างทอง
-          [14.353, 100.568], // พระนครศรีอยุธยา
+          [14.353, 100.568], // อยุธยา
           [14.135, 100.505], // C.29A บางไทร
-          [14.020, 100.520], // ปทุมธานี
           [13.862, 100.513], // นนทบุรี
-          [13.766, 100.499], // สะพานพระราม 8
           [13.740, 100.498], // สะพานพุทธ กทม.
-          [13.680, 100.530], // ยานนาวา
-          [13.599, 100.598], // ปากน้ำ สมุทรปราการ
-          [13.540, 100.585]  // ป้อมพระจุลฯ อ่าวไทย
+          [13.540, 100.585]  // ป้อมพระจุลฯ ปากอ่าวไทย
         ]
       },
       {
         name: 'แม่น้ำแม่กลอง (Mae Klong River)',
-        color: '#34d399', // เขียวมรกต
-        weight: 4,
-        desc: 'รับน้ำจากแม่น้ำแควใหญ่-แควน้อย ผ่านเขื่อนแม่กลอง (กาญจนบุรี) ไหลลงสู่อ่าวไทยที่สมุทรสงคราม',
+        color: '#34d399',
+        weight: 3.5,
+        desc: 'เขื่อนศรีนครินทร์ -> กาญจนบุรี -> เขื่อนแม่กลอง -> สมุทรสงคราม',
         coords: [
-          [14.402, 99.128], // เขื่อนศรีนครินทร์
-          [14.150, 99.300],
-          [14.022, 99.532], // ตัวเมืองกาญจนบุรี (จุดรวมแควใหญ่-แควน้อย)
-          [13.963, 99.638], // เขื่อนแม่กลอง ท่าม่วง
-          [13.916, 99.762], // ท่ามะกา
-          [13.815, 99.878], // บ้านโป่ง ราชบุรี
-          [13.538, 99.822], // ตัวเมืองราชบุรี
-          [13.414, 99.998], // สมุทรสงคราม
-          [13.360, 100.020] // ปากอ่าวแม่กลอง
+          [14.402, 99.128], [14.022, 99.532], [13.963, 99.638], [13.538, 99.822], [13.360, 100.020]
         ]
       },
       {
-        name: 'แม่น้ำปราจีนบุรี - แม่น้ำบางปะกง',
-        color: '#c084fc', // ม่วงสว่าง
-        weight: 4,
-        desc: 'รับน้ำป่าเขาใหญ่-ทับลาน ผ่านกบินทร์บุรี ศรีมหาโพธิ ไหลรวมเป็นแม่น้ำบางปะกงออกสู่อ่าวไทย',
+        name: 'แม่น้ำปราจีนบุรี - บางปะกง',
+        color: '#c084fc',
+        weight: 3.5,
+        desc: 'เขื่อนนฤบดินทรจินดา -> กบินทร์บุรี -> ปราจีนบุรี -> ฉะเชิงเทรา -> อ่าวไทย',
         coords: [
-          [14.157, 101.884], // เขื่อนนฤบดินทรจินดา
-          [13.992, 101.717], // ตลาดเก่ากบินทร์บุรี
-          [13.987, 101.515], // ศรีมหาโพธิ
-          [14.055, 101.371], // ตัวเมืองปราจีนบุรี
-          [13.978, 101.218], // บ้านสร้าง
-          [13.722, 101.205], // บางคล้า ฉะเชิงเทรา
-          [13.687, 101.077], // ตัวเมืองฉะเชิงเทรา
-          [13.473, 100.998]  // ปากอ่าวไทย บางปะกง
+          [14.157, 101.884], [13.992, 101.717], [14.055, 101.371], [13.687, 101.077], [13.473, 100.998]
         ]
       }
     ];
 
-    // ==================== 3. ชุดโพสต์ FACEBOOK ฝังในตัว (SAFE FALLBACK) ====================
+    // ==================== โพสต์ Facebook สำรอง (Safe Fallback) ====================
     const nowTime = Date.now();
     const DEFAULT_FB_POSTS = [
       {
@@ -476,24 +491,11 @@
         tag: 'พยากรณ์อากาศและเตือนภัย',
         badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
         timestamp: new Date(nowTime - 1000 * 60 * 70).toISOString(),
-        content: '⛈️ พยากรณ์อากาศ 24 ชั่วโมงข้างหน้า: ภาคกลางรวมทั้งกรุงเทพมหานครและปริมณฑล มีฝนฟ้าคะนองร้อยละ 60 ของพื้นที่ กับมีฝนตกหนักบางแห่ง ขอให้ประชาชนในพื้นที่เสี่ยงระวังอันตรายจากฝนตกหนักและฝนที่ตกสะสม',
+        content: '⛈️ พยากรณ์อากาศ 24 ชั่วโมงข้างหน้า: ภาคเหนือตอนล่างและภาคกลางมีฝนตกหนักบางแห่ง ขอให้ประชาชนในพื้นที่เสี่ยงระวังน้ำท่วมฉับพลันและน้ำป่าไหลหลาก โดยเฉพาะลุ่มน้ำยมและลุ่มน้ำปิง',
         hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#เตือนภัยฝนตกหนัก']
       },
       {
         id: 'fb-5',
-        pageKey: 'maeklong',
-        pageName: 'โครงการส่งน้ำและบำรุงรักษาแม่กลอง',
-        pageHandle: '@คบ.แม่กลอง',
-        pageUrl: 'https://www.facebook.com/profile.php?id=100091282013774',
-        avatarBg: 'bg-cyan-600',
-        tag: 'บริหารจัดการน้ำเขื่อนแม่กลอง',
-        badgeClass: 'border-cyan-500/40 text-cyan-300 bg-cyan-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 105).toISOString(),
-        content: '💧 รายงานการเปิด-ปิดบานระบายน้ำเขื่อนแม่กลอง อ.ท่าม่วง จ.กาญจนบุรี: ระดับน้ำเหนือเขื่อนและท้ายเขื่อนอยู่ในเกณฑ์มาตรฐาน การส่งน้ำเข้าคลองชลประทานสายใหญ่ฝั่งซ้ายและฝั่งขวาเป็นไปตามรอบเวร เพื่อสนับสนุนภาคการเกษตรและการอุปโภคบริโภค',
-        hashtags: ['#โครงการส่งน้ำแม่กลอง', '#เขื่อนแม่กลอง', '#บริหารจัดการน้ำ']
-      },
-      {
-        id: 'fb-6',
         pageKey: 'morning3',
         pageName: 'เรื่องเล่าเช้านี้',
         pageHandle: '@MorningNewsTV3',
@@ -502,21 +504,8 @@
         tag: 'ข่าวสารสถานการณ์น้ำ',
         badgeClass: 'border-rose-500/40 text-rose-300 bg-rose-950/40',
         timestamp: new Date(nowTime - 1000 * 60 * 140).toISOString(),
-        content: '🔴 เกาะติดสถานการณ์น้ำ: กรมชลประทานติดตามสถานการณ์น้ำเหนือไหลผ่านสถานีบางไทร จ.พระนครศรีอยุธยา พร้อมประสาน กทม. รับมือน้ำทะเลหนุนสูงช่วงปลายสัปดาห์ เตือนชุมชนนอกแนวคันกั้นน้ำเฝ้าระวังระดับน้ำขึ้นสูงสุดช่วงหัวค่ำ',
-        hashtags: ['#เรื่องเล่าเช้านี้', '#ข่าวช่อง3', '#สถานการณ์น้ำ']
-      },
-      {
-        id: 'fb-7',
-        pageKey: 'bma',
-        pageName: 'สำนักการระบายน้ำ กทม.',
-        pageHandle: '@bangkahome',
-        pageUrl: 'https://www.facebook.com/bangkahome',
-        avatarBg: 'bg-indigo-600',
-        tag: 'ศูนย์ควบคุมป้องกันน้ำท่วม กทม.',
-        badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 190).toISOString(),
-        content: '🌊 รายงานสถานการณ์น้ำในคลองสายหลัก กทม.: เดินเครื่องสูบน้ำสถานีพระโขนง บางซื่อ และทวีวัฒนา เพื่อเร่งพร่องน้ำในคลองแสนแสบ คลองลาดพร้าว คลองประเวศฯ เตรียมรองรับปริมาณฝนช่วงบ่าย-ค่ำอย่างเต็มกำลัง',
-        hashtags: ['#สำนักการระบายน้ำ', '#น้ำท่วมกทม', '#คลองแสนแสบ']
+        content: '🔴 เกาะติดสถานการณ์น้ำเหนือ: กรมชลประทานบริหารจัดการน้ำทุ่งบางระกำเพื่อหน่วงน้ำหลากจากสุโขทัย พร้อมคุมการระบายน้ำเขื่อนเจ้าพระยาเพื่อไม่ให้กระทบต่อพื้นที่ท้ายน้ำในลุ่มเจ้าพระยาและ กทม.',
+        hashtags: ['#เรื่องเล่าเช้านี้', '#ข่าวช่อง3', '#น้ำท่วมภาคเหนือ']
       }
     ];
 
@@ -530,17 +519,17 @@
     let lastRainingZones = new Set();
 
     const ZONE_NAMES = {
-      'chaopraya': 'ลุ่มน้ำเจ้าพระยา',
+      'north': 'ภาคเหนือ (ต้นน้ำเจ้าพระยา)',
+      'chaopraya': 'ลุ่มน้ำเจ้าพระยา (สายหลัก)',
       'bangkok': 'กรุงเทพมหานคร',
-      'bkk-east': 'กรุงเทพมหานคร',
-      'bkk-west': 'กรุงเทพมหานคร',
       'kanchanaburi': 'กาญจนบุรี',
       'prachinburi': 'ปราจีนบุรี',
       'chonburi': 'ชลบุรี'
     };
 
     const ZONE_COORDS = [
-      { id: 'bangkok', name: 'กรุงเทพมหานคร', lat: 13.7563, lng: 100.5018 },
+      { id: 'north', name: 'ภาคเหนือตอนล่าง', lat: 17.00, lng: 99.82 },
+      { id: 'bangkok', name: 'กรุงเทพมหานคร', lat: 13.75, lng: 100.50 },
       { id: 'kanchanaburi', name: 'กาญจนบุรี', lat: 14.02, lng: 99.53 },
       { id: 'prachinburi', name: 'ปราจีนบุรี', lat: 13.99, lng: 101.71 },
       { id: 'chonburi', name: 'ชลบุรี', lat: 12.92, lng: 100.87 }
@@ -548,9 +537,10 @@
 
     function isMatchZone(itemZone, filterZone) {
       if (filterZone === 'all') return true;
-      if (filterZone === 'chaopraya') return itemZone === 'chaopraya';
+      if (filterZone === 'north') return itemZone === 'north';
+      if (filterZone === 'chaopraya') return itemZone === 'chaopraya' || itemZone === 'north';
       if (filterZone === 'bangkok') {
-        return itemZone === 'bangkok' || itemZone === 'bkk-east' || itemZone === 'bkk-west' || itemZone === 'chaopraya';
+        return itemZone === 'bangkok' || itemZone === 'chaopraya';
       }
       return itemZone === filterZone;
     }
@@ -572,14 +562,14 @@
       }
     }
 
-    // ==================== 4. เริ่มต้นแผนที่ และวาดเส้นแม่น้ำ ====================
+    // ==================== แผนที่ Leaflet และวาดเส้นทางแม่น้ำ ====================
     function initMap() {
-      map = L.map('map').setView([14.20, 100.4], 8);
+      // ตั้งมุมมองให้เห็นตั้งแต่ภาคเหนือ (ตาก/สุโขทัย) ลงมาถึงอ่าวไทย
+      map = L.map('map').setView([15.60, 100.1], 7);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // วาดแนวเส้นทางแม่น้ำสายหลัก
       drawRivers();
     }
 
@@ -624,7 +614,7 @@
       return '<span class="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">รายงาน</span>';
     }
 
-    // ==================== 5. เรนเดอร์สถานีตรวจวัด ====================
+    // ==================== เรนเดอร์สถานีตรวจวัด ====================
     function renderStations() {
       markers.forEach(m => map.removeLayer(m));
       markers = [];
@@ -633,25 +623,24 @@
         ? currentData.stations
         : DEFAULT_STATIONS;
 
-      // ตรวจสอบว่ามีสถานีเจ้าพระยาไหม ถ้ายังไม่มี ให้รวม DEFAULT_STATIONS เข้าไปด้วย
-      const combinedStations = [...rawStations];
-      DEFAULT_STATIONS.forEach(defStation => {
-        if (!combinedStations.some(s => s.id === defStation.id)) {
-          combinedStations.unshift(defStation);
-        }
+      const combined = [...rawStations];
+      DEFAULT_STATIONS.forEach(def => {
+        if (!combined.some(s => s.id === def.id)) combined.unshift(def);
       });
 
-      const filtered = combinedStations.filter(s => isMatchZone(s.zone, activeZone));
+      const filtered = combined.filter(s => isMatchZone(s.zone, activeZone));
       const container = document.getElementById('stationsContainer');
       container.innerHTML = '';
 
       filtered.forEach(station => {
-        const isRiverStation = station.id.startsWith('RIV_');
+        const isNorth = station.zone === 'north';
+        const isRiver = station.zone === 'chaopraya';
+
         const circle = L.circleMarker([station.lat, station.lng], {
-          radius: isRiverStation ? 9 : 7,
+          radius: (isNorth || isRiver) ? 8.5 : 7,
           fillColor: getPinColor(station.status),
-          color: isRiverStation ? '#38bdf8' : '#ffffff',
-          weight: isRiverStation ? 2.5 : 1.5,
+          color: isNorth ? '#f59e0b' : (isRiver ? '#38bdf8' : '#ffffff'),
+          weight: (isNorth || isRiver) ? 2.5 : 1.5,
           opacity: 1,
           fillOpacity: 0.95
         }).addTo(map);
@@ -665,18 +654,18 @@
         `);
         markers.push(circle);
 
-        const isDam = station.name.includes('เขื่อน') || station.name.includes('อ่างเก็บน้ำ');
+        const isDam = station.name.includes('เขื่อน') || station.name.includes('อ่างเก็บน้ำ') || station.name.includes('โมเดล');
         const isFlowRate = station.description.includes('ลบ.ม./วิ');
         let unit = 'ม.';
         if (isDam) unit = '% ความจุ';
         else if (isFlowRate) unit = 'ลบ.ม./วิ';
 
         const card = document.createElement('div');
-        card.className = `p-4 rounded-xl border transition shadow-sm space-y-2 ${isRiverStation ? 'bg-slate-800/95 border-sky-600/50' : 'bg-slate-800 border-slate-700'}`;
+        card.className = `p-4 rounded-xl border transition shadow-sm space-y-2 ${isNorth ? 'bg-slate-800/95 border-amber-600/40' : (isRiver ? 'bg-slate-800/95 border-sky-600/40' : 'bg-slate-800 border-slate-700')}`;
         card.innerHTML = `
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold ${isRiverStation ? 'text-sky-300' : 'text-blue-400'}">
-              ${isRiverStation ? '🌊 ' : ''}${ZONE_NAMES[station.zone] || station.zone}
+            <span class="text-xs font-semibold ${isNorth ? 'text-amber-300' : (isRiver ? 'text-sky-300' : 'text-blue-400')}">
+              ${isNorth ? '⛰️ ' : (isRiver ? '🌊 ' : '')}${ZONE_NAMES[station.zone] || station.zone}
             </span>
             ${getStatusBadge(station.status)}
           </div>
@@ -703,7 +692,7 @@
 
     function setZoneFilter(zone) {
       activeZone = zone;
-      const zones = ['all', 'chaopraya', 'bangkok', 'kanchanaburi', 'prachinburi', 'chonburi'];
+      const zones = ['all', 'north', 'chaopraya', 'bangkok', 'kanchanaburi', 'prachinburi', 'chonburi'];
       zones.forEach(z => {
         const btn = document.getElementById(`btn-${z}`);
         if (!btn) return;
@@ -714,13 +703,15 @@
         }
       });
 
-      if (zone === 'chaopraya') {
+      if (zone === 'north') {
+        map.setView([17.20, 100.0], 8);
+      } else if (zone === 'chaopraya') {
         map.setView([14.85, 100.3], 8);
       }
       renderUI();
     }
 
-    // ==================== 6. เรนเดอร์ FACEBOOK TIMELINE ====================
+    // ==================== เรนเดอร์ FACEBOOK TIMELINE ====================
     function setFbFilter(key) {
       activeFbPage = key;
       const filters = ['all', 'rio13', 'maeklong', 'rattanavudh', 'js100', 'tmd', 'morning3', 'bma'];
@@ -811,7 +802,7 @@
       });
     }
 
-    // ==================== 7. สลับแท็บหลัก ====================
+    // ==================== สลับแท็บหลัก ====================
     function switchMainTab(tab) {
       ['map', 'diagram', 'fb', 'radar', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
@@ -835,7 +826,7 @@
       }
     }
 
-    // ==================== 8. ตรวจวัดฝนตกสด ====================
+    // ==================== ตรวจวัดฝนสด ====================
     function playRainAlertSound() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -977,7 +968,7 @@
 
           cardRain.className = 'text-sm font-semibold text-emerald-400 mt-1 leading-snug';
           cardRain.innerText = 'ทุกพื้นที่ยังไม่มีฝนตก';
-          cardRainSub.innerText = 'ครอบคลุมทุกลุ่มน้ำเป้าหมาย';
+          cardRainSub.innerText = 'ครอบคลุมตั้งแต่ภาคเหนือถึงอ่าวไทย';
         }
 
         lastRainingZones = currentRainingSet;
@@ -987,7 +978,8 @@
     }
 
     const RADAR_COORDS = {
-      'all': '13.7563,100.5018,9',
+      'all': '14.5000,100.3000,8',
+      'north': '17.2000,100.0000,8',
       'bangkok': '13.7563,100.5018,10',
       'kanchanaburi': '14.1500,99.3000,9',
       'prachinburi': '14.0500,101.5500,9',
