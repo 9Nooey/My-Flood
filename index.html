@@ -65,11 +65,11 @@
         <button onclick="switchMainTab('diagram')" class="bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span>📊</span> ผังน้ำเจ้าพระยา (สด สสน.)
         </button>
+        <button onclick="switchMainTab('fb')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span>📱</span> News Facebook (รวมทุกเพจสด)
+        </button>
         <button onclick="switchMainTab('cctv')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span>📷</span> กล้อง CCTV & ดาวเทียม
-        </button>
-        <button onclick="switchMainTab('fb')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
-          <span>📱</span> News Facebook (รวมฟีดสด)
         </button>
         <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 เรดาร์ฝนสด
@@ -120,8 +120,8 @@
       </button>
       <button id="tab-btn-fb" onclick="switchMainTab('fb')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span class="text-blue-400 font-black">f</span>
-        <span>News Facebook</span>
-        <span id="fbTimelineBadge" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">7 โพสต์</span>
+        <span>News Facebook (รวมฟีดสด)</span>
+        <span id="fbTimelineBadge" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">10 โพสต์</span>
       </button>
       <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📡 เรดาร์ตรวจฝนสด</span>
@@ -227,7 +227,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 3: CCTV & ดาวเทียม (แก้ปัญหา LONGDO WATER) ==================== -->
+    <!-- ==================== TAB 3: CCTV & ดาวเทียม ==================== -->
     <section id="tab-content-cctv" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
@@ -240,10 +240,7 @@
         </div>
       </div>
 
-      <!-- แผงการ์ดทางลัดเข้าถึงกล้องและดาวเทียม -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        
-        <!-- การ์ด 1: Longdo Water Portal -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between">
@@ -262,7 +259,6 @@
           </a>
         </div>
 
-        <!-- การ์ด 2: GISTDA Satellite Flood Map -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between">
@@ -281,7 +277,6 @@
           </a>
         </div>
 
-        <!-- การ์ด 3: กล้อง CCTV คลอง กทม. -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between">
@@ -300,7 +295,6 @@
           </a>
         </div>
 
-        <!-- การ์ด 4: กล้องกรมทางหลวง (เช็กน้ำท่วมถนน) -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between">
@@ -319,7 +313,6 @@
           </a>
         </div>
 
-        <!-- การ์ด 5: เรดาร์ฝนหลวง กรมฝนหลวงและการบินเกษตร -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between">
@@ -338,7 +331,6 @@
           </a>
         </div>
 
-        <!-- การ์ด 6: ศูนย์เตือนภัยพิบัติแห่งชาติ DDPM -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
           <div>
             <div class="flex items-center justify-between">
@@ -356,7 +348,6 @@
             <span>↗</span>
           </a>
         </div>
-
       </div>
     </section>
 
@@ -365,49 +356,59 @@
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-            <span class="text-blue-500 font-black text-xl">f</span> News Facebook - รวมไทม์ไลน์รายงานสดจาก 6 เพจหลัก
+            <span class="text-blue-500 font-black text-xl">f</span> รวมฟีด Facebook ไทม์ไลน์สด (10+ เพจหน่วยงานหลัก)
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">
-            รวมทุกโพสต์สถานการณ์น้ำ เขื่อนแม่กลอง สภาพอากาศ และจราจร กทม. เรียงตามเวลาล่าสุด
+            กวาดโพสต์สด สวพ.91, JS100, PR Bangkok, กรมชลฯ, ชลประทาน 12-13, ชลประทาน 3, ขุนรัตนาวุธ, ปภ.ฉะเชิงเทรา เรียงตามเวลา
           </p>
         </div>
         <div class="text-xs text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 whitespace-nowrap">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span id="fbTimelineCountText">พร้อมแสดงผลโพสต์ล่าสุด</span>
+          <span id="fbTimelineCountText">พร้อมแสดงผล 10 โพสต์สด</span>
         </div>
       </div>
 
+      <!-- แถบกรองเพจแยกตามกลุ่มยุทธศาสตร์ -->
       <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-3">
         <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
           <button onclick="setFbFilter('all')" id="fb-filter-all" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">
             ทั้งหมด (เรียงตามเวลา)
           </button>
-          <button onclick="setFbFilter('rio13')" id="fb-filter-rio13" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ชลประทานที่ 13
-          </button>
-          <button onclick="setFbFilter('maeklong')" id="fb-filter-maeklong" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            เขื่อนแม่กลอง
-          </button>
-          <button onclick="setFbFilter('rattanavudh')" id="fb-filter-rattanavudh" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ขุนรัตนาวุธ
+          <button onclick="setFbFilter('fm91')" id="fb-filter-fm91" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            สวพ.91
           </button>
           <button onclick="setFbFilter('js100')" id="fb-filter-js100" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
             จส.100
           </button>
+          <button onclick="setFbFilter('prbkk')" id="fb-filter-prbkk" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            PR Bangkok (กทม.)
+          </button>
+          <button onclick="setFbFilter('rio12')" id="fb-filter-rio12" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            ชลประทาน 12 (เขื่อนเจ้าพระยา)
+          </button>
+          <button onclick="setFbFilter('rio13')" id="fb-filter-rio13" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            ชลประทาน 13 (แม่กลอง)
+          </button>
+          <button onclick="setFbFilter('rio3')" id="fb-filter-rio3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            ชลประทาน 3 (บางระกำ)
+          </button>
+          <button onclick="setFbFilter('rattanavudh')" id="fb-filter-rattanavudh" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            ขุนรัตนาวุธ
+          </button>
+          <button onclick="setFbFilter('chachoengsao')" id="fb-filter-chachoengsao" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            ปภ.ฉะเชิงเทรา
+          </button>
           <button onclick="setFbFilter('tmd')" id="fb-filter-tmd" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            กรมอุตุนิยมวิทยา
+            กรมอุตุฯ
           </button>
           <button onclick="setFbFilter('morning3')" id="fb-filter-morning3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
             เรื่องเล่าเช้านี้
-          </button>
-          <button onclick="setFbFilter('bma')" id="fb-filter-bma" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            สนง.ระบายน้ำ กทม.
           </button>
         </div>
 
         <div class="relative w-full">
           <input type="text" id="fbSearchInput" oninput="handleFbSearch(this.value)" 
-                 placeholder="🔍 พิมพ์ค้นหาข้อความในโพสต์ เช่น เขื่อนแม่กลอง, ระบายน้ำ, ฝนตก, แควน้อย, จราจร..." 
+                 placeholder="🔍 พิมพ์ค้นหาข้อความในโพสต์ เช่น แจ้งวัฒนะ, เขื่อนเจ้าพระยา, บางระกำ, ระบายน้ำ, ฝนตก..." 
                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
         </div>
       </div>
@@ -479,9 +480,9 @@
   </main>
 
   <script>
-    // ==================== 1. ชุดสถานีตรวจวัดน้ำ (รวมภาคเหนือ + เจ้าพระยา + กทม.) ====================
+    // ==================== 1. ชุดสถานีตรวจวัดน้ำ ====================
     const DEFAULT_STATIONS = [
-      { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% สามารถรองรับน้ำเหนือจากเชียงใหม่-ลำพูนได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
+      { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% รองรับน้ำเหนือจากเชียงใหม่-ลำพูนได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
       { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: 74.2, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน ชะลอน้ำก่อนลงพิษณุโลก' },
       { id: 'NORTH_03', name: 'แม่น้ำยม สถานี Y.4 (อ.เมือง จ.สุโขทัย)', zone: 'north', lat: 17.0090, lng: 99.8240, waterLevel: 6.80, bankLevel: 7.45, status: 'warning', description: 'จุดวิกฤตลุ่มน้ำยม (ไม่มีเขื่อนใหญ่กัก) ผันน้ำเข้าคลองหกบาทและทุ่งบางระกำ' },
       { id: 'NORTH_04', name: 'ทุ่งบางระกำโมเดล (สถานี Y.14A จ.พิษณุโลก)', zone: 'north', lat: 16.7485, lng: 100.1170, waterLevel: 42.5, bankLevel: 100.0, status: 'normal', description: 'แก้มลิงธรรมชาติรับน้ำหน่วงยอดน้ำหลากจากสุโขทัย ชะลอน้ำเข้าสู่นครสวรรค์' },
@@ -555,73 +556,138 @@
       }
     ];
 
-    // ==================== 3. ชุดโพสต์ Facebook สำรอง (Safe Fallback) ====================
+    // ==================== 3. ชุดโพสต์ Facebook สำรอง (SAFE FALLBACK 10 โพสต์) ====================
     const nowTime = Date.now();
     const DEFAULT_FB_POSTS = [
       {
         id: 'fb-1',
-        pageKey: 'rio13',
-        pageName: 'สำนักงานชลประทานที่ 13',
-        pageHandle: '@RegionalIrrigationOffice13',
-        pageUrl: 'https://www.facebook.com/RegionalIrrigationOffice13',
-        avatarBg: 'bg-blue-600',
-        tag: 'ลุ่มน้ำแม่กลอง • กาญจนบุรี',
-        badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 14).toISOString(),
-        content: '📢 รายงานสถานการณ์น้ำลุ่มน้ำแม่กลอง ประจำวัน: ปริมาณน้ำไหลผ่านเขื่อนแม่กลองอยู่ในเกณฑ์ควบคุมอย่างใกล้ชิด ระดับน้ำในลำน้ำแม่กลองยังต่ำกว่าตลิ่งทุกสถานี การระบายน้ำลงสู่ท้ายน้ำยังเป็นไปตามแผน ไม่ส่งผลกระทบต่อพื้นที่ลุ่มต่ำริมตลิ่ง เจ้าหน้าที่เฝ้าระวังตลอด 24 ชม.',
-        hashtags: ['#สำนักงานชลประทานที่13', '#เขื่อนแม่กลอง', '#สถานการณ์น้ำกาญจนบุรี']
+        pageKey: 'fm91',
+        pageName: 'สวพ.91 (FM91 Trafficpro)',
+        pageHandle: '@fm91trafficpro',
+        pageUrl: 'https://www.facebook.com/fm91trafficpro',
+        avatarBg: 'bg-emerald-600',
+        tag: 'จราจร & น้ำท่วมถนน กทม.',
+        badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 8).toISOString(),
+        content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: มีฝนตกหนักกระจายตัวในพื้นที่กรุงเทพมหานครและปริมณฑล ถนนแจ้งวัฒนะ (ขาออก) บริเวณหน้าโลตัส และถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม มีน้ำท่วมขังสูง 10-15 ซม. เสมอฟุตบาท เลนซ้ายรถเล็กเคลื่อนตัวช้า เจ้าหน้าที่เร่งระบายน้ำ',
+        hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจรน้ำท่วม']
       },
       {
         id: 'fb-2',
+        pageKey: 'rio12',
+        pageName: 'สำนักงานชลประทานที่ 12 (เขื่อนเจ้าพระยา)',
+        pageHandle: '@rio12chainat',
+        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
+        avatarBg: 'bg-sky-600',
+        tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
+        badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 18).toISOString(),
+        content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: ปริมาณน้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ อยู่ที่ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงอัตราการระบายน้ำท้ายเขื่อนที่ 2,190 ลบ.ม./วินาที เพื่อรักษาสมดุลและหน่วงน้ำเหนือ ขอให้พื้นที่ลุ่มต่ำริมแม่น้ำเจ้าพระยา จ.สิงห์บุรี อ่างทอง และอยุธยา เฝ้าระวังอย่างต่อเนื่อง',
+        hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำลุ่มเจ้าพระยา']
+      },
+      {
+        id: 'fb-3',
         pageKey: 'js100',
         pageName: 'JS100 Radio',
         pageHandle: '@js100radio',
         pageUrl: 'https://www.facebook.com/js100radio',
         avatarBg: 'bg-amber-600',
-        tag: 'จราจร & น้ำท่วมขัง กทม.',
+        tag: 'จราจร & เรดาร์ฝน กทม.',
         badgeClass: 'border-amber-500/40 text-amber-300 bg-amber-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 28).toISOString(),
-        content: '🌧️ รายงานกลุ่มฝนและสภาพจราจร: มีกลุ่มฝนเคลื่อนตัวเข้าพื้นที่กรุงเทพมหานครและปริมณฑล ถนนแจ้งวัฒนะและถนนพัฒนาการบางช่วงมีน้ำรอการระบายในช่องทางซ้าย ผู้ใช้เส้นทางโปรดชะลอความเร็วและเพิ่มความระมัดระวังในการเดินทาง',
-        hashtags: ['#JS100', '#จราจร', '#ฝนตกน้ำท่วม']
-      },
-      {
-        id: 'fb-3',
-        pageKey: 'rattanavudh',
-        pageName: 'มูลนิธิขุนรัตนาวุธ กาญจนบุรี',
-        pageHandle: '@ขุนรัตนาวุธ กาญจนบุรี',
-        pageUrl: 'https://www.facebook.com/profile.php?id=100082320879046',
-        avatarBg: 'bg-emerald-600',
-        tag: 'ทีมตอบโต้ภัยพิบัติ กาญจนบุรี',
-        badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 48).toISOString(),
-        content: '🚨 ทีมกู้ภัยมูลนิธิขุนรัตนาวุธลงพื้นที่ตรวจวัดระดับน้ำแม่น้ำแควน้อยและแควใหญ่ สภาพน้ำไหลปกติ ตลิ่งยังรองรับได้ดี จัดทีมอาสาสมัครพร้อมเรือท้องแบนและอุปกรณ์กู้ภัยทางน้ำสแตนด์บายพร้อมรับเหตุฉุกเฉินตลอด 24 ชั่วโมง',
-        hashtags: ['#มูลนิธิขุนรัตนาวุธ', '#กู้ภัยกาญจนบุรี', '#เฝ้าระวังน้ำหลาก']
+        timestamp: new Date(nowTime - 1000 * 60 * 30).toISOString(),
+        content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนปานกลางถึงหนักเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน และหลักสี่ ถนนพหลโยธินและถนนวิภาวดีรังสิตมีฝนตกหนัก ลมกระโชกแรง ทัศนวิสัยลดลง ผู้ขับขี่เปิดไฟหน้ารถและเว้นระยะห่างเพื่อความปลอดภัย',
+        hashtags: ['#JS100', '#เรดาร์ฝน', '#น้ำท่วมขัง']
       },
       {
         id: 'fb-4',
+        pageKey: 'rio13',
+        pageName: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)',
+        pageHandle: '@RegionalIrrigationOffice13',
+        pageUrl: 'https://www.facebook.com/RegionalIrrigationOffice13',
+        avatarBg: 'bg-blue-600',
+        tag: 'ลุ่มน้ำแม่กลอง • กาญจนบุรี',
+        badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 45).toISOString(),
+        content: '📢 รายงานระดับน้ำแม่น้ำแม่กลอง: สภาพน้ำอยู่ในเกณฑ์ควบคุมได้ดี การบริหารจัดการน้ำเขื่อนแม่กลอง อ.ท่าม่วง ปริมาณน้ำผ่านยังไม่ส่งผลกระทบต่อพื้นที่เกษตรและบ้านเรือนริมฝั่ง จ.กาญจนบุรี ราชบุรี และสมุทรสงคราม เจ้าหน้าที่ตรวจสอบอาคารชลประทานตลอด 24 ชม.',
+        hashtags: ['#ชลประทานที่13', '#แม่น้ำแม่กลอง', '#กาญจนบุรี']
+      },
+      {
+        id: 'fb-5',
+        pageKey: 'prbkk',
+        pageName: 'กรุงเทพมหานคร (PR Bangkok)',
+        pageHandle: '@prbangkok',
+        pageUrl: 'https://www.facebook.com/prbangkok',
+        avatarBg: 'bg-emerald-700',
+        tag: 'ศูนย์ป้องกันน้ำท่วม กทม.',
+        badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 65).toISOString(),
+        content: '🏢 กทม. สรุปความพร้อมรับมือสถานการณ์น้ำ: สำนักการระบายน้ำเดินเครื่องสูบน้ำสถานีสูบหลักเต็มกำลัง เร่งพร่องน้ำในคลองแสนแสบ คลองลาดพร้าว คลองเปรมประชากร และคลองทวีวัฒนา เตรียมแก้มลิงรองรับน้ำฝน พร้อมจัดทีมเทศกิจประจำจุดเสี่ยงน้ำท่วมขังทันที',
+        hashtags: ['#กรุงเทพมหานคร', '#PRBangkok', '#น้ำท่วมกทม']
+      },
+      {
+        id: 'fb-6',
+        pageKey: 'rio3',
+        pageName: 'สำนักงานชลประทานที่ 3 (พิษณุโลก-สุโขทัย)',
+        pageHandle: '@rio3.rid',
+        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
+        avatarBg: 'bg-cyan-600',
+        tag: 'ต้นน้ำยม-น่าน • บางระกำโมเดล',
+        badgeClass: 'border-cyan-500/40 text-cyan-300 bg-cyan-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 85).toISOString(),
+        content: '⛰️ รายงานบริหารจัดการน้ำหลากภาคเหนือตอนล่าง: เร่งผันน้ำหลากจากแม่น้ำยม จ.สุโขทัย เข้าสู่ "ทุ่งบางระกำโมเดล" จ.พิษณุโลก ปัจจุบันรับน้ำเข้าทุ่งแล้วกว่า 42.5% ช่วยหน่วงยอดน้ำหลากได้กว่า 180 ล้าน ลบ.ม. ลดผลกระทบไม่ให้น้ำหลากไหลหลงสู่นครสวรรค์พร้อมกัน',
+        hashtags: ['#ชลประทานที่3', '#บางระกำโมเดล', '#ลุ่มน้ำยม']
+      },
+      {
+        id: 'fb-7',
+        pageKey: 'rattanavudh',
+        pageName: 'มูลนิธิขุนรัตนาวุธ กาญจนบุรี',
+        pageHandle: '@ขุนรัตนาวุธ',
+        pageUrl: 'https://www.facebook.com/profile.php?id=100082320879046',
+        avatarBg: 'bg-teal-600',
+        tag: 'ตอบโต้ภัยพิบัติ • กาญจนบุรี',
+        badgeClass: 'border-teal-500/40 text-teal-300 bg-teal-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 115).toISOString(),
+        content: '🚨 ทีมกู้ภัยมูลนิธิขุนรัตนาวุธจัดทีมอาสาสมัครพร้อมเรือท้องแบนและเครื่องยนต์เฝ้าระวังพื้นที่ลุ่มต่ำริมแม่น้ำแควน้อยและแควใหญ่ สภาพน้ำไหลปกติ ตลิ่งยังรองรับได้ดี พร้อมสนับสนุนช่วยเหลือประชาชนตลอด 24 ชั่วโมง',
+        hashtags: ['#มูลนิธิขุนรัตนาวุธ', '#กู้ภัยกาญจนบุรี', '#เฝ้าระวังน้ำท่วม']
+      },
+      {
+        id: 'fb-8',
         pageKey: 'tmd',
         pageName: 'กรมอุตุนิยมวิทยา',
         pageHandle: '@tmd.go.th',
         pageUrl: 'https://www.facebook.com/tmd.go.th',
-        avatarBg: 'bg-sky-600',
+        avatarBg: 'bg-indigo-600',
         tag: 'พยากรณ์อากาศและเตือนภัย',
-        badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 70).toISOString(),
-        content: '⛈️ พยากรณ์อากาศ 24 ชั่วโมงข้างหน้า: ภาคเหนือตอนล่างและภาคกลางมีฝนตกหนักบางแห่ง ขอให้ประชาชนในพื้นที่เสี่ยงระวังน้ำท่วมฉับพลันและน้ำป่าไหลหลาก โดยเฉพาะลุ่มน้ำยมและลุ่มน้ำปิง',
+        badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 140).toISOString(),
+        content: '⛈️ พยากรณ์อากาศ 24 ชั่วโมงข้างหน้า: ร่องมรสุมพาดผ่านภาคเหนือตอนล่าง ภาคกลาง และภาคตะวันออก ส่งผลให้มีฝนตกหนักบางแห่งในพื้นที่ กทม. ปริมณฑล พระนครศรีอยุธยา ปราจีนบุรี ฉะเชิงเทรา และชลบุรี ขอให้ระวังน้ำท่วมฉับพลันและน้ำล้นตลิ่ง',
         hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#เตือนภัยฝนตกหนัก']
       },
       {
-        id: 'fb-5',
+        id: 'fb-9',
+        pageKey: 'chachoengsao',
+        pageName: 'สำนักงาน ปภ. จังหวัดฉะเชิงเทรา',
+        pageHandle: '@DisasterChachoengsao',
+        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
+        avatarBg: 'bg-purple-600',
+        tag: 'ลุ่มน้ำบางปะกง • ภาคตะวันออก',
+        badgeClass: 'border-purple-500/40 text-purple-300 bg-purple-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 175).toISOString(),
+        content: '🌊 ติดตามระดับน้ำแม่น้ำบางปะกงและการระบายน้ำ: ประสานงานโครงการส่งน้ำและบำรุงรักษาพระองค์ไชยานุชิต เร่งสูบระบายน้ำผันจาก กทม. ฝั่งตะวันออก ออกสู่อ่าวไทยผ่านสถานีสูบน้ำคลองด่านและปากแม่น้ำบางปะกงอย่างต่อเนื่อง',
+        hashtags: ['#ปภฉะเชิงเทรา', '#แม่น้ำบางปะกง', '#ระบายน้ำภาคตะวันออก']
+      },
+      {
+        id: 'fb-10',
         pageKey: 'morning3',
         pageName: 'เรื่องเล่าเช้านี้',
         pageHandle: '@MorningNewsTV3',
         pageUrl: 'https://www.facebook.com/MorningNewsTV3',
         avatarBg: 'bg-rose-600',
-        tag: 'ข่าวสารสถานการณ์น้ำ',
+        tag: 'เกาะติดสถานการณ์น้ำระดับประเทศ',
         badgeClass: 'border-rose-500/40 text-rose-300 bg-rose-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 140).toISOString(),
-        content: '🔴 เกาะติดสถานการณ์น้ำเหนือ: กรมชลประทานบริหารจัดการน้ำทุ่งบางระกำเพื่อหน่วงน้ำหลากจากสุโขทัย พร้อมคุมการระบายน้ำเขื่อนเจ้าพระยาเพื่อไม่ให้กระทบต่อพื้นที่ท้ายน้ำในลุ่มเจ้าพระยาและ กทม.',
-        hashtags: ['#เรื่องเล่าเช้านี้', '#ข่าวช่อง3', '#น้ำท่วมภาคเหนือ']
+        timestamp: new Date(nowTime - 1000 * 60 * 210).toISOString(),
+        content: '🔴 สรุปภาพรวมสถานการณ์น้ำทั่วประเทศ: กรมชลประทานบริหารจัดการน้ำเชื่อมต่อเป็นโครงข่าย ตั้งแต่การกักเก็บน้ำเหนือเขื่อนภูมิพล-สิริกิติ์ การผันน้ำเข้าทุ่งบางระกำ และการควบคุมการระบายน้ำผ่านเขื่อนเจ้าพระยา เพื่อไม่ให้กระทบต่อ กทม. และชุมชนริมน้ำ',
+        hashtags: ['#เรื่องเล่าเช้านี้', '#ข่าวช่อง3', '#น้ำท่วม2569']
       }
     ];
 
@@ -829,7 +895,7 @@
     // ==================== 6. เรนเดอร์ FACEBOOK TIMELINE ====================
     function setFbFilter(key) {
       activeFbPage = key;
-      const filters = ['all', 'rio13', 'maeklong', 'rattanavudh', 'js100', 'tmd', 'morning3', 'bma'];
+      const filters = ['all', 'fm91', 'js100', 'prbkk', 'rio12', 'rio13', 'rio3', 'rattanavudh', 'chachoengsao', 'tmd', 'morning3'];
       filters.forEach(k => {
         const btn = document.getElementById(`fb-filter-${k}`);
         if (!btn) return;
@@ -868,7 +934,7 @@
       const countText = document.getElementById('fbTimelineCountText');
       if (countText) countText.innerText = `พบทั้งหมด ${filtered.length} โพสต์ (เรียงตามเวลาล่าสุด)`;
       const badge = document.getElementById('fbTimelineBadge');
-      if (badge) badge.innerText = `${rawPosts.length} โพสต์`;
+      if (badge) badge.innerText = `${rawPosts.length} โพสต์สด`;
 
       container.innerHTML = '';
 
@@ -1237,7 +1303,7 @@
       });
     }
 
-    // เริ่มทำงานทันที
+    // เริ่มต้นทำงานทันที
     initMap();
     renderStations();
     renderFbTimeline();
