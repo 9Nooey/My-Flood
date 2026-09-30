@@ -38,12 +38,13 @@ function parseRss(xmlText, defaultProvince) {
     const fullText = (title + ' ' + desc).toLowerCase();
     let province = defaultProvince;
 
-    if (fullText.includes('ลาดพร้าว') || fullText.includes('มีนบุรี') || fullText.includes('หนองจอก') || 
-        fullText.includes('ประเวศ') || fullText.includes('แสนแสบ') || fullText.includes('ลาดกระบัง')) {
-      province = 'bkk-east';
-    } else if (fullText.includes('ทวีวัฒนา') || fullText.includes('บางกอกน้อย') || fullText.includes('ตลิ่งชัน') || 
-               fullText.includes('ภาษีเจริญ') || fullText.includes('บางแค') || fullText.includes('ธนบุรี') || fullText.includes('มหาสวัสดิ์')) {
-      province = 'bkk-west';
+    // ตรวจจับข่าว กทม. รวมเป็นกลุ่มเดียว
+    if (fullText.includes('กรุงเทพ') || fullText.includes('กทม') || fullText.includes('แสนแสบ') || 
+        fullText.includes('ลาดพร้าว') || fullText.includes('มีนบุรี') || fullText.includes('หนองจอก') || 
+        fullText.includes('ประเวศ') || fullText.includes('ทวีวัฒนา') || fullText.includes('บางกอกน้อย') || 
+        fullText.includes('ตลิ่งชัน') || fullText.includes('ภาษีเจริญ') || fullText.includes('บางแค') || 
+        fullText.includes('พระโขนง') || fullText.includes('มหาสวัสดิ์')) {
+      province = 'bangkok';
     } else if (fullText.includes('กาญจนบุรี') || fullText.includes('ศรีนครินทร์') || fullText.includes('วชิราลงกรณ') || 
                fullText.includes('แม่กลอง') || fullText.includes('ไทรโยค')) {
       province = 'kanchanaburi';
@@ -78,12 +79,11 @@ function parseRss(xmlText, defaultProvince) {
 
 async function fetchAllRealtimeNews() {
   const feeds = [
-    { province: 'bkk-east', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR ระบายน้ำ ลาดพร้าว OR มีนบุรี OR หนองจอก OR แสนแสบ') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'bkk-west', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR ระบายน้ำ ทวีวัฒนา OR ตลิ่งชัน OR บางกอกน้อย OR ภาษีเจริญ') + '&hl=th&gl=TH&ceid=TH:th' },
+    { province: 'bangkok', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR ระบายน้ำ กรุงเทพ OR กทม OR แสนแสบ OR ลาดพร้าว OR ทวีวัฒนา') + '&hl=th&gl=TH&ceid=TH:th' },
     { province: 'prachinburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ปราจีนบุรี OR กบินทร์บุรี OR ศรีมหาโพธิ') + '&hl=th&gl=TH&ceid=TH:th' },
     { province: 'kanchanaburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR เขื่อน กาญจนบุรี OR แม่น้ำแม่กลอง') + '&hl=th&gl=TH&ceid=TH:th' },
     { province: 'chonburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ชลบุรี OR พัทยา OR บางแสน OR ศรีราชา') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'bkk-east', url: 'https://news.thaipbs.or.th/rss/disaster.xml' }
+    { province: 'bangkok', url: 'https://news.thaipbs.or.th/rss/disaster.xml' }
   ];
 
   let collectedNews = [];
@@ -141,36 +141,37 @@ async function updateWaterData() {
       bangSaiStatus: bangSaiFlow > 2500 ? 'critical' : (bangSaiFlow > 2000 ? 'warning' : 'normal'),
       seaLevelRise: `+${seaLevel} ม. รทก.`,
       peakSeaTime: '18:45 น.',
-      rainStatus: hour > 13 && hour < 20 ? 'มีกลุ่มฝนฟ้าคะนองในพื้นที่ปริมณฑลและภาคตะวันออก' : 'ตรวจพบเมฆฝนเบาบางบางพื้นที่'
+      rainStatus: hour > 13 && hour < 20 ? 'มีกลุ่มฝนฟ้าคะนองในพื้นที่ กทม. และปริมณฑล' : 'ตรวจพบเมฆฝนเบาบางบางพื้นที่'
     },
     news: liveNews.length > 0 ? liveNews : [
       {
         id: 'FB01',
-        province: 'prachinburi',
-        title: 'ปภ. ปราจีนบุรี เฝ้าระวังน้ำล้นตลิ่ง อ.กบินทร์บุรี ต่อเนื่อง',
+        province: 'bangkok',
+        title: 'กทม. เร่งพร่องน้ำคลองสายหลักและเดินเครื่องสูบน้ำสถานีพระโขนง',
         date: now.toISOString(),
-        source: 'กรมป้องกันและบรรเทาสาธารณภัย',
-        link: 'https://www.disaster.go.th',
-        level: 'warning',
-        summary: 'ระดับน้ำในแม่น้ำปราจีนบุรีเพิ่มสูงขึ้นต่อเนื่องจากฝนสะสมบริเวณอุทยานแห่งชาติเขาใหญ่'
+        source: 'สำนักการระบายน้ำ กทม.',
+        link: 'https://dds.bangkok.go.th',
+        level: 'info',
+        summary: 'เร่งลดระดับน้ำในคลองแสนแสบ คลองลาดพร้าว และคลองทวีวัฒนา เพื่อเตรียมรองรับปริมาณน้ำฝน'
       }
     ],
+    // สถานีตรวจวัดน้ำใน กทม. รวมอยู่ในโซน 'bangkok' ทั้งหมด
     stations: [
       {
-        id: 'BKK_E01',
+        id: 'BKK_01',
         name: 'คลองแสนแสบ (ประตูระบายน้ำมีนบุรี)',
-        zone: 'bkk-east',
+        zone: 'bangkok',
         lat: 13.8138,
         lng: 100.7483,
         waterLevel: +(0.85 + minuteDrift).toFixed(2),
         bankLevel: 1.20,
         status: (0.85 + minuteDrift) > 1.10 ? 'warning' : 'normal',
-        description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม'
+        description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม (โซนตะวันออก)'
       },
       {
-        id: 'BKK_E02',
+        id: 'BKK_02',
         name: 'คลองลาดพร้าว (วัดสว่างโสภณ)',
-        zone: 'bkk-east',
+        zone: 'bangkok',
         lat: 13.8211,
         lng: 100.5982,
         waterLevel: +(1.44 + minuteDrift).toFixed(2),
@@ -179,26 +180,37 @@ async function updateWaterData() {
         description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มกำลัง'
       },
       {
-        id: 'BKK_W01',
+        id: 'BKK_03',
         name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)',
-        zone: 'bkk-west',
+        zone: 'bangkok',
         lat: 13.7854,
         lng: 100.3541,
         waterLevel: +(1.82 + minuteDrift).toFixed(2),
         bankLevel: 2.10,
         status: 'warning',
-        description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม'
+        description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม (โซนตะวันตก)'
       },
       {
-        id: 'BKK_W02',
+        id: 'BKK_04',
         name: 'คลองมหาสวัสดิ์ (ประตูน้ำฉิมพลี)',
-        zone: 'bkk-west',
+        zone: 'bangkok',
         lat: 13.8012,
         lng: 100.4325,
         waterLevel: +(1.60 + minuteDrift).toFixed(2),
         bankLevel: 2.00,
         status: 'normal',
-        description: 'ผันน้ำลงสู่แม่น้ำท่าจีน'
+        description: 'จุดผันน้ำออกสู่แม่น้ำท่าจีน (โซนตะวันตก)'
+      },
+      {
+        id: 'BKK_05',
+        name: 'สถานีสูบน้ำพระโขนง',
+        zone: 'bangkok',
+        lat: 13.7088,
+        lng: 100.5958,
+        waterLevel: +(-0.15 + minuteDrift).toFixed(2),
+        bankLevel: 1.00,
+        status: 'normal',
+        description: 'สถานีสูบน้ำหลักระบายลงสู่แม่น้ำเจ้าพระยา'
       },
       {
         id: 'KAN_01',
