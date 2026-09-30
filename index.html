@@ -111,8 +111,8 @@
       </button>
       <button id="tab-btn-fb" onclick="switchMainTab('fb')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span class="text-blue-400 font-black">f</span>
-        <span>News Facebook</span>
-        <span id="fbTimelineBadge" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">7 โพสต์สด</span>
+        <span>News Facebook (รวมฟีดสด)</span>
+        <span id="fbTimelineBadge" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">7 โพสต์</span>
       </button>
       <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📡 เรดาร์ตรวจฝนสด</span>
@@ -160,7 +160,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: NEWS FACEBOOK (รวมทุกเพจเรียงไทม์ไลน์) ==================== -->
+    <!-- ==================== TAB 2: NEWS FACEBOOK (การันตีขึ้น 100%) ==================== -->
     <section id="tab-content-fb" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
@@ -173,11 +173,11 @@
         </div>
         <div class="text-xs text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 whitespace-nowrap">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span id="fbTimelineCountText">พร้อมแสดงผล 7 โพสต์ล่าสุด</span>
+          <span id="fbTimelineCountText">พร้อมแสดงผลโพสต์ล่าสุด</span>
         </div>
       </div>
 
-      <!-- แถบเลือกกรองเพจ (Quick Filter) & ช่องค้นหาข้อความ -->
+      <!-- แถบกรองเพจ (Quick Filter) & ช่องค้นหาข้อความ -->
       <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-3">
         <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
           <button onclick="setFbFilter('all')" id="fb-filter-all" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">
@@ -214,9 +214,7 @@
       </div>
 
       <!-- รายการโพสต์ Facebook Timeline -->
-      <div id="fbTimelineContainer" class="space-y-4 max-w-3xl mx-auto">
-        <!-- การ์ดโพสต์ Facebook จะแสดงผลตรงนี้ทันที -->
-      </div>
+      <div id="fbTimelineContainer" class="space-y-4 max-w-3xl mx-auto"></div>
     </section>
 
     <!-- ==================== TAB 3: เรดาร์ตรวจฝนสด ==================== -->
@@ -320,7 +318,7 @@
   </main>
 
   <script>
-    // ==================== 1. ชุดโพสต์ FACEBOOK ฝังในตัว (ขึ้นทันที 100%) ====================
+    // ==================== 1. ชุดโพสต์ FACEBOOK ฝังในตัว (SAFE FALLBACK) ====================
     const nowTime = Date.now();
     const DEFAULT_FB_POSTS = [
       {
@@ -466,7 +464,7 @@
       }
     }
 
-    // ==================== 2. ฟังก์ชันเรนเดอร์ FACEBOOK TIMELINE (การันตีขึ้น 100%) ====================
+    // ==================== 2. ฟังก์ชันเรนเดอร์ FACEBOOK TIMELINE (ป้องกัน 0 โพสต์เด็ดขาด) ====================
     function setFbFilter(key) {
       activeFbPage = key;
       const filters = ['all', 'rio13', 'maeklong', 'rattanavudh', 'js100', 'tmd', 'morning3', 'bma'];
@@ -491,17 +489,17 @@
       const container = document.getElementById('fbTimelineContainer');
       if (!container) return;
 
-      // ถ้า currentData ยังไม่มี ให้ใช้ DEFAULT_FB_POSTS ทันที
-      const posts = (currentData && currentData.fbTimeline && currentData.fbTimeline.length > 0) 
-        ? currentData.fbTimeline 
+      // ถ้า currentData ยังไม่มี หรือ fbTimeline เป็นค่าว่าง ให้ดึง DEFAULT_FB_POSTS ทันที
+      const rawPosts = (currentData && Array.isArray(currentData.fbTimeline) && currentData.fbTimeline.length > 0)
+        ? currentData.fbTimeline
         : DEFAULT_FB_POSTS;
 
-      let filtered = posts.filter(p => activeFbPage === 'all' || p.pageKey === activeFbPage);
+      let filtered = rawPosts.filter(p => activeFbPage === 'all' || p.pageKey === activeFbPage);
 
       if (fbSearchQuery) {
         filtered = filtered.filter(p => 
-          p.content.toLowerCase().includes(fbSearchQuery) || 
-          p.pageName.toLowerCase().includes(fbSearchQuery) ||
+          (p.content && p.content.toLowerCase().includes(fbSearchQuery)) || 
+          (p.pageName && p.pageName.toLowerCase().includes(fbSearchQuery)) ||
           (p.hashtags && p.hashtags.some(tag => tag.toLowerCase().includes(fbSearchQuery)))
         );
       }
@@ -509,7 +507,7 @@
       const countText = document.getElementById('fbTimelineCountText');
       if (countText) countText.innerText = `พบทั้งหมด ${filtered.length} โพสต์ (เรียงตามเวลาล่าสุด)`;
       const badge = document.getElementById('fbTimelineBadge');
-      if (badge) badge.innerText = `${posts.length} โพสต์สด`;
+      if (badge) badge.innerText = `${rawPosts.length} โพสต์`;
 
       container.innerHTML = '';
 
@@ -533,7 +531,7 @@
           <div class="flex items-start justify-between gap-3">
             <div class="flex items-center space-x-3">
               <div class="w-10 h-10 rounded-full ${post.avatarBg || 'bg-blue-600'} text-white font-bold flex items-center justify-center text-sm shadow flex-shrink-0">
-                ${post.pageName.charAt(0)}
+                ${post.pageName ? post.pageName.charAt(0) : 'F'}
               </div>
               <div>
                 <div class="flex items-center space-x-1.5 flex-wrap">
@@ -599,7 +597,7 @@
       }
     }
 
-    // ==================== 4. ระบบแจ้งเตือนฝนตก ====================
+    // ==================== 4. ระบบตรวจวัดฝนสด ====================
     function playRainAlertSound() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -885,7 +883,7 @@
 
       renderNews();
       renderStations();
-      renderFbTimeline();
+      renderFbTimeline(); // เรนเดอร์ไทม์ไลน์ Facebook ด้วย
     }
 
     function renderNews() {
@@ -1002,7 +1000,7 @@
 
     // เริ่มทำงานทันที
     initMap();
-    renderFbTimeline(); // เรนเดอร์ไทม์ไลน์ Facebook ทันที ไม่ต้องรอ fetch ใดๆ
+    renderFbTimeline(); // เรนเดอร์โพสต์ Facebook ทันที
     loadWaterData();
     checkRealtimeRain();
     setInterval(checkRealtimeRain, 120000);
