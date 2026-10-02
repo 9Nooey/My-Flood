@@ -42,7 +42,7 @@
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
-    <!-- แถบแจ้งเตือนฝนตกสดเจาะจงรายเขต & คาดการณ์ล่วงหน้า -->
+    <!-- 🚨 แถบแจ้งเตือนฝนตกสดเจาะจงรายเขต & คาดการณ์ล่วงหน้า -->
     <div class="space-y-2">
       <div id="liveRainBanner" class="hidden p-3.5 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-rose-950/50 border-rose-600/70 shadow-lg">
         <div class="flex items-center gap-2.5">
@@ -73,7 +73,7 @@
           <span class="text-base">☀️</span>
           <div>
             <span class="font-bold text-emerald-300">สถานะกลุ่มฝน:</span>
-            <span class="text-slate-300 ml-1">สแกน 21 พิกัดเจาะลึก สภาพอากาศปกติ ยังไม่พบกลุ่มฝน</span>
+            <span class="text-slate-300 ml-1">สแกน 21 พิกัดเจาะลึก (กทม. รายเขต & ต่างจังหวัด) สภาพอากาศปกติ ยังไม่พบกลุ่มฝน</span>
           </div>
         </div>
         <span class="text-[10px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-full font-medium">ตรวจวัดทุก 2 นาที</span>
@@ -131,7 +131,7 @@
       </div>
     </div>
 
-    <!-- แถบเมนูแท็บหลัก (6 แท็บ) -->
+    <!-- แถบเมนูแท็บหลัก (เหลือ 6 แท็บหลัก) -->
     <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
       <button id="tab-btn-map" onclick="switchMainTab('map')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap">
         <span>🗺️ แผนที่น้ำ & ลำน้ำ</span>
@@ -165,7 +165,7 @@
         <div class="flex items-center gap-2 overflow-x-auto pb-1">
           <button onclick="setZoneFilter('all')" id="btn-all" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow">ทั้งหมด</button>
           <button onclick="setZoneFilter('north')" id="btn-north" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
-            ⛰️ ภาคเหนือ
+            ⛰️ ภาคเหนือ (ต้นน้ำ)
           </button>
           <button onclick="setZoneFilter('chaopraya')" id="btn-chaopraya" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
             🌊 ลุ่มน้ำเจ้าพระยา
@@ -269,7 +269,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 4: NEWS FACEBOOK (อัปเดตเพจตามสั่ง) ==================== -->
+    <!-- ==================== TAB 4: NEWS FACEBOOK (เพิ่ม วันนี้ฝนตกไหม) ==================== -->
     <section id="tab-content-fb" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
@@ -277,7 +277,7 @@
             <span class="text-blue-500 font-black text-xl">f</span> รวมฟีด Facebook ไทม์ไลน์สด
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">
-            รวมรายงานสดจาก สรยุทธ กรรมกรข่าว, กรมอุตุฯ, ปชส.ปราจีนบุรี, สวพ.91, JS100, ชลประทาน 12-13
+            วันนี้ฝนตกไหม, สรยุทธ, กรมอุตุฯ, สวพ.91, JS100, ปภ.ปราจีนบุรี, ชลประทาน
           </p>
         </div>
         <div class="text-xs text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 whitespace-nowrap">
@@ -287,9 +287,13 @@
       </div>
 
       <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-3">
+        <!-- แถบปุ่มกรอง Facebook ใหม่ (เพิ่ม "วันนี้ฝนตกไหม") -->
         <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
           <button onclick="setFbFilter('all')" id="fb-filter-all" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">
             ทั้งหมด (เรียงตามเวลา)
+          </button>
+          <button onclick="setFbFilter('wanneefontokmai')" id="fb-filter-wanneefontokmai" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
+            วันนี้ฝนตกไหม
           </button>
           <button onclick="setFbFilter('sorrayuth')" id="fb-filter-sorrayuth" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
             สรยุทธ กรรมกรข่าว
@@ -309,14 +313,11 @@
           <button onclick="setFbFilter('rio12')" id="fb-filter-rio12" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
             ชลประทาน 12
           </button>
-          <button onclick="setFbFilter('rio13')" id="fb-filter-rio13" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ชลประทาน 13
-          </button>
         </div>
 
         <div class="relative w-full">
           <input type="text" id="fbSearchInput" oninput="handleFbSearch(this.value)" 
-                 placeholder="🔍 พิมพ์ค้นหาข้อความในโพสต์ เช่น น้ำท่วม, พยากรณ์อากาศ, เขื่อนเจ้าพระยา..." 
+                 placeholder="🔍 พิมพ์ค้นหาข้อความในโพสต์ เช่น น้ำท่วม, พยากรณ์อากาศ, แจ้งเตือน..." 
                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
         </div>
       </div>
@@ -368,7 +369,7 @@
   </main>
 
   <script>
-    // ==================== 1. ชุดข้อมูลสำรอง (SAFE FALLBACK 100%) ====================
+    // ==================== 1. ชุดข้อมูลสำรองจราจร ====================
     const nowTime = Date.now();
     const DEFAULT_TRAFFIC_ALERTS = [
       {
@@ -421,8 +422,21 @@
       }
     ];
 
-    // โพสต์ Facebook ตัวอย่างครบทุกเพจ 100%
+    // โพสต์ Facebook ตัวอย่าง (เพิ่ม วันนี้ฝนตกไหม)
     const DEFAULT_FB_POSTS = [
+      {
+        id: 'fb-post-wannee',
+        pageKey: 'wanneefontokmai',
+        pageName: 'วันนี้ฝนตกไหม',
+        pageHandle: '@wanneefontokmai',
+        pageUrl: 'https://www.facebook.com/wanneefontokmai',
+        avatarBg: 'bg-sky-500',
+        tag: 'เรดาร์ฝน กทม.',
+        badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 4).toISOString(),
+        content: '☔️ เรดาร์ กทม. อัปเดตล่าสุด: กลุ่มฝนกำลังเคลื่อนตัวเข้าสู่พื้นที่ กทม. ชั้นใน (พญาไท, ดินแดง, จตุจักร) และฝั่งธนบุรี เตรียมตัวเปียกได้เลยครับ เลิกงานรีบกลับบ้านด่วน!',
+        hashtags: ['#วันนี้ฝนตกไหม', '#เรดาร์กทม', '#ฝนตก']
+      },
       {
         id: 'fb-post-sorrayuth',
         pageKey: 'sorrayuth',
@@ -432,9 +446,22 @@
         avatarBg: 'bg-red-600',
         tag: 'ด่วน! สถานการณ์น้ำ',
         badgeClass: 'border-red-500/40 text-red-300 bg-red-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 6).toISOString(),
+        timestamp: new Date(nowTime - 1000 * 60 * 9).toISOString(),
         content: '🔴 ด่วน! กรมชลประทานแจ้งเตือนมวลน้ำหลากก้อนใหญ่จากภาคเหนือตอนล่างกำลังเคลื่อนตัวเข้าสู่ลุ่มน้ำเจ้าพระยา ขอให้ประชาชนที่อาศัยอยู่ริมแม่น้ำ 7 จังหวัดภาคกลาง ยกของขึ้นที่สูงและติดตามประกาศอย่างใกล้ชิด',
         hashtags: ['#สรยุทธสุทัศนะจินดา', '#กรรมกรข่าว', '#น้ำท่วม']
+      },
+      {
+        id: 'fb-post-fm91',
+        pageKey: 'fm91',
+        pageName: 'สวพ.91 (FM91 Trafficpro)',
+        pageHandle: '@fm91trafficpro',
+        pageUrl: 'https://www.facebook.com/fm91trafficpro',
+        avatarBg: 'bg-emerald-600',
+        tag: 'จราจร & น้ำท่วมถนน กทม.',
+        badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 15).toISOString(),
+        content: '🌧️ อัปเดตน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
+        hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจร']
       },
       {
         id: 'fb-post-tmd',
@@ -445,7 +472,7 @@
         avatarBg: 'bg-indigo-600',
         tag: 'ประกาศเตือนภัยอากาศ',
         badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 15).toISOString(),
+        timestamp: new Date(nowTime - 1000 * 60 * 25).toISOString(),
         content: '⛈️ พยากรณ์อากาศและเตือนภัย: ร่องมรสุมกำลังแรงพาดผ่านภาคเหนือตอนล่างและภาคกลาง ทำให้มีฝนตกหนักถึงหนักมาก ขอให้ประชาชนบริเวณดังกล่าวระวังอันตรายจากฝนตกสะสมที่อาจทำให้เกิดน้ำท่วมฉับพลัน',
         hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#ฝนตกหนัก']
       },
@@ -458,22 +485,22 @@
         avatarBg: 'bg-purple-600',
         tag: 'แจ้งเตือน ปราจีนบุรี',
         badgeClass: 'border-purple-500/40 text-purple-300 bg-purple-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 28).toISOString(),
+        timestamp: new Date(nowTime - 1000 * 60 * 40).toISOString(),
         content: '⚠️ ประกาศแจ้งเตือน! ระดับน้ำแม่น้ำปราจีนบุรี บริเวณ อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ มีแนวโน้มเพิ่มสูงขึ้นจากมวลน้ำป่า ขอให้ชาวชุมชนตลาดเก่ากบินทร์บุรีและพื้นที่ลุ่มต่ำเตรียมรับมือและเฝ้าระวังตลอด 24 ชั่วโมง',
         hashtags: ['#ประชาสัมพันธ์ปราจีนบุรี', '#น้ำท่วมปราจีนบุรี']
       },
       {
-        id: 'fb-post-fm91',
-        pageKey: 'fm91',
-        pageName: 'สวพ.91 (FM91 Trafficpro)',
-        pageHandle: '@fm91trafficpro',
-        pageUrl: 'https://www.facebook.com/fm91trafficpro',
-        avatarBg: 'bg-emerald-600',
-        tag: 'จราจร & น้ำท่วมถนน กทม.',
-        badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 35).toISOString(),
-        content: '🌧️ อัปเดตน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
-        hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจร']
+        id: 'fb-post-rio12',
+        pageKey: 'rio12',
+        pageName: 'สำนักงานชลประทานที่ 12',
+        pageHandle: '@rio12chainat',
+        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
+        avatarBg: 'bg-sky-600',
+        tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
+        badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
+        timestamp: new Date(nowTime - 1000 * 60 * 55).toISOString(),
+        content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที',
+        hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำ']
       },
       {
         id: 'fb-post-js100',
@@ -484,36 +511,34 @@
         avatarBg: 'bg-amber-600',
         tag: 'จราจร & เรดาร์ฝน',
         badgeClass: 'border-amber-500/40 text-amber-300 bg-amber-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 48).toISOString(),
+        timestamp: new Date(nowTime - 1000 * 60 * 75).toISOString(),
         content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน ถนนศรีนครินทร์และพหลโยธินบางช่วงมีน้ำท่วมขังเสมอทางเท้า',
         hashtags: ['#JS100', '#เรดาร์ฝน', '#น้ำท่วมขัง']
-      },
-      {
-        id: 'fb-post-rio12',
-        pageKey: 'rio12',
-        pageName: 'สำนักงานชลประทานที่ 12 (เขื่อนเจ้าพระยา)',
-        pageHandle: '@rio12chainat',
-        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
-        avatarBg: 'bg-sky-600',
-        tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
-        badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 65).toISOString(),
-        content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที',
-        hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำ']
-      },
-      {
-        id: 'fb-post-rio13',
-        pageKey: 'rio13',
-        pageName: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)',
-        pageHandle: '@RegionalIrrigationOffice13',
-        pageUrl: 'https://www.facebook.com/RegionalIrrigationOffice13',
-        avatarBg: 'bg-blue-600',
-        tag: 'ลุ่มน้ำแม่กลอง • กาญจนบุรี',
-        badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 85).toISOString(),
-        content: '📢 รายงานระดับน้ำแม่น้ำแม่กลอง: สภาพน้ำอยู่ในเกณฑ์ควบคุมได้ดี การบริหารจัดการน้ำเขื่อนแม่กลอง อ.ท่าม่วง ยังไม่ส่งผลกระทบต่อพื้นที่เกษตรและบ้านเรือนริมฝั่ง จ.กาญจนบุรี ราชบุรี',
-        hashtags: ['#ชลประทานที่13', '#แม่น้ำแม่กลอง', '#กาญจนบุรี']
       }
+    ];
+
+    // ==================== กู้คืนพิกัด 21 จุดตรวจฝนเจาะลึก ====================
+    const HYPERLOCAL_RAIN_GRID = [
+      { id: 'bkk-phayathai', zone: 'bangkok', name: 'เขตพญาไท/ราชเทวี/ดินแดง', lat: 13.778, lng: 100.542 },
+      { id: 'bkk-chatuchak', zone: 'bangkok', name: 'เขตจตุจักร/ลาดพร้าว', lat: 13.820, lng: 100.560 },
+      { id: 'bkk-bangna', zone: 'bangkok', name: 'เขตบางนา/พระโขนง', lat: 13.668, lng: 100.604 },
+      { id: 'bkk-bangkae', zone: 'bangkok', name: 'เขตบางแค/ภาษีเจริญ', lat: 13.712, lng: 100.407 },
+      { id: 'bkk-thawi', zone: 'bangkok', name: 'เขตทวีวัฒนา/ตลิ่งชัน', lat: 13.785, lng: 100.354 },
+      { id: 'bkk-minburi', zone: 'bangkok', name: 'เขตมีนบุรี/หนองจอก', lat: 13.814, lng: 100.748 },
+      { id: 'bkk-donmueang', zone: 'bangkok', name: 'เขตดอนเมือง/สายไหม', lat: 13.913, lng: 100.598 },
+      { id: 'north-sukhothai', zone: 'north', name: 'อ.เมืองสุโขทัย', lat: 17.009, lng: 99.824 },
+      { id: 'north-sawankhalok', zone: 'north', name: 'อ.สวรรคโลก', lat: 17.316, lng: 99.830 },
+      { id: 'north-bangrakam', zone: 'north', name: 'อ.บางระกำ', lat: 16.748, lng: 100.117 },
+      { id: 'cpr-nakhonsawan', zone: 'chaopraya', name: 'อ.เมืองนครสวรรค์', lat: 15.672, lng: 100.121 },
+      { id: 'cpr-chainat', zone: 'chaopraya', name: 'อ.สรรพยา (ชัยนาท)', lat: 15.158, lng: 100.183 },
+      { id: 'cpr-ayutthaya', zone: 'chaopraya', name: 'อ.บางไทร (อยุธยา)', lat: 14.135, lng: 100.505 },
+      { id: 'kan-muang', zone: 'kanchanaburi', name: 'อ.เมืองกาญจนบุรี', lat: 14.022, lng: 99.532 },
+      { id: 'kan-thamuang', zone: 'kanchanaburi', name: 'อ.ท่าม่วง', lat: 13.963, lng: 99.638 },
+      { id: 'pri-kabin', zone: 'prachinburi', name: 'อ.กบินทร์บุรี', lat: 13.992, lng: 101.717 },
+      { id: 'pri-muang', zone: 'prachinburi', name: 'อ.เมืองปราจีนบุรี', lat: 14.055, lng: 101.371 },
+      { id: 'cco-bangpakong', zone: 'prachinburi', name: 'อ.บางปะกง', lat: 13.687, lng: 101.077 },
+      { id: 'cho-muang', zone: 'chonburi', name: 'อ.เมืองชลบุรี/บางแสน', lat: 13.285, lng: 100.925 },
+      { id: 'cho-pattaya', zone: 'chonburi', name: 'เมืองพัทยา', lat: 12.924, lng: 100.871 }
     ];
 
     let map, markers = [];
@@ -525,10 +550,12 @@
     let activeTrafficFilter = 'all';
     let trafficSearchQuery = '';
     let notificationEnabled = false;
+    let lastRainingLocs = new Set();
+    let lastForecastLocs = new Set();
 
     const ZONE_NAMES = {
-      'north': 'ภาคเหนือ (ต้นน้ำเจ้าพระยา)',
-      'chaopraya': 'ลุ่มน้ำเจ้าพระยา (สายหลัก)',
+      'north': 'ภาคเหนือ (ต้นน้ำ)',
+      'chaopraya': 'ลุ่มน้ำเจ้าพระยา',
       'bangkok': 'กรุงเทพมหานคร',
       'kanchanaburi': 'กาญจนบุรี',
       'prachinburi': 'ปราจีนบุรี',
@@ -723,10 +750,11 @@
       iframe.src = `${currentSrc}?t=${Date.now()}`;
     }
 
-    // ==================== 4. เรนเดอร์ Facebook Timeline (รวมสรยุทธ, กรมอุตุฯ, ปชส.ปราจีนบุรี) ====================
+    // ==================== 4. เรนเดอร์ Facebook Timeline ====================
     function setFbFilter(key) {
       activeFbPage = key;
-      ['all', 'sorrayuth', 'tmd', 'prdprachin', 'fm91', 'js100', 'rio12', 'rio13'].forEach(k => {
+      // เพิ่ม wanneefontokmai ในปุ่มกรอง
+      ['all', 'wanneefontokmai', 'sorrayuth', 'tmd', 'prdprachin', 'fm91', 'js100', 'rio12', 'rio13'].forEach(k => {
         const btn = document.getElementById(`fb-filter-${k}`);
         if (!btn) return;
         if (k === key) {
@@ -873,7 +901,166 @@
       renderStations();
     }
 
-    // ==================== 6. โหลดข้อมูล & เริ่มต้นทำงาน ====================
+    // ==================== 6. ตรวจจับฝนตกสด (แก้ไขให้แสดงผล ไม่ค้าง 100%) ====================
+    function playRainAlertSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.6);
+      } catch (e) {}
+    }
+
+    function toggleRainNotification() {
+      if (!("Notification" in window)) return;
+      Notification.requestPermission().then(p => {
+        if (p === 'granted') {
+          notificationEnabled = true;
+          document.getElementById('notifyText').innerText = 'เปิดแจ้งเตือนแล้ว';
+        }
+      });
+    }
+
+    async function checkHyperlocalRain() {
+      try {
+        const latList = HYPERLOCAL_RAIN_GRID.map(z => z.lat).join(',');
+        const lngList = HYPERLOCAL_RAIN_GRID.map(z => z.lng).join(',');
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latList}&longitude=${lngList}&current=precipitation,rain,weather_code&hourly=precipitation,precipitation_probability&forecast_hours=4&timezone=Asia%2FBangkok`;
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('API Response Error');
+
+        const data = await res.json();
+        const results = Array.isArray(data) ? data : [data];
+
+        const liveRainingLocs = [];
+        const forecastLocs = [];
+        const currentRainingSet = new Set();
+        const currentForecastSet = new Set();
+
+        results.forEach((item, index) => {
+          const loc = HYPERLOCAL_RAIN_GRID[index];
+          if (!loc) return;
+
+          const current = item.current || {};
+          const precip = current.precipitation || current.rain || 0;
+          const wCode = current.weather_code || 0;
+          const isRainingNow = precip > 0.1 || [51, 53, 55, 61, 63, 65, 80, 81, 82, 95, 96, 99].includes(wCode);
+
+          if (isRainingNow) {
+            currentRainingSet.add(loc.id);
+            let intensity = 'ฝนตกเล็กน้อย';
+            if (precip >= 10.0) intensity = 'ฝนตกหนักมาก';
+            else if (precip >= 4.0) intensity = 'ฝนตกหนัก';
+            else if (precip >= 1.0) intensity = 'ฝนตกปานกลาง';
+            liveRainingLocs.push({ name: loc.name, intensity: intensity, precip: precip });
+          }
+
+          if (!isRainingNow && item.hourly && item.hourly.precipitation) {
+            const next1hPrecip = item.hourly.precipitation[1] || 0;
+            const next2hPrecip = item.hourly.precipitation[2] || 0;
+            const prob1 = (item.hourly.precipitation_probability && item.hourly.precipitation_probability[1]) || 0;
+            const prob2 = (item.hourly.precipitation_probability && item.hourly.precipitation_probability[2]) || 0;
+
+            if (next1hPrecip >= 0.3 || next2hPrecip >= 0.5 || prob1 >= 60 || prob2 >= 65) {
+              currentForecastSet.add(loc.id);
+              const maxProb = Math.max(prob1, prob2, 60);
+              forecastLocs.push({ name: loc.name, prob: maxProb, inHours: next1hPrecip >= 0.3 ? '1 ชั่วโมง' : '1-2 ชั่วโมง' });
+            }
+          }
+        });
+
+        const liveBanner = document.getElementById('liveRainBanner');
+        const liveDesc = document.getElementById('liveRainDesc');
+        const forecastBanner = document.getElementById('forecastRainBanner');
+        const forecastDesc = document.getElementById('forecastRainDesc');
+        const normalBanner = document.getElementById('normalRainBanner');
+        const cardRain = document.getElementById('rainStatus');
+        const cardRainSub = document.getElementById('rainStatusSub');
+
+        if (liveRainingLocs.length > 0) {
+          liveBanner.classList.remove('hidden');
+          const liveText = liveRainingLocs.map(a => `${a.name} (${a.intensity} ${a.precip.toFixed(1)} มม./ชม.)`).join(' • ');
+          liveDesc.innerText = liveText;
+
+          cardRain.className = 'text-sm font-semibold text-rose-400 mt-1 leading-snug';
+          cardRain.innerText = `ฝนตกขณะนี้ใน ${liveRainingLocs.length} จุด`;
+          cardRainSub.innerText = liveRainingLocs.map(a => a.name.split('/')[0]).join(', ');
+
+          let hasNewLive = false;
+          currentRainingSet.forEach(id => { if (!lastRainingLocs.has(id)) hasNewLive = true; });
+          if (hasNewLive) {
+            playRainAlertSound();
+            if (notificationEnabled && Notification.permission === "granted") {
+              new Notification("🌧️ แจ้งเตือนตรวจพบฝนตกสด!", { body: `ขณะนี้ฝนกำลังตกที่: ${liveText}` });
+            }
+          }
+        } else {
+          liveBanner.classList.add('hidden');
+        }
+
+        if (forecastLocs.length > 0) {
+          forecastBanner.classList.remove('hidden');
+          const forecastText = forecastLocs.map(f => `${f.name} (ในอีก ${f.inHours}, โอกาส ${f.prob}%)`).join(' • ');
+          forecastDesc.innerText = `คาดว่าฝนจะเริ่มตกที่: ${forecastText}`;
+
+          if (liveRainingLocs.length === 0) {
+            cardRain.className = 'text-sm font-semibold text-amber-400 mt-1 leading-snug';
+            cardRain.innerText = `เตือนฝนล่วงหน้าใน ${forecastLocs.length} จุด`;
+            cardRainSub.innerText = forecastLocs.map(a => a.name.split('/')[0]).join(', ');
+          }
+
+          let hasNewForecast = false;
+          currentForecastSet.forEach(id => { if (!lastForecastLocs.has(id)) hasNewForecast = true; });
+          if (hasNewForecast && liveRainingLocs.length === 0) {
+            if (notificationEnabled && Notification.permission === "granted") {
+              new Notification("⏳ แจ้งเตือนล่วงหน้า: เมฆฝนกำลังเคลื่อนตัวเข้า!", { body: `คาดว่าฝนจะเริ่มตกในอีก 1-2 ชม. ที่: ${forecastText}` });
+            }
+          }
+        } else {
+          forecastBanner.classList.add('hidden');
+        }
+
+        if (liveRainingLocs.length === 0 && forecastLocs.length === 0) {
+          normalBanner.classList.remove('hidden');
+          cardRain.className = 'text-sm font-semibold text-emerald-400 mt-1 leading-snug';
+          cardRain.innerText = 'ทุกพื้นที่สภาพอากาศปกติ';
+          cardRainSub.innerText = 'สแกน 21 จุดเจาะลึก ไม่พบกลุ่มฝน';
+        } else {
+          normalBanner.classList.add('hidden');
+        }
+
+        const bkkBadge = document.getElementById('badge-rain-bangkok');
+        const bkkRainNow = liveRainingLocs.filter(l => l.name.includes('เขต'));
+        if (bkkBadge) {
+          if (bkkRainNow.length > 0) {
+            bkkBadge.classList.remove('hidden');
+            bkkBadge.innerText = `🌧️ ฝนตก (${bkkRainNow[0].name.split('/')[0].replace('เขต','')})`;
+          } else {
+            bkkBadge.classList.add('hidden');
+          }
+        }
+
+        lastRainingLocs = currentRainingSet;
+        lastForecastLocs = currentForecastSet;
+
+      } catch (err) {
+        console.warn('เช็กฝนรายจุดไม่สำเร็จ:', err);
+        // Error Handle ป้องกันการหมุนค้าง
+        document.getElementById('rainStatus').innerText = 'ตรวจพบข้อผิดพลาดของดาวเทียม';
+        document.getElementById('rainStatus').className = 'text-sm font-semibold text-rose-400 mt-1 leading-snug';
+      }
+    }
+
+    // ==================== 7. โหลดข้อมูลรวม & เริ่มต้น ====================
     async function loadWaterData() {
       try {
         const res = await fetch(`./data/water.json?nocache=${Date.now()}`, { cache: 'no-store' });
@@ -904,6 +1091,7 @@
       `;
       loadWaterData();
       reloadDiagram();
+      checkHyperlocalRain();
       renderTrafficAlerts();
       renderFbTimeline();
     }
@@ -919,21 +1107,13 @@
       renderFbTimeline();
     }
 
-    function toggleRainNotification() {
-      if (!("Notification" in window)) return;
-      Notification.requestPermission().then(p => {
-        if (p === 'granted') {
-          notificationEnabled = true;
-          document.getElementById('notifyText').innerText = 'เปิดแจ้งเตือนแล้ว';
-        }
-      });
-    }
-
     initMap();
     renderStations();
     renderTrafficAlerts();
-    renderFbTimeline(); // แสดงผลโพสต์ทันที 100%
+    renderFbTimeline(); 
+    checkHyperlocalRain(); // สแกนฝนทันทีเมื่อโหลดเว็บ
     loadWaterData();
+    setInterval(checkHyperlocalRain, 120000); // วนลูปเช็กฝนทุก 2 นาที
     setInterval(loadWaterData, 180000);
   </script>
 </body>
