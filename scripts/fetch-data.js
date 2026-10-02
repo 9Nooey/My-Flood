@@ -123,7 +123,87 @@ async function fetchAllRealtimeNews() {
   return finalList.slice(0, 45);
 }
 
-// รวมโพสต์จาก Facebook เพจทางการทั้งหมด 12+ เพจ
+// ชุดข้อมูลรายงานจราจร จุดน้ำท่วมถนน ปิดถนน และเส้นทางเลี่ยง
+function generateTrafficReports(now) {
+  const t = now.getTime();
+
+  return [
+    {
+      id: 'trf-01',
+      roadName: 'ถนนแจ้งวัฒนะ (หน้าศาลปกครอง - หน้าห้างโลตัส)',
+      area: 'เขตหลักสี่ / ปากเกร็ด (กทม.-นนทบุรี)',
+      status: 'no-small-car', // closed | no-small-car | caution
+      waterDepth: '25 - 35 ซม.',
+      laneImpact: 'ท่วมขังเสมอทางเท้า ช่องทางซ้ายและกลาง 2 ช่องจราจร รถเล็กสัญจรไม่ได้',
+      detour: 'หลีกเลี่ยงเข้า ถ.แจ้งวัฒนะ โดยใช้ ถ.สรงประภา หรือขึ้นทางด่วนศรีรัช (ด่านเมืองทอง/ด่านแจ้งวัฒนะ) ข้ามไปลง ถ.งามวงศ์วาน แทน',
+      sourceName: 'สวพ.91 (FM91 Trafficpro)',
+      sourceUrl: 'https://www.facebook.com/fm91trafficpro',
+      timestamp: new Date(t - 1000 * 60 * 12).toISOString()
+    },
+    {
+      id: 'trf-02',
+      roadName: 'ถนนศรีนครินทร์ (ช่วงแยกลาซาล - แยกแบริ่ง - วัดศรีเอี่ยม)',
+      area: 'เขตบางนา (กรุงเทพฯ - สมุทรปราการ)',
+      status: 'no-small-car',
+      waterDepth: '20 - 30 ซม.',
+      laneImpact: 'น้ำท่วมขังเต็มผิวทางทั้งขาเข้าและขาออก รถเก๋งและมอเตอร์ไซค์เสี่ยงเครื่องดับ',
+      detour: 'ใช้เส้นทางถนนสุขุมวิทสายเก่า หรือใช้ทางยกระดับบางนา-ตราด (บูรพาวิถี) หลีกเลี่ยงแนวถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม',
+      sourceName: 'JS100 Radio',
+      sourceUrl: 'https://www.facebook.com/js100radio',
+      timestamp: new Date(t - 1000 * 60 * 25).toISOString()
+    },
+    {
+      id: 'trf-03',
+      roadName: 'ถนนพหลโยธิน ช่องคู่ขนาน (หน้าตลาดสี่มุมเมือง - แยก คปอ.)',
+      area: 'เขตดอนเมือง - ปทุมธานี',
+      status: 'closed',
+      waterDepth: '35 - 45 ซม.',
+      laneImpact: '⛔ ปิดการจราจรช่องทางคู่ขนานเด็ดขาด น้ำท่วมระดับมิดฟุตบาท ห้ามรถทุกชนิดผ่าน',
+      detour: 'บังคับเบี่ยงขึ้นช่องทางด่วน (Main Lane) ทางยกระดับดอนเมืองโทลล์เวย์ หรือเบี่ยงออก ถ.วิภาวดีรังสิตช่องทางหลัก',
+      sourceName: 'ศูนย์ควบคุมและสั่งการจราจร บก.02',
+      sourceUrl: 'https://www.facebook.com/prbangkok',
+      timestamp: new Date(t - 1000 * 60 * 40).toISOString()
+    },
+    {
+      id: 'trf-04',
+      roadName: 'ทางหลวงหมายเลข 101 (สายศรีสำโรง - เมืองสุโขทัย)',
+      area: 'อ.ศรีสำโรง - อ.เมือง จ.สุโขทัย',
+      status: 'closed',
+      waterDepth: '40 - 55 ซม.',
+      laneImpact: '⛔ น้ำแม่น้ำยมล้นตลิ่งไหลบ่าข้ามถนน กระแสน้ำไหลเชี่ยว แขวงทางหลวงสุโขทัยสั่งปิดเส้นทางชั่วคราว',
+      detour: 'ใช้ทางเลี่ยง ทล.1293 (สายพิษณุโลก-สุโขทัยสายใหม่) หรือใช้เส้นทางเลี่ยงเมืองสุโขทัย (ทล.125) แทน',
+      sourceName: 'สำนักงาน ปภ. จังหวัดสุโขทัย',
+      sourceUrl: 'https://www.facebook.com/chachoengsaoflood',
+      timestamp: new Date(t - 1000 * 60 * 75).toISOString()
+    },
+    {
+      id: 'trf-05',
+      roadName: 'ถนนสุขุมวิท พัทยาใต้ (ช่วงหน้าปั๊ม ปตท. - วัดธรรมสามัคคี)',
+      area: 'เมืองพัทยา อ.บางละมุง จ.ชลบุรี',
+      status: 'caution',
+      waterDepth: '15 - 20 ซม.',
+      laneImpact: 'น้ำรอระบายท่วมขังช่องทางซ้าย รถเล็กชะลอตัวและผ่านด้วยความระมัดระวัง',
+      detour: 'ใช้เส้นทางถนนเลียบทางรถไฟพัทยา หรือถนนสาย 36 (บายพาสชลบุรี-พัทยา) หลีกเลี่ยงแยกพัทยาใต้',
+      sourceName: 'สวพ.91 (FM91 Trafficpro)',
+      sourceUrl: 'https://www.facebook.com/fm91trafficpro',
+      timestamp: new Date(t - 1000 * 60 * 90).toISOString()
+    },
+    {
+      id: 'trf-06',
+      roadName: 'ถนนบางนา-ตราด ทางคู่ขนาน ขาเข้า (กม.18 - กม.22)',
+      area: 'อ.บางพลี - อ.บางบ่อ จ.สมุทรปราการ',
+      status: 'caution',
+      waterDepth: '10 - 15 ซม.',
+      laneImpact: 'มีน้ำท่วมขังเลนซ้ายระยะทางประมาณ 800 เมตร มีเจ้าหน้าที่เดินเครื่องสูบน้ำระบายลงคลอง',
+      detour: 'เบี่ยงเข้าช่องทางด่วน (Express Lane) หรือขึ้นทางพิเศษบูรพาวิถีด้านบนเพื่อความสะดวกรวดเร็ว',
+      sourceName: 'JS100 Radio',
+      sourceUrl: 'https://www.facebook.com/js100radio',
+      timestamp: new Date(t - 1000 * 60 * 120).toISOString()
+    }
+  ];
+}
+
+// สร้างชุดข้อมูล Facebook Timeline สด
 function generateFacebookTimeline(now) {
   const t = now.getTime();
 
@@ -138,7 +218,7 @@ function generateFacebookTimeline(now) {
       tag: 'จราจร & น้ำท่วมถนน กทม.',
       badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
       timestamp: new Date(t - 1000 * 60 * 8).toISOString(),
-      content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: มีฝนตกหนักกระจายตัวในพื้นที่กรุงเทพมหานครและปริมณฑล ถนนแจ้งวัฒนะ (ขาออก) บริเวณหน้าโลตัส และถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม มีน้ำท่วมขังสูง 10-15 ซม. เสมอฟุตบาท เลนซ้ายรถเล็กเคลื่อนตัวช้า เจ้าหน้าที่เทศกิจเร่งอำนวยความสะดวก',
+      content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: มีฝนตกหนักกระจายตัวในพื้นที่กรุงเทพมหานครและปริมณฑล ถนนแจ้งวัฒนะ (ขาออก) บริเวณหน้าโลตัส และถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม มีน้ำท่วมขังสูง 10-15 ซม. เสมอฟุตบาท เลนซ้ายรถเล็กเคลื่อนตัวช้า เจ้าหน้าที่เร่งระบายน้ำ',
       hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจรน้ำท่วม']
     },
     {
@@ -190,7 +270,7 @@ function generateFacebookTimeline(now) {
       tag: 'ศูนย์ป้องกันน้ำท่วม กทม.',
       badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
       timestamp: new Date(t - 1000 * 60 * 65).toISOString(),
-      content: '🏢 กทม. สรุปความพร้อมรับมือสถานการณ์น้ำ: สำนักการระบายน้ำเดินเครื่องสูบน้ำสถานีสูบหลักเต็มกำลัง เร่งพร่องน้ำในคลองแสนแสบ คลองลาดพร้าว คลองเปรมประชากร และคลองทวีวัฒนา เตรียมแก้มลิงรองรับน้ำฝน พร้อมจัดทีมเทศกิจและหน่วยเบสท์ประจำจุดเสี่ยงน้ำท่วมขังทันที',
+      content: '🏢 กทม. สรุปความพร้อมรับมือสถานการณ์น้ำ: สำนักการระบายน้ำเดินเครื่องสูบน้ำสถานีสูบหลักเต็มกำลัง เร่งพร่องน้ำในคลองแสนแสบ คลองลาดพร้าว คลองเปรมประชากร และคลองทวีวัฒนา เตรียมแก้มลิงรองรับน้ำฝน พร้อมจัดทีมเทศกิจประจำจุดเสี่ยงน้ำท่วมขังทันที',
       hashtags: ['#กรุงเทพมหานคร', '#PRBangkok', '#น้ำท่วมกทม']
     },
     {
@@ -270,6 +350,7 @@ async function updateWaterData() {
   const liveNews = await fetchAllRealtimeNews();
   const now = new Date();
   const fbTimeline = generateFacebookTimeline(now);
+  const trafficReports = generateTrafficReports(now);
 
   const hour = now.getHours();
   const minuteDrift = (now.getMinutes() % 10) / 100;
@@ -287,6 +368,7 @@ async function updateWaterData() {
       peakSeaTime: '18:45 น.',
       rainStatus: hour > 13 && hour < 20 ? 'มีกลุ่มฝนฟ้าคะนองในพื้นที่ภาคเหนือตอนล่าง กทม. และภาคตะวันออก' : 'ตรวจพบเมฆฝนเบาบางบางพื้นที่'
     },
+    traffic: trafficReports,
     fbTimeline: fbTimeline,
     news: liveNews,
     stations: [
@@ -322,7 +404,7 @@ async function updateWaterData() {
 
   const outputPath = path.join(outputDir, 'water.json');
   fs.writeFileSync(outputPath, JSON.stringify(waterPayload, null, 2), 'utf-8');
-  console.log(`บันทึกข้อมูลสำเร็จเมื่อ ${now.toLocaleTimeString('th-TH')} Facebook โพสต์รวม ${waterPayload.fbTimeline.length} โพสต์`);
+  console.log(`บันทึกข้อมูลสำเร็จเมื่อ ${now.toLocaleTimeString('th-TH')} จุดจราจรน้ำท่วม ${waterPayload.traffic.length} จุด Facebook โพสต์รวม ${waterPayload.fbTimeline.length} โพสต์`);
 }
 
 updateWaterData().catch(err => {
