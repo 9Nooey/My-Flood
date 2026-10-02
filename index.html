@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    #map { height: 520px; border-radius: 0.75rem; z-index: 10; }
+    #map { height: 530px; border-radius: 0.75rem; z-index: 10; }
     .cctv-popup .leaflet-popup-content-wrapper {
       background: #1e293b;
       color: #f8fafc;
@@ -149,7 +149,7 @@
       </button>
       <button id="tab-btn-cctv" onclick="switchMainTab('cctv')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📷 จุดส่องกล้อง CCTV สด</span>
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white">ระบบทำงานจริง</span>
+        <span id="cctvBadgeCount" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white">25+ จุด</span>
       </button>
       <button id="tab-btn-traffic" onclick="switchMainTab('traffic')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>🚦 จราจร & น้ำท่วมถนน</span>
@@ -204,32 +204,52 @@
         <div class="flex items-center gap-2 bg-slate-800 px-3 py-2 rounded-xl border border-indigo-500/40 shadow-sm text-xs">
           <input type="checkbox" id="toggleCctvMarkers" checked onchange="toggleCctvOnMap(this.checked)" class="w-4 h-4 rounded text-indigo-600 focus:ring-0 cursor-pointer">
           <label for="toggleCctvMarkers" class="text-indigo-200 cursor-pointer flex items-center gap-1 font-semibold">
-            <span>📷</span> แสดงหมุดกล้อง CCTV บนแผนที่ (คลิกเพื่อเปิดสตรีมสด)
+            <span>📷</span> แสดงหมุดกล้อง CCTV บนแผนที่ (คลิกเพื่อยิงไปดูสด)
           </label>
         </div>
       </div>
 
       <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm relative">
         <div id="map"></div>
+        <div class="mt-2 p-2.5 bg-slate-900/90 rounded-xl border border-slate-700 flex items-center justify-between flex-wrap gap-2 text-xs">
+          <span class="text-slate-400 font-medium">สัญลักษณ์บนแผนที่:</span>
+          <div class="flex items-center flex-wrap gap-3">
+            <span class="inline-flex items-center gap-1.5 text-slate-200">
+              <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> สถานีวัดน้ำปกติ
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-slate-200">
+              <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> เฝ้าระวัง
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-slate-200">
+              <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span> วิกฤต
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-indigo-300 font-semibold">
+              <span class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">📷</span> หมุดกล้อง CCTV (คลิกดูภาพสดที่เว็บแหล่งภาพ)
+            </span>
+            <span class="inline-flex items-center gap-1.5 text-sky-400">
+              <span class="w-4 h-1 bg-sky-400 rounded-full inline-block"></span> แนวเส้นทางแม่น้ำสายหลัก
+            </span>
+          </div>
+        </div>
       </div>
 
       <div class="space-y-3">
         <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-          <span>📍</span> สถานีตรวจวัดระดับน้ำ และจุดยุทธศาสตร์เจ้าพระยา
+          <span>📍</span> สถานีตรวจวัดระดับน้ำ และจุดยุทธศาสตร์เจ้าพระยา (20+ แห่ง)
         </h2>
         <div id="stationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
     </section>
 
-    <!-- ==================== TAB 2: จุดส่องกล้อง CCTV สด ==================== -->
+    <!-- ==================== TAB 2: จุดส่องกล้อง CCTV สด (ยิงเข้าเว็บแหล่งภาพ) ==================== -->
     <section id="tab-content-cctv" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-            <span>📷</span> ศูนย์รวมจุดตรวจกล้อง CCTV ทั่วไทย (ระบบที่ดูภาพสดได้จริง 100%)
+            <span>📷</span> ศูนย์รวมจุดตรวจกล้อง CCTV ทั่วไทย (กดเพื่อเปิดสตรีมสดที่เว็บต้นทาง)
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">
-            เชื่อมต่อตรงสู่เซิร์ฟเวอร์กล้องของ อบจ.กาญจนบุรี (KANPAO), กทม. (ผ่านระบบ Longdo/iTIC), กรมทางหลวง และเขื่อน กฟผ.
+            เชื่อมต่อตรงสู่เซิร์ฟเวอร์กล้องของ อบจ.กาญจนบุรี (KANPAO), กทม., ทางด่วน (EXAT), กรมทางหลวง และเขื่อน กฟผ.
           </p>
         </div>
       </div>
@@ -242,10 +262,13 @@
             ทั้งหมด
           </button>
           <button onclick="setCctvAgencyFilter('KANPAO')" id="cctv-filter-KANPAO" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-teal-300 rounded-lg font-medium whitespace-nowrap transition">
-            อบจ.กาญจนบุรี (KANPAO)
+            อบจ.กาญจนบุรี (8 จุด)
           </button>
           <button onclick="setCctvAgencyFilter('BMA')" id="cctv-filter-BMA" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-indigo-300 rounded-lg font-medium whitespace-nowrap transition">
-            กทม. (Longdo Traffic / iTIC)
+            กทม. / คลองสายหลัก
+          </button>
+          <button onclick="setCctvAgencyFilter('EXAT')" id="cctv-filter-EXAT" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-purple-300 rounded-lg font-medium whitespace-nowrap transition">
+            ทางด่วน & โทลล์เวย์
           </button>
           <button onclick="setCctvAgencyFilter('DOH')" id="cctv-filter-DOH" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-amber-300 rounded-lg font-medium whitespace-nowrap transition">
             กรมทางหลวง (สายหลัก)
@@ -257,11 +280,12 @@
 
         <div class="relative w-full">
           <input type="text" id="cctvSearchInput" oninput="handleCctvSearch(this.value)" 
-                 placeholder="🔍 พิมพ์ค้นหาจุดตรวจ เช่น สะพานข้ามแม่น้ำแคว, รัชโยธิน, ลาดพร้าว, อยุธยา, สุโขทัย..." 
+                 placeholder="🔍 พิมพ์ค้นหาจุดตรวจ เช่น สะพานข้ามแม่น้ำแคว, รัชโยธิน, ลาดพร้าว, ดอนเมือง, อยุธยา, สุโขทัย..." 
                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
         </div>
       </div>
 
+      <!-- Grid แสดงการ์ดรายการกล้อง CCTV -->
       <div id="cctvGridContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
     </section>
 
@@ -445,7 +469,52 @@
   </main>
 
   <script>
-    // ==================== 1. ชุดสถานีตรวจวัดน้ำฉบับสมบูรณ์ 20+ แห่ง ====================
+    // ==================== 1. แนวเส้นทางแม่น้ำสายหลัก (RIVER POLYLINES) ====================
+    const RIVERS_DATA = [
+      {
+        name: 'แม่น้ำปิง (เชียงใหม่ -> เขื่อนภูมิพล -> นครสวรรค์)',
+        color: '#f59e0b',
+        weight: 3.5,
+        coords: [
+          [18.790, 98.995], [18.270, 98.670], [17.243, 98.973], [16.880, 99.120], [16.480, 99.520], [15.700, 100.144]
+        ]
+      },
+      {
+        name: 'แม่น้ำยม-น่าน (สุโขทัย -> ทุ่งบางระกำ -> นครสวรรค์)',
+        color: '#f43f5e',
+        weight: 3.5,
+        coords: [
+          [17.766, 100.560], [17.620, 100.100], [17.009, 99.824], [16.748, 100.117], [16.440, 100.350], [15.700, 100.144]
+        ]
+      },
+      {
+        name: 'แม่น้ำเจ้าพระยา (C.2 นครสวรรค์ -> เขื่อนเจ้าพระยา -> บางไทร -> กทม.)',
+        color: '#38bdf8',
+        weight: 4.5,
+        coords: [
+          [15.700, 100.144], [15.672, 100.121], [15.158, 100.183], [14.891, 100.404], [14.589, 100.455],
+          [14.353, 100.568], [14.135, 100.505], [13.862, 100.513], [13.740, 100.498], [13.540, 100.585]
+        ]
+      },
+      {
+        name: 'แม่น้ำแม่กลอง (เขื่อนศรีนครินทร์ -> กาญจนบุรี -> เขื่อนแม่กลอง)',
+        color: '#34d399',
+        weight: 3.5,
+        coords: [
+          [14.402, 99.128], [14.022, 99.532], [13.963, 99.638], [13.538, 99.822], [13.360, 100.020]
+        ]
+      },
+      {
+        name: 'แม่น้ำปราจีนบุรี - บางปะกง (เขื่อนนฤบดินทรฯ -> กบินทร์บุรี -> อ่าวไทย)',
+        color: '#c084fc',
+        weight: 3.5,
+        coords: [
+          [14.157, 101.884], [13.992, 101.717], [14.055, 101.371], [13.687, 101.077], [13.473, 100.998]
+        ]
+      }
+    ];
+
+    // ==================== 2. ชุดสถานีตรวจวัดน้ำฉบับสมบูรณ์ 20+ แห่ง ====================
     const DEFAULT_STATIONS = [
       { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% รองรับน้ำเหนือจากเชียงใหม่ได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
       { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: 74.2, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน ชะลอน้ำก่อนลงพิษณุโลก' },
@@ -471,155 +540,46 @@
       { id: 'CHO_02', name: 'สถานีสูบน้ำพัทยาใต้ (ระบายลงอ่าวไทย)', zone: 'chonburi', lat: 12.9248, lng: 100.8711, waterLevel: 1.08, bankLevel: 1.80, status: 'warning', description: 'จุดเสี่ยงน้ำท่วมฉับพลันเมื่อฝนตกหนัก' }
     ];
 
-    // ==================== 2. ข้อมูลจุดตรวจกล้อง CCTV ที่เชื่อมสู่ระบบที่ใช้งานได้จริง 100% ====================
+    // ==================== 3. ชุดข้อมูลจุดตรวจกล้อง CCTV ขยายเต็มพิกัด (30+ จุดทั่วไทย) ====================
     const CCTV_CAMERAS = [
-      // 1. อบจ.กาญจนบุรี (KANPAO)
-      {
-        id: 'CAM_KAN_01',
-        name: 'สะพานข้ามแม่น้ำแคว (อบจ.กาญจนบุรี)',
-        agency: 'KANPAO',
-        province: 'กาญจนบุรี',
-        location: 'สะพานประวัติศาสตร์ข้ามแม่น้ำแควใหญ่ อ.เมือง',
-        lat: 14.0410,
-        lng: 99.5038,
-        portalUrl: 'https://kanpao.go.th/cctvform/cameraList'
-      },
-      {
-        id: 'CAM_KAN_02',
-        name: 'แยกวังสารภี / ทล.324 (อบจ.กาญจนบุรี)',
-        agency: 'KANPAO',
-        province: 'กาญจนบุรี',
-        location: 'จุดตัดทางหลวงมุ่งหน้าพนมทวน-สุพรรณบุรี',
-        lat: 14.0298,
-        lng: 99.5532,
-        portalUrl: 'https://kanpao.go.th/cctvform/cameraList'
-      },
-      {
-        id: 'CAM_KAN_03',
-        name: 'สี่แยกท่าล้อ / แม่น้ำแม่กลอง (อบจ.กาญจนบุรี)',
-        agency: 'KANPAO',
-        province: 'กาญจนบุรี',
-        location: 'ประตูเมืองกาญจนบุรี-ท่าม่วง ริมแม่น้ำแม่กลอง',
-        lat: 13.9880,
-        lng: 99.5820,
-        portalUrl: 'https://kanpao.go.th/cctvform/cameraList'
-      },
-      {
-        id: 'CAM_KAN_04',
-        name: 'แยกแก่งเสี้ยน (อบจ.กาญจนบุรี)',
-        agency: 'KANPAO',
-        province: 'กาญจนบุรี',
-        location: 'ชุมทางขึ้นไทรโยค-ทองผาภูมิ และศรีสวัสดิ์',
-        lat: 14.0535,
-        lng: 99.4975,
-        portalUrl: 'https://kanpao.go.th/cctvform/cameraList'
-      },
+      // 1. อบจ.กาญจนบุรี (KANPAO Smart City) - เพิ่มครบ 8 จุดสำคัญ
+      { id: 'CAM_KAN_01', name: 'สะพานข้ามแม่น้ำแคว (อบจ.กาญจนบุรี)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'สะพานประวัติศาสตร์ข้ามแม่น้ำแควใหญ่ อ.เมือง', lat: 14.0410, lng: 99.5038, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_02', name: 'แยกวังสารภี / ทล.324 (อบจ.กาญจนบุรี)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'จุดตัดทางหลวงมุ่งหน้าพนมทวน-สุพรรณบุรี', lat: 14.0298, lng: 99.5532, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_03', name: 'สี่แยกท่าล้อ / แม่น้ำแม่กลอง (อบจ.กาญจนบุรี)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'ประตูเมืองกาญจนบุรี-ท่าม่วง ริมแม่น้ำแม่กลอง', lat: 13.9880, lng: 99.5820, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_04', name: 'แยกแก่งเสี้ยน (อบจ.กาญจนบุรี)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'ชุมทางขึ้นไทรโยค-ทองผาภูมิ และศรีสวัสดิ์', lat: 14.0535, lng: 99.4975, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_05', name: 'สี่แยกชุกโดน (ริมแม่น้ำแม่กลอง)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'จุดชมวิวแม่น้ำสองสีและแพอาหารริมน้ำ', lat: 14.0152, lng: 99.5312, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_06', name: 'วงเวียนหอนาฬิกาเมืองกาญจน์', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'ใจกลางเมืองกาญจนบุรี ถ.แสงชูโต', lat: 14.0225, lng: 99.5360, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_07', name: 'สี่แยกพนมทวน (ทล.324)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'เส้นทางรับน้ำหลากห้วยกระพร้อย-จรเข้สามพัน', lat: 14.1280, lng: 99.6920, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
+      { id: 'CAM_KAN_08', name: 'สามแยกไทรโยค / แควน้อย (ทล.323)', agency: 'KANPAO', province: 'กาญจนบุรี', location: 'จุดตรวจการณ์ริมแม่น้ำแควน้อย ทางขึ้นทองผาภูมิ', lat: 14.1165, lng: 99.1450, portalUrl: 'https://kanpao.go.th/cctvform/cameraList' },
 
-      // 2. กทม. (เชื่อมต่อผ่านระบบ Longdo Traffic / iTIC ที่เสถียรบน HTTPS ไม่ติดบล็อก)
-      {
-        id: 'CAM_BMA_01',
-        name: 'แยกรัชโยธิน (กทม. / Longdo Traffic)',
-        agency: 'BMA',
-        province: 'กรุงเทพฯ',
-        location: 'จุดตรวจการณ์จราจรและน้ำท่วมขัง ถนนพหลโยธิน',
-        lat: 13.8296,
-        lng: 100.5694,
-        portalUrl: 'https://traffic.longdo.com/en/cameralist'
-      },
-      {
-        id: 'CAM_BMA_02',
-        name: 'สะพานพระราม 8 (แม่น้ำเจ้าพระยา กทม.)',
-        agency: 'BMA',
-        province: 'กรุงเทพฯ',
-        location: 'ตรวจระดับน้ำเจ้าพระยาและสภาพการจราจรข้ามฝั่งธน',
-        lat: 13.7663,
-        lng: 100.4992,
-        portalUrl: 'https://live.iticfoundation.org/'
-      },
-      {
-        id: 'CAM_BMA_03',
-        name: 'สถานีสูบน้ำพระโขนง (สำนักการระบายน้ำ กทม.)',
-        agency: 'BMA',
-        province: 'กรุงเทพฯ',
-        location: 'สถานีสูบระบายน้ำคลองพระโขนงออกสู่แม่น้ำเจ้าพระยา',
-        lat: 13.7088,
-        lng: 100.5958,
-        portalUrl: 'https://weather.bangkok.go.th/flood'
-      },
-      {
-        id: 'CAM_BMA_04',
-        name: 'คลองแสนแสบ / อโศก (ระบบระบายน้ำ กทม.)',
-        agency: 'BMA',
-        province: 'กรุงเทพฯ',
-        location: 'จุดเฝ้าระวังระดับน้ำคลองแสนแสบช่วงใจกลางเมือง',
-        lat: 13.7486,
-        lng: 100.5638,
-        portalUrl: 'https://weather.bangkok.go.th/flood'
-      },
+      // 2. กทม. & คลองระบายน้ำ (BMA / Longdo / iTIC)
+      { id: 'CAM_BMA_01', name: 'แยกรัชโยธิน (กทม. / Longdo)', agency: 'BMA', province: 'กรุงเทพฯ', location: 'จุดตรวจการณ์จราจรและน้ำท่วมขัง ถนนพหลโยธิน', lat: 13.8296, lng: 100.5694, portalUrl: 'https://traffic.longdo.com/en/cameralist' },
+      { id: 'CAM_BMA_02', name: 'สะพานพระราม 8 (แม่น้ำเจ้าพระยา กทม.)', agency: 'BMA', province: 'กรุงเทพฯ', location: 'ตรวจระดับน้ำเจ้าพระยาและสภาพการจราจรข้ามฝั่งธน', lat: 13.7663, lng: 100.4992, portalUrl: 'https://live.iticfoundation.org/' },
+      { id: 'CAM_BMA_03', name: 'สถานีสูบน้ำพระโขนง (สำนักการระบายน้ำ กทม.)', agency: 'BMA', province: 'กรุงเทพฯ', location: 'สถานีสูบระบายน้ำคลองพระโขนงออกสู่แม่น้ำเจ้าพระยา', lat: 13.7088, lng: 100.5958, portalUrl: 'https://weather.bangkok.go.th/flood' },
+      { id: 'CAM_BMA_04', name: 'คลองแสนแสบ / อโศก (ระบบระบายน้ำ กทม.)', agency: 'BMA', province: 'กรุงเทพฯ', location: 'จุดเฝ้าระวังระดับน้ำคลองแสนแสบช่วงใจกลางเมือง', lat: 13.7486, lng: 100.5638, portalUrl: 'https://weather.bangkok.go.th/flood' },
+      { id: 'CAM_BMA_05', name: 'คลองลาดพร้าว / วัดสว่างโสภณ', agency: 'BMA', province: 'กรุงเทพฯ', location: 'จุดเฝ้าระวังน้ำล้นตลิ่งคลองลาดพร้าว เขตวังทองหลาง', lat: 13.8211, lng: 100.5982, portalUrl: 'https://weather.bangkok.go.th/flood' },
+      { id: 'CAM_BMA_06', name: 'แยกบางนา (สุขุมวิท - บางนา-ตราด)', agency: 'BMA', province: 'กรุงเทพฯ', location: 'จุดระบายน้ำคลองบางนาและน้ำท่วมขังผิวจราจร', lat: 13.6682, lng: 100.6042, portalUrl: 'https://live.iticfoundation.org/' },
+      { id: 'CAM_BMA_07', name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)', agency: 'BMA', province: 'กรุงเทพฯ', location: 'จุดผันน้ำฝั่งตะวันตก กทม.-นนทบุรี', lat: 13.7854, lng: 100.3541, portalUrl: 'https://weather.bangkok.go.th/flood' },
 
-      // 3. กรมทางหลวง (DOH)
-      {
-        id: 'CAM_DOH_01',
-        name: 'ทล.32 ถนนสายเอเชีย กม.52 (อยุธยา)',
-        agency: 'DOH',
-        province: 'อยุธยา',
-        location: 'เส้นทางรับน้ำหลากเจ้าพระยา-ป่าสัก มุ่งหน้าสู่ กทม.',
-        lat: 14.3532,
-        lng: 100.5684,
-        portalUrl: 'https://highwaytraffic.go.th/'
-      },
-      {
-        id: 'CAM_DOH_02',
-        name: 'ทล.1 ถนนพหลโยธิน รังสิต-คลองหลวง (กม.36)',
-        agency: 'DOH',
-        province: 'ปทุมธานี',
-        location: 'เส้นทางระบายน้ำรังสิตประยูรศักดิ์และถนนสายหลัก',
-        lat: 14.0205,
-        lng: 100.6124,
-        portalUrl: 'https://highwaytraffic.go.th/'
-      },
-      {
-        id: 'CAM_DOH_03',
-        name: 'ทล.33 สุวรรณศร (กบินทร์บุรี จ.ปราจีนบุรี)',
-        agency: 'DOH',
-        province: 'ปราจีนบุรี',
-        location: 'จุดเฝ้าระวังน้ำป่าทับลานและแม่น้ำปราจีนบุรีล้นตลิ่ง',
-        lat: 13.9922,
-        lng: 101.7175,
-        portalUrl: 'https://highwaytraffic.go.th/'
-      },
+      // 3. ทางด่วน & โทลล์เวย์ (EXAT)
+      { id: 'CAM_EXAT_01', name: 'ดอนเมืองโทลล์เวย์ (หน้าสนามบินดอนเมือง)', agency: 'EXAT', province: 'กรุงเทพฯ', location: 'จุดตรวจการณ์น้ำท่วมถนนวิภาวดีรังสิตและโทลล์เวย์', lat: 13.9130, lng: 100.5980, portalUrl: 'https://live.iticfoundation.org/' },
+      { id: 'CAM_EXAT_02', name: 'ทางด่วนศรีรัช (แจ้งวัฒนะ - เมืองทองธานี)', agency: 'EXAT', province: 'นนทบุรี', location: 'จุดตรวจการณ์ทางด่วนสายเหนือ-แจ้งวัฒนะ', lat: 13.8965, lng: 100.5482, portalUrl: 'https://live.iticfoundation.org/' },
+      { id: 'CAM_EXAT_03', name: 'ทางด่วนบูรพาวิถี (บางนา - กม.6)', agency: 'EXAT', province: 'สมุทรปราการ', location: 'เส้นทางยกระดับมุ่งหน้าชลบุรี-ภาคตะวันออก', lat: 13.6620, lng: 100.6550, portalUrl: 'https://live.iticfoundation.org/' },
 
-      // 4. เขื่อน กฟผ. (EGAT Water)
-      {
-        id: 'CAM_EGAT_01',
-        name: 'เขื่อนภูมิพล (แม่น้ำปิง จ.ตาก)',
-        agency: 'EGAT',
-        province: 'ตาก',
-        location: 'กล้องส่องสันเขื่อนและการระบายน้ำเขื่อนภูมิพล',
-        lat: 17.2435,
-        lng: 98.9734,
-        portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV'
-      },
-      {
-        id: 'CAM_EGAT_02',
-        name: 'เขื่อนสิริกิติ์ (แม่น้ำน่าน จ.อุตรดิตถ์)',
-        agency: 'EGAT',
-        province: 'อุตรดิตถ์',
-        location: 'กล้องส่องระดับน้ำกักเก็บและการระบายน้ำเขื่อนสิริกิติ์',
-        lat: 17.7667,
-        lng: 100.5600,
-        portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV'
-      },
-      {
-        id: 'CAM_EGAT_03',
-        name: 'เขื่อนศรีนครินทร์ (แม่น้ำแควใหญ่ จ.กาญจนบุรี)',
-        agency: 'EGAT',
-        province: 'กาญจนบุรี',
-        location: 'กล้องส่องสันเขื่อนและระดับน้ำอ่างเก็บน้ำเขื่อนศรีนครินทร์',
-        lat: 14.4027,
-        lng: 99.1287,
-        portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV'
-      }
+      // 4. กรมทางหลวง (DOH)
+      { id: 'CAM_DOH_01', name: 'ทล.32 ถนนสายเอเชีย กม.52 (อยุธยา)', agency: 'DOH', province: 'อยุธยา', location: 'เส้นทางรับน้ำหลากเจ้าพระยา-ป่าสัก มุ่งหน้าสู่ กทม.', lat: 14.3532, lng: 100.5684, portalUrl: 'https://highwaytraffic.go.th/' },
+      { id: 'CAM_DOH_02', name: 'ทล.1 ถนนพหลโยธิน รังสิต-คลองหลวง (กม.36)', agency: 'DOH', province: 'ปทุมธานี', location: 'เส้นทางระบายน้ำรังสิตประยูรศักดิ์และถนนสายหลัก', lat: 14.0205, lng: 100.6124, portalUrl: 'https://highwaytraffic.go.th/' },
+      { id: 'CAM_DOH_03', name: 'ทล.33 สุวรรณศร (กบินทร์บุรี จ.ปราจีนบุรี)', agency: 'DOH', province: 'ปราจีนบุรี', location: 'จุดเฝ้าระวังน้ำป่าทับลานและแม่น้ำปราจีนบุรีล้นตลิ่ง', lat: 13.9922, lng: 101.7175, portalUrl: 'https://highwaytraffic.go.th/' },
+      { id: 'CAM_DOH_04', name: 'ทล.101 สุโขทัย-สวรรคโลก (แม่น้ำยม)', agency: 'DOH', province: 'สุโขทัย', location: 'จุดเสี่ยงน้ำแม่น้ำยมหลากท่วมคันทางหลวงชนบท', lat: 17.0090, lng: 99.8240, portalUrl: 'https://highwaytraffic.go.th/' },
+      { id: 'CAM_DOH_05', name: 'ทล.3 สุขุมวิท พัทยาใต้-บางละมุง', agency: 'DOH', province: 'ชลบุรี', location: 'จุดเสี่ยงน้ำท่วมขังฉับพลันเมืองพัทยา', lat: 12.9248, lng: 100.8711, portalUrl: 'https://highwaytraffic.go.th/' },
+      { id: 'CAM_DOH_06', name: 'ทล.11 ป่าขะ - อุตรดิตถ์ (ลุ่มน้ำน่าน)', agency: 'DOH', province: 'อุตรดิตถ์', location: 'เส้นทางมุ่งหน้าเขื่อนสิริกิติ์และภาคเหนือ', lat: 17.6200, lng: 100.1000, portalUrl: 'https://highwaytraffic.go.th/' },
+
+      // 5. เขื่อน กฟผ. (EGAT Water)
+      { id: 'CAM_EGAT_01', name: 'เขื่อนภูมิพล (แม่น้ำปิง จ.ตาก)', agency: 'EGAT', province: 'ตาก', location: 'กล้องส่องสันเขื่อนและการระบายน้ำเขื่อนภูมิพล', lat: 17.2435, lng: 98.9734, portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV' },
+      { id: 'CAM_EGAT_02', name: 'เขื่อนสิริกิติ์ (แม่น้ำน่าน จ.อุตรดิตถ์)', agency: 'EGAT', province: 'อุตรดิตถ์', location: 'กล้องส่องระดับน้ำกักเก็บและการระบายน้ำเขื่อนสิริกิติ์', lat: 17.7667, lng: 100.5600, portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV' },
+      { id: 'CAM_EGAT_03', name: 'เขื่อนศรีนครินทร์ (แม่น้ำแควใหญ่ จ.กาญจนบุรี)', agency: 'EGAT', province: 'กาญจนบุรี', location: 'กล้องส่องสันเขื่อนและระดับน้ำอ่างเก็บน้ำเขื่อนศรีนครินทร์', lat: 14.4027, lng: 99.1287, portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV' },
+      { id: 'CAM_EGAT_04', name: 'เขื่อนวชิราลงกรณ (แม่น้ำแควน้อย อ.ทองผาภูมิ)', agency: 'EGAT', province: 'กาญจนบุรี', location: 'กล้องส่องอาคารระบายน้ำล้นเขื่อนแควน้อย', lat: 14.7985, lng: 98.5980, portalUrl: 'https://egatwater.egat.co.th/RealTimeCCTV' },
+      { id: 'CAM_EGAT_05', name: 'เขื่อนเจ้าพระยา (อ.สรรพยา จ.ชัยนาท)', agency: 'EGAT', province: 'ชัยนาท', location: 'จุดควบคุมการระบายน้ำสู่ลุ่มน้ำภาคกลาง 7 จังหวัด', lat: 15.1580, lng: 100.1830, portalUrl: 'https://tiwrm.hii.or.th/' }
     ];
 
     // ข้อมูลถนนน้ำท่วมขัง
@@ -663,7 +623,7 @@
       { id: 'cho-pattaya', zone: 'chonburi', name: 'เมืองพัทยา', lat: 12.924, lng: 100.871 }
     ];
 
-    let map, markers = [], cctvMapMarkers = [];
+    let map, markers = [], riverPolylines = [], cctvMapMarkers = [];
     let currentData = null;
     let activeZone = 'all';
     let searchQuery = '';
@@ -703,14 +663,32 @@
       }
     }
 
-    // ==================== 3. ระบบแผนที่ Leaflet + หมุดกล้อง CCTV ====================
+    // ==================== 4. แผนที่ Leaflet + วาดเส้นแม่น้ำ + หมุดกล้อง CCTV ====================
     function initMap() {
       map = L.map('map').setView([14.50, 100.3], 8);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
+      drawRivers();
       renderCctvOnMap();
+    }
+
+    function drawRivers() {
+      riverPolylines.forEach(p => map.removeLayer(p));
+      riverPolylines = [];
+
+      RIVERS_DATA.forEach(river => {
+        const line = L.polyline(river.coords, {
+          color: river.color,
+          weight: river.weight,
+          opacity: 0.85,
+          lineJoin: 'round'
+        }).addTo(map);
+
+        line.bindPopup(`<b class="text-xs text-slate-800">${river.name}</b>`);
+        riverPolylines.push(line);
+      });
     }
 
     function renderCctvOnMap() {
@@ -719,9 +697,16 @@
 
       CCTV_CAMERAS.forEach(cam => {
         const isKan = cam.agency === 'KANPAO';
+        const isExat = cam.agency === 'EXAT';
+        const isDoh = cam.agency === 'DOH';
+        let badgeColor = 'bg-indigo-600';
+        if (isKan) badgeColor = 'bg-teal-600';
+        else if (isExat) badgeColor = 'bg-purple-600';
+        else if (isDoh) badgeColor = 'bg-amber-600';
+
         const cctvIcon = L.divIcon({
           className: 'cctv-div-icon',
-          html: `<div class="w-7 h-7 ${isKan ? 'bg-teal-600 ring-2 ring-teal-300' : 'bg-indigo-600 ring-2 ring-indigo-300'} border-2 border-white rounded-full flex items-center justify-center text-xs shadow-xl transform hover:scale-125 transition cursor-pointer">📷</div>`,
+          html: `<div class="w-7 h-7 ${badgeColor} border-2 border-white rounded-full flex items-center justify-center text-xs shadow-xl transform hover:scale-125 transition cursor-pointer">📷</div>`,
           iconSize: [28, 28],
           iconAnchor: [14, 14]
         });
@@ -731,7 +716,7 @@
         const popupHtml = `
           <div class="p-2 space-y-2 text-slate-100" style="min-width: 250px;">
             <div class="flex items-center justify-between border-b border-slate-700/80 pb-1.5">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${isKan ? 'bg-teal-600 text-white' : 'bg-indigo-600 text-white'}">${cam.agency}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeColor} text-white">${cam.agency}</span>
               <span class="text-xs text-slate-300 font-medium">📍 ${cam.province}</span>
             </div>
             <div>
@@ -743,7 +728,7 @@
               <span>พร้อมรับชมสตรีมสดบนระบบทางการ</span>
             </div>
             <a href="${cam.portalUrl}" target="_blank" rel="noopener noreferrer" 
-               class="w-full ${isKan ? 'bg-teal-600 hover:bg-teal-500' : 'bg-blue-600 hover:bg-blue-500'} text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md">
+               class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md">
               <span>🔴 กดเพื่อดูสตรีมสดที่ต้นทาง</span>
               <span>↗</span>
             </a>
@@ -765,10 +750,10 @@
       });
     }
 
-    // ==================== 4. ระบบแท็บ CCTV ====================
+    // ==================== 5. ระบบแท็บ CCTV (GRID DIRECTORY) ====================
     function setCctvAgencyFilter(agency) {
       activeCctvAgency = agency;
-      ['ALL', 'KANPAO', 'BMA', 'DOH', 'EGAT'].forEach(k => {
+      ['ALL', 'KANPAO', 'BMA', 'EXAT', 'DOH', 'EGAT'].forEach(k => {
         const btn = document.getElementById(`cctv-filter-${k}`);
         if (!btn) return;
         btn.className = (k === agency)
@@ -833,7 +818,7 @@
       });
     }
 
-    // ==================== 5. เรนเดอร์สถานีตรวจวัดน้ำ ====================
+    // ==================== 6. เรนเดอร์สถานีตรวจวัดน้ำ (20+ แห่ง) ====================
     function renderStations() {
       markers.forEach(m => map.removeLayer(m));
       markers = [];
@@ -888,7 +873,7 @@
       renderStations();
     }
 
-    // ==================== 6. เรนเดอร์แท็บ จราจร & Facebook Timeline ====================
+    // ==================== 7. เรนเดอร์แท็บ จราจร & Facebook Timeline ====================
     function setTrafficFilter(status) {
       activeTrafficFilter = status;
       ['all', 'closed', 'warning'].forEach(k => {
@@ -1021,7 +1006,7 @@
       });
     }
 
-    // ==================== 7. สลับแท็บหลัก & ตรวจฝนสด 21 จุด ====================
+    // ==================== 8. สลับแท็บหลัก ====================
     function switchMainTab(tab) {
       ['map', 'cctv', 'traffic', 'diagram', 'fb', 'radar', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
@@ -1078,6 +1063,7 @@
       document.getElementById('diagramIframe').src = `https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php?t=${Date.now()}`;
     }
 
+    // ==================== 9. ตรวจฝนสด 21 จุด ====================
     async function checkHyperlocalRain() {
       try {
         const latList = HYPERLOCAL_RAIN_GRID.map(z => z.lat).join(',');
@@ -1169,7 +1155,7 @@
       }
     }
 
-    // ==================== 8. โหลดข้อมูลรวม & เริ่มต้น ====================
+    // ==================== 10. โหลดข้อมูลรวม & เริ่มต้น ====================
     async function loadWaterData() {
       try {
         const res = await fetch(`./data/water.json?nocache=${Date.now()}`, { cache: 'no-store' });
@@ -1224,8 +1210,10 @@
       });
     }
 
+    // เริ่มต้นทำงานทันที
     initMap();
     renderStations();
+    renderCctvGrid();
     renderTrafficAlerts();
     renderFbTimeline(); 
     checkHyperlocalRain(); 
