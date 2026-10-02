@@ -20,7 +20,7 @@
         <span class="text-2xl animate-pulse">🌊</span>
         <div>
           <h1 class="font-bold text-lg leading-tight">Water Watch Center</h1>
-          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา และแจ้งเตือนฝนตกเจาะจงรายเขต</p>
+          <p class="text-xs text-slate-400">ระบบติดตามสถานการณ์น้ำ ผังน้ำเจ้าพระยา และรายงานน้ำท่วมถนน/ทางเลี่ยง</p>
         </div>
       </div>
       <div class="flex items-center space-x-2 flex-wrap gap-1">
@@ -42,9 +42,8 @@
 
   <main class="max-w-7xl mx-auto p-4 space-y-6">
 
-    <!-- 🚨 แถบแจ้งเตือนฝนสดเจาะจงรายเขต & คาดการณ์ล่วงหน้า (Dynamic Dual Alert) -->
+    <!-- แถบแจ้งเตือนฝนตกสดเจาะจงรายเขต & คาดการณ์ล่วงหน้า -->
     <div class="space-y-2">
-      <!-- แถบ 1: ฝนกำลังตกขณะนี้ (Real-Time Live) -->
       <div id="liveRainBanner" class="hidden p-3.5 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-rose-950/50 border-rose-600/70 shadow-lg">
         <div class="flex items-center gap-2.5">
           <span class="text-lg animate-bounce">🌧️</span>
@@ -58,7 +57,6 @@
         </button>
       </div>
 
-      <!-- แถบ 2: คาดการณ์ฝนตกในอีก 1-3 ชั่วโมงข้างหน้า (Early Warning Forecast) -->
       <div id="forecastRainBanner" class="hidden p-3 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-amber-950/40 border-amber-600/60 shadow-md">
         <div class="flex items-center gap-2.5">
           <span class="text-lg animate-pulse">⏳</span>
@@ -70,7 +68,6 @@
         <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full font-bold">เตือนภัยล่วงหน้า</span>
       </div>
 
-      <!-- แถบ 3: กรณีทุกพื้นที่สภาพอากาศปกติ -->
       <div id="normalRainBanner" class="p-3 rounded-xl border transition-all duration-300 flex items-center justify-between flex-wrap gap-2 text-xs bg-emerald-950/30 border-emerald-700/40">
         <div class="flex items-center gap-2.5">
           <span class="text-base">☀️</span>
@@ -89,20 +86,20 @@
         <span>🚨 ช่องทางด่วน:</span>
       </div>
       <div class="flex items-center flex-wrap gap-2">
+        <button onclick="switchMainTab('traffic')" class="bg-rose-600/30 hover:bg-rose-600/50 text-rose-300 border border-rose-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
+          <span>🚦</span> สภาพจราจร & น้ำท่วมถนน
+        </button>
         <button onclick="switchMainTab('diagram')" class="bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span>📊</span> ผังน้ำเจ้าพระยา (สด สสน.)
         </button>
         <button onclick="switchMainTab('fb')" class="bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span>📱</span> News Facebook (รวมฟีดสด)
         </button>
-        <button onclick="switchMainTab('cctv')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
-          <span>📷</span> กล้อง CCTV & ดาวเทียม
-        </button>
         <button onclick="switchMainTab('radar')" class="bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-md transition font-medium flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-ping"></span> 📡 เรดาร์ฝนสด
         </button>
         <a href="tel:1784" class="bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 px-2.5 py-1 rounded-md transition font-medium">📞 ปภ. 1784</a>
-        <a href="tel:022485115" class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 px-2.5 py-1 rounded-md transition font-medium">🏢 น้ำท่วม กทม.</a>
+        <a href="tel:1197" class="bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-md transition font-medium">👮 บก.จร. 1197</a>
         <a href="https://lin.ee/2t3pGgK" target="_blank" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 px-2.5 py-1 rounded-md transition font-medium">📱 Traffy Fondue</a>
       </div>
     </div>
@@ -134,21 +131,25 @@
       </div>
     </div>
 
-    <!-- แถบเมนูแท็บหลัก (6 แท็บ) -->
+    <!-- แถบเมนูแท็บหลัก (7 แท็บ รวมแท็บจราจร) -->
     <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
       <button id="tab-btn-map" onclick="switchMainTab('map')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-blue-600 text-white shadow whitespace-nowrap">
         <span>🗺️ แผนที่น้ำ & ลำน้ำ</span>
       </button>
+      <button id="tab-btn-traffic" onclick="switchMainTab('traffic')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span>🚦 จราจร & น้ำท่วมถนน</span>
+        <span id="trafficBadgeCount" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white">7 จุด</span>
+      </button>
       <button id="tab-btn-diagram" onclick="switchMainTab('diagram')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📊 ผังน้ำเจ้าพระยา (สด)</span>
-      </button>
-      <button id="tab-btn-cctv" onclick="switchMainTab('cctv')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
-        <span>📷 กล้อง CCTV & ดาวเทียม</span>
       </button>
       <button id="tab-btn-fb" onclick="switchMainTab('fb')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span class="text-blue-400 font-black">f</span>
         <span>News Facebook</span>
-        <span id="fbTimelineBadge" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">10 โพสต์</span>
+        <span id="fbTimelineBadge" class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500 text-white">สด</span>
+      </button>
+      <button id="tab-btn-cctv" onclick="switchMainTab('cctv')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
+        <span>📷 กล้อง CCTV & ดาวเทียม</span>
       </button>
       <button id="tab-btn-radar" onclick="switchMainTab('radar')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📡 เรดาร์ตรวจฝนสด</span>
@@ -160,7 +161,7 @@
       </button>
     </div>
 
-    <!-- ==================== TAB 1: แผนที่สถานการณ์น้ำ & แนวแม่น้ำ ==================== -->
+    <!-- ==================== TAB 1: แผนที่สถานการณ์น้ำ ==================== -->
     <section id="tab-content-map" class="space-y-6">
       <div class="space-y-2">
         <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">เลือกพื้นที่ติดตาม</div>
@@ -189,23 +190,6 @@
 
       <div class="bg-slate-800 p-2 rounded-2xl border border-slate-700 shadow-sm relative">
         <div id="map"></div>
-        <div class="mt-2 p-2.5 bg-slate-900/80 rounded-xl border border-slate-700/80 flex items-center justify-between flex-wrap gap-2 text-xs">
-          <span class="text-slate-400 font-medium">แนวเส้นทางน้ำหลากสู่ กทม.:</span>
-          <div class="flex items-center flex-wrap gap-3">
-            <span class="inline-flex items-center gap-1.5 text-amber-300">
-              <span class="w-4 h-1 bg-amber-400 rounded-full inline-block"></span> แม่น้ำปิง (เชียงใหม่ $\rightarrow$ เขื่อนภูมิพล $\rightarrow$ นครสวรรค์)
-            </span>
-            <span class="inline-flex items-center gap-1.5 text-rose-300">
-              <span class="w-4 h-1 bg-rose-400 rounded-full inline-block"></span> แม่น้ำน่าน-ยม (สิริกิติ์ $\rightarrow$ สุโขทัย $\rightarrow$ บางระกำ)
-            </span>
-            <span class="inline-flex items-center gap-1.5 text-sky-300">
-              <span class="w-4 h-1 bg-sky-400 rounded-full inline-block"></span> แม่น้ำเจ้าพระยา (C.2 นครสวรรค์ $\rightarrow$ บางไทร $\rightarrow$ กทม.)
-            </span>
-            <span class="inline-flex items-center gap-1.5 text-emerald-300">
-              <span class="w-4 h-1 bg-emerald-400 rounded-full inline-block"></span> แม่น้ำแม่กลอง
-            </span>
-          </div>
-        </div>
       </div>
 
       <div class="space-y-3">
@@ -216,7 +200,52 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: ผังน้ำเจ้าพระยา สสน. (สด) ==================== -->
+    <!-- ==================== TAB 2: จราจร & น้ำท่วมถนน (ใหม่ล่าสุด) ==================== -->
+    <section id="tab-content-traffic" class="space-y-4 hidden">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span>🚦</span> รายงานสภาพจราจร • จุดน้ำท่วมขัง • ปิดถนน และเส้นทางเลี่ยง
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            รวบรวมข้อมูลสดจาก สวพ.91, JS100, กรมทางหลวง, กทม. และ ปภ. ในพื้นที่เกิดเหตุ
+          </p>
+        </div>
+        <div class="text-xs text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 whitespace-nowrap">
+          <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+          <span id="trafficSummaryText">กำลังประมวลผลจุดวิกฤต...</span>
+        </div>
+      </div>
+
+      <!-- แถบกรองสถานะจราจร & ค้นหาชื่อถนน -->
+      <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 space-y-3">
+        <div class="flex items-center gap-1.5 overflow-x-auto text-xs pb-1">
+          <span class="text-slate-400 whitespace-nowrap mr-1">สถานะทาง:</span>
+          <button onclick="setTrafficFilter('all')" id="tf-filter-all" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow">
+            ทั้งหมด
+          </button>
+          <button onclick="setTrafficFilter('closed')" id="tf-filter-closed" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-rose-300 rounded-lg font-medium whitespace-nowrap transition">
+            ⛔ ปิดถนนเด็ดขาด
+          </button>
+          <button onclick="setTrafficFilter('warning')" id="tf-filter-warning" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-amber-300 rounded-lg font-medium whitespace-nowrap transition">
+            ⚠️ รถเล็กผ่านไม่ได้
+          </button>
+        </div>
+
+        <div class="relative w-full">
+          <input type="text" id="trafficSearchInput" oninput="handleTrafficSearch(this.value)" 
+                 placeholder="🔍 พิมพ์ค้นหาชื่อถนนหรือพื้นที่ เช่น แจ้งวัฒนะ, ศรีนครินทร์, อยุธยา, สุโขทัย, พัทยา..." 
+                 class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
+        </div>
+      </div>
+
+      <!-- รายการการ์ดถนนน้ำท่วมขังและเส้นทางเลี่ยง -->
+      <div id="trafficCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- การ์ดจะถูกเรนเดอร์ลงตรงนี้ -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: ผังน้ำเจ้าพระยา สสน. (สด) ==================== -->
     <section id="tab-content-diagram" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
@@ -238,10 +267,6 @@
       </div>
 
       <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 shadow-lg space-y-2">
-        <div class="text-[11px] text-amber-400 bg-amber-950/40 border border-amber-800/40 rounded-lg px-3 py-1.5 flex items-center justify-between flex-wrap gap-1">
-          <span>💡 <b>คำแนะนำ:</b> แผนผังมีความละเอียดสูง สามารถเลื่อนซ้าย-ขวา หรือกดสลับเป็น <b>"ผังย่อ"</b> เพื่อให้พอดีกับจอมือถือ</span>
-          <span class="text-slate-400">ข้อมูลสด: tiwrm.hii.or.th</span>
-        </div>
         <div class="w-full overflow-x-auto bg-white rounded-xl shadow-inner">
           <iframe id="diagramIframe"
                   src="https://tiwrm.hii.or.th/DATA/REPORT/php/chart/chaopraya/2013/chaopraya.php" 
@@ -250,130 +275,6 @@
                   style="border:0; min-width: 960px;" 
                   loading="lazy">
           </iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== TAB 3: CCTV & ดาวเทียม ==================== -->
-    <section id="tab-content-cctv" class="space-y-4 hidden">
-      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
-        <div>
-          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
-            <span>📷</span> ศูนย์ส่องกล้อง CCTV สด & แผนที่ดาวเทียมน้ำท่วม
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">
-            รวบรวมภาพสดจากกล้อง CCTV คลองสายหลัก กทม. และภาพถ่ายดาวเทียมพื้นที่น้ำท่วมขัง GISTDA
-          </p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-emerald-400">แผนที่รวมข้อมูลน้ำ</span>
-              <span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full font-bold">แนะนำ</span>
-            </div>
-            <h3 class="font-bold text-slate-100 text-base mt-1">Longdo Water แผนที่น้ำประเทศไทย</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ดูตำแหน่งกล้อง CCTV, สถานีวัดน้ำฝนสะสม 24 ชม., ระดับน้ำในคลอง กทม. และแนวคันกั้นน้ำทั่วประเทศ
-            </p>
-          </div>
-          <a href="https://water.longdo.com/" target="_blank" rel="noopener noreferrer" 
-             class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-            <span>🌐 เปิดดูแผนที่ Longdo Water</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-blue-400">ภาพถ่ายดาวเทียม</span>
-              <span class="bg-blue-500/20 text-blue-300 text-[10px] px-2 py-0.5 rounded-full font-bold">GISTDA</span>
-            </div>
-            <h3 class="font-bold text-slate-100 text-base mt-1">แผนที่วิเคราะห์น้ำท่วมจากดาวเทียม</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ภาพถ่ายดาวเทียมเรดาร์วิเคราะห์พื้นที่น้ำท่วมขัง (Flood Footprint) ลุ่มน้ำเจ้าพระยา ยม น่าน และทุ่งรับน้ำ
-            </p>
-          </div>
-          <a href="https://flood.gistda.or.th/" target="_blank" rel="noopener noreferrer" 
-             class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-            <span>🛰️ ตรวจสอบพื้นที่น้ำท่วม GISTDA</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-cyan-400">กล้องสดในพื้นที่</span>
-              <span class="bg-cyan-500/20 text-cyan-300 text-[10px] px-2 py-0.5 rounded-full font-bold">สนง.ระบายน้ำ</span>
-            </div>
-            <h3 class="font-bold text-slate-100 text-base mt-1">CCTV ประตูระบายน้ำ & คลอง กทม.</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ส่องภาพสดกล้องวงจรปิดสถานีสูบน้ำพระโขนง คลองแสนแสบ คลองลาดพร้าว และอุโมงค์ยักษ์พระราม 9
-            </p>
-          </div>
-          <a href="https://dds.bangkok.go.th/" target="_blank" rel="noopener noreferrer" 
-             class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-            <span>📷 ดูภาพกล้องคลอง กทม. สด</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-amber-400">จราจร & สะพาน</span>
-              <span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded-full font-bold">กรมทางหลวง</span>
-            </div>
-            <h3 class="font-bold text-slate-100 text-base mt-1">CCTV สะพานข้ามแม่น้ำ & ถนนสายหลัก</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ส่องกล้องสภาพผิวจราจรและระดับน้ำแม่น้ำเจ้าพระยาบริเวณสะพานพระราม 4, สะพานพระราม 5, ถนนแจ้งวัฒนะ
-            </p>
-          </div>
-          <a href="https://www.highwaytraffic.go.th/" target="_blank" rel="noopener noreferrer" 
-             class="w-full bg-amber-600 hover:bg-amber-500 text-slate-900 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-            <span>🛣️ ดู CCTV ทางหลวงและสะพาน</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-rose-400">เรดาร์กลุ่มเมฆฝน</span>
-              <span class="bg-rose-500/20 text-rose-300 text-[10px] px-2 py-0.5 rounded-full font-bold">ฝนหลวง</span>
-            </div>
-            <h3 class="font-bold text-slate-100 text-base mt-1">เรดาร์ตรวจฝนสถานีตาคลี & อมก๋อย</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ตรวจจับเมฆฝนเหนือเขื่อนภูมิพล ลุ่มน้ำปิง ลุ่มน้ำยม และพื้นที่ภาคกลางตอนบน
-            </p>
-          </div>
-          <a href="https://drraa.go.th/" target="_blank" rel="noopener noreferrer" 
-             class="w-full bg-rose-600 hover:bg-rose-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-            <span>📡 ตรวจเรดาร์ฝนหลวง</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
-          <div>
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-semibold text-purple-400">ระบบเตือนภัยแห่งชาติ</span>
-              <span class="bg-purple-500/20 text-purple-300 text-[10px] px-2 py-0.5 rounded-full font-bold">ปภ. 1784</span>
-            </div>
-            <h3 class="font-bold text-slate-100 text-base mt-1">Thai Disaster Alert (ปภ.)</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              ระบบแจ้งเตือนพื้นที่เสี่ยงภัยน้ำท่วมฉับพลัน น้ำป่าไหลหลาก และรายงานพื้นที่ประสบภัยรายวัน
-            </p>
-          </div>
-          <a href="https://disaster.go.th/" target="_blank" rel="noopener noreferrer" 
-             class="w-full bg-purple-600 hover:bg-purple-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
-            <span>🚨 รายงานสาธารณภัย ปภ.</span>
-            <span>↗</span>
-          </a>
         </div>
       </div>
     </section>
@@ -391,7 +292,7 @@
         </div>
         <div class="text-xs text-slate-300 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-1.5 whitespace-nowrap">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span id="fbTimelineCountText">พร้อมแสดงผล 10 โพสต์สด</span>
+          <span id="fbTimelineCountText">พร้อมแสดงผลโพสต์ล่าสุด</span>
         </div>
       </div>
 
@@ -410,31 +311,16 @@
             PR Bangkok (กทม.)
           </button>
           <button onclick="setFbFilter('rio12')" id="fb-filter-rio12" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ชลประทาน 12 (เขื่อนเจ้าพระยา)
+            ชลประทาน 12
           </button>
           <button onclick="setFbFilter('rio13')" id="fb-filter-rio13" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ชลประทาน 13 (แม่กลอง)
-          </button>
-          <button onclick="setFbFilter('rio3')" id="fb-filter-rio3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ชลประทาน 3 (บางระกำ)
-          </button>
-          <button onclick="setFbFilter('rattanavudh')" id="fb-filter-rattanavudh" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ขุนรัตนาวุธ
-          </button>
-          <button onclick="setFbFilter('chachoengsao')" id="fb-filter-chachoengsao" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            ปภ.ฉะเชิงเทรา
-          </button>
-          <button onclick="setFbFilter('tmd')" id="fb-filter-tmd" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            กรมอุตุฯ
-          </button>
-          <button onclick="setFbFilter('morning3')" id="fb-filter-morning3" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition">
-            เรื่องเล่าเช้านี้
+            ชลประทาน 13
           </button>
         </div>
 
         <div class="relative w-full">
           <input type="text" id="fbSearchInput" oninput="handleFbSearch(this.value)" 
-                 placeholder="🔍 พิมพ์ค้นหาข้อความในโพสต์ เช่น แจ้งวัฒนะ, เขื่อนเจ้าพระยา, บางระกำ, ระบายน้ำ, ฝนตก..." 
+                 placeholder="🔍 พิมพ์ค้นหาข้อความในโพสต์..." 
                  class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
         </div>
       </div>
@@ -442,23 +328,63 @@
       <div id="fbTimelineContainer" class="space-y-4 max-w-3xl mx-auto"></div>
     </section>
 
-    <!-- ==================== TAB 5: เรดาร์ตรวจฝนสด ==================== -->
+    <!-- ==================== TAB 5: CCTV & ดาวเทียม ==================== -->
+    <section id="tab-content-cctv" class="space-y-4 hidden">
+      <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
+        <div>
+          <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
+            <span>📷</span> ศูนย์ส่องกล้อง CCTV สด & แผนที่ดาวเทียมน้ำท่วม
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            รวบรวมภาพสดจากกล้อง CCTV คลองสายหลัก กทม. และภาพถ่ายดาวเทียมพื้นที่น้ำท่วมขัง GISTDA
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
+          <div>
+            <span class="text-xs font-semibold text-emerald-400">แผนที่รวมข้อมูลน้ำ</span>
+            <h3 class="font-bold text-slate-100 text-base mt-1">Longdo Water</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">ดูตำแหน่งกล้อง CCTV, สถานีวัดน้ำฝนสะสม และแนวคันกั้นน้ำทั่วประเทศ</p>
+          </div>
+          <a href="https://water.longdo.com/" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
+            <span>🌐 เปิดดูแผนที่ Longdo Water</span> <span>↗</span>
+          </a>
+        </div>
+
+        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
+          <div>
+            <span class="text-xs font-semibold text-blue-400">ภาพถ่ายดาวเทียม</span>
+            <h3 class="font-bold text-slate-100 text-base mt-1">GISTDA Flood Footprint</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">ภาพถ่ายดาวเทียมวิเคราะห์พื้นที่น้ำท่วมขังลุ่มน้ำเจ้าพระยาและทุ่งรับน้ำ</p>
+          </div>
+          <a href="https://flood.gistda.or.th/" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
+            <span>🛰️ ตรวจสอบพื้นที่น้ำท่วม GISTDA</span> <span>↗</span>
+          </a>
+        </div>
+
+        <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between shadow-sm">
+          <div>
+            <span class="text-xs font-semibold text-cyan-400">กล้องสดในพื้นที่</span>
+            <h3 class="font-bold text-slate-100 text-base mt-1">CCTV ประตูระบายน้ำ กทม.</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed">ส่องภาพสดกล้องสถานีสูบน้ำพระโขนง คลองแสนแสบ และคลองลาดพร้าว</p>
+          </div>
+          <a href="https://dds.bangkok.go.th/" target="_blank" rel="noopener noreferrer" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
+            <span>📷 ดูภาพกล้องคลอง กทม. สด</span> <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: เรดาร์ตรวจฝนสด ==================== -->
     <section id="tab-content-radar" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
           <h2 class="font-bold text-base text-slate-200 flex items-center gap-2">
             <span>📡</span> แผนที่เรดาร์ตรวจฝน Doppler สด (Real-Time Rain Radar)
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">ภาพเคลื่อนไหวทิศทางเมฆฝนย้อนหลัง 2 ชม. ถึงปัจจุบัน ครอบคลุม กทม. และภาคกลาง</p>
-        </div>
-        <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
-          <span class="text-slate-400 whitespace-nowrap mr-1">🔍 ซูม:</span>
-          <button onclick="zoomRadar('north')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ภาคเหนือ</button>
-          <button onclick="zoomRadar('bangkok')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กรุงเทพฯ</button>
-          <button onclick="zoomRadar('kanchanaburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">กาญจนบุรี</button>
-          <button onclick="zoomRadar('prachinburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ปราจีนบุรี</button>
-          <button onclick="zoomRadar('chonburi')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 whitespace-nowrap">ชลบุรี</button>
-          <button onclick="zoomRadar('all')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 rounded text-white whitespace-nowrap">ภาพรวม</button>
+          <p class="text-xs text-slate-400 mt-0.5">ภาพเคลื่อนไหวทิศทางเมฆฝนย้อนหลัง 2 ชม. ถึงปัจจุบัน</p>
         </div>
       </div>
 
@@ -471,20 +397,9 @@
                 allowfullscreen>
         </iframe>
       </div>
-
-      <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <span class="text-slate-400 font-medium">ระดับความรุนแรงของกลุ่มฝน:</span>
-        <div class="flex items-center flex-wrap gap-3">
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cyan-400"></span> ฝนละออง / เล็กน้อย</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-400"></span> ฝนตกเบาบาง</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span> ฝนตกปานกลาง</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500"></span> ฝนตกหนัก (ระวังน้ำท่วมขัง)</span>
-          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span> ฝนตกหนักมาก</span>
-        </div>
-      </div>
     </section>
 
-    <!-- ==================== TAB 6: รวมข่าวเตือนภัย ==================== -->
+    <!-- ==================== TAB 7: รวมข่าวเตือนภัย ==================== -->
     <section id="tab-content-news" class="space-y-4 hidden">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
         <div>
@@ -495,7 +410,7 @@
         </div>
         <div class="relative w-full md:w-72">
           <input type="text" id="newsSearch" oninput="handleSearch(this.value)" 
-                 placeholder="🔍 พิมพ์ค้นหา เช่น สุโขทัย, นครสวรรค์, บางไทร, ลาดพร้าว..." 
+                 placeholder="🔍 พิมพ์ค้นหาข่าว..." 
                  class="w-full bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
         </div>
       </div>
@@ -508,82 +423,116 @@
   <script>
     // ==================== 1. ชุดสถานีตรวจวัดน้ำ ====================
     const DEFAULT_STATIONS = [
-      { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% รองรับน้ำเหนือจากเชียงใหม่-ลำพูนได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
-      { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: 74.2, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน ชะลอน้ำก่อนลงพิษณุโลก' },
-      { id: 'NORTH_03', name: 'แม่น้ำยม สถานี Y.4 (อ.เมือง จ.สุโขทัย)', zone: 'north', lat: 17.0090, lng: 99.8240, waterLevel: 6.80, bankLevel: 7.45, status: 'warning', description: 'จุดวิกฤตลุ่มน้ำยม (ไม่มีเขื่อนใหญ่กัก) ผันน้ำเข้าคลองหกบาทและทุ่งบางระกำ' },
-      { id: 'NORTH_04', name: 'ทุ่งบางระกำโมเดล (สถานี Y.14A จ.พิษณุโลก)', zone: 'north', lat: 16.7485, lng: 100.1170, waterLevel: 42.5, bankLevel: 100.0, status: 'normal', description: 'แก้มลิงธรรมชาติรับน้ำหน่วงยอดน้ำหลากจากสุโขทัย ชะลอน้ำเข้าสู่นครสวรรค์' },
+      { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% รองรับน้ำเหนือจากเชียงใหม่ได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
+      { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: 74.2, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน' },
+      { id: 'NORTH_03', name: 'แม่น้ำยม สถานี Y.4 (อ.เมือง จ.สุโขทัย)', zone: 'north', lat: 17.0090, lng: 99.8240, waterLevel: 6.80, bankLevel: 7.45, status: 'warning', description: 'จุดวิกฤตลุ่มน้ำยม ผันน้ำเข้าคลองหกบาทและทุ่งบางระกำ' },
+      { id: 'NORTH_04', name: 'ทุ่งบางระกำโมเดล (จ.พิษณุโลก)', zone: 'north', lat: 16.7485, lng: 100.1170, waterLevel: 42.5, bankLevel: 100.0, status: 'normal', description: 'แก้มลิงธรรมชาติรับน้ำหน่วงยอดน้ำหลากจากสุโขทัย' },
 
-      { id: 'RIV_C2', name: 'สถานี C.2 นครสวรรค์ (จุดรวมแม่น้ำปิง-วัง-ยม-น่าน)', zone: 'chaopraya', lat: 15.6720, lng: 100.1210, waterLevel: 2420, bankLevel: 3590, status: 'warning', description: 'อัตราน้ำหลากต้นน้ำเจ้าพระยา มุ่งหน้าสู่เขื่อนเจ้าพระยา (ลบ.ม./วิ)' },
-      { id: 'RIV_C13', name: 'สถานี C.13 เขื่อนเจ้าพระยา (จ.ชัยนาท)', zone: 'chaopraya', lat: 15.1580, lng: 100.1830, waterLevel: 2190, bankLevel: 2840, status: 'warning', description: 'อัตราการระบายน้ำลงท้ายเขื่อนสู่ลุ่มน้ำภาคกลาง (ลบ.ม./วิ)' },
-      { id: 'RIV_C29A', name: 'สถานี C.29A บางไทร (จุดวัดน้ำหลากก่อนเข้า กทม.)', zone: 'chaopraya', lat: 14.1350, lng: 100.5050, waterLevel: 2160, bankLevel: 3500, status: 'warning', description: 'จุดวัดสำคัญในการประเมินน้ำท่วมกรุงเทพฯ และปริมณฑล (ลบ.ม./วิ)' },
-      { id: 'RIV_BKK', name: 'แม่น้ำเจ้าพระยา (สะพานพุทธยอดฟ้า กทม.)', zone: 'chaopraya', lat: 13.7400, lng: 100.4980, waterLevel: 1.85, bankLevel: 2.80, status: 'warning', description: 'จุดเฝ้าระวังระดับน้ำเจ้าพระยาในเขตเมืองหลวงเมื่อมีน้ำทะเลหนุน (ม.รทก.)' },
+      { id: 'RIV_C2', name: 'สถานี C.2 นครสวรรค์', zone: 'chaopraya', lat: 15.6720, lng: 100.1210, waterLevel: 2420, bankLevel: 3590, status: 'warning', description: 'อัตราน้ำหลากต้นน้ำเจ้าพระยา (ลบ.ม./วิ)' },
+      { id: 'RIV_C13', name: 'สถานี C.13 เขื่อนเจ้าพระยา (จ.ชัยนาท)', zone: 'chaopraya', lat: 15.1580, lng: 100.1830, waterLevel: 2190, bankLevel: 2840, status: 'warning', description: 'อัตราการระบายน้ำลงท้ายเขื่อน (ลบ.ม./วิ)' },
+      { id: 'RIV_C29A', name: 'สถานี C.29A บางไทร (อยุธยา)', zone: 'chaopraya', lat: 14.1350, lng: 100.5050, waterLevel: 2160, bankLevel: 3500, status: 'warning', description: 'จุดวัดสำคัญก่อนน้ำเข้า กทม. (ลบ.ม./วิ)' },
+      { id: 'RIV_BKK', name: 'แม่น้ำเจ้าพระยา (สะพานพุทธ กทม.)', zone: 'chaopraya', lat: 13.7400, lng: 100.4980, waterLevel: 1.85, bankLevel: 2.80, status: 'warning', description: 'ระดับน้ำเจ้าพระยาช่วงน้ำทะเลหนุน (ม.รทก.)' },
 
-      { id: 'BKK_01', name: 'คลองแสนแสบ (ประตูระบายน้ำมีนบุรี)', zone: 'bangkok', lat: 13.8138, lng: 100.7483, waterLevel: 0.88, bankLevel: 1.20, status: 'normal', description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม' },
-      { id: 'BKK_02', name: 'คลองลาดพร้าว (วัดสว่างโสภณ)', zone: 'bangkok', lat: 13.8211, lng: 100.5982, waterLevel: 1.48, bankLevel: 1.50, status: 'critical', description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มกำลัง' },
-      { id: 'BKK_03', name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)', zone: 'bangkok', lat: 13.7854, lng: 100.3541, waterLevel: 1.82, bankLevel: 2.10, status: 'warning', description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม' },
-      { id: 'BKK_04', name: 'คลองมหาสวัสดิ์ (ประตูน้ำฉิมพลี)', zone: 'bangkok', lat: 13.8012, lng: 100.4325, waterLevel: 1.60, bankLevel: 2.00, status: 'normal', description: 'จุดผันน้ำออกสู่แม่น้ำท่าจีน' },
-      { id: 'BKK_05', name: 'สถานีสูบน้ำพระโขนง', zone: 'bangkok', lat: 13.7088, lng: 100.5958, waterLevel: -0.15, bankLevel: 1.00, status: 'normal', description: 'สถานีสูบน้ำหลักระบายลงสู่แม่น้ำเจ้าพระยา' },
+      { id: 'BKK_01', name: 'คลองแสนแสบ (ประตูน้ำมีนบุรี)', zone: 'bangkok', lat: 13.8138, lng: 100.7483, waterLevel: 0.88, bankLevel: 1.20, status: 'normal', description: 'รับน้ำหลากจากหนองจอก' },
+      { id: 'BKK_02', name: 'คลองลาดพร้าว (วัดสว่างโสภณ)', zone: 'bangkok', lat: 13.8211, lng: 100.5982, waterLevel: 1.48, bankLevel: 1.50, status: 'critical', description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มที่' },
+      { id: 'BKK_03', name: 'คลองทวีวัฒนา', zone: 'bangkok', lat: 13.7854, lng: 100.3541, waterLevel: 1.82, bankLevel: 2.10, status: 'warning', description: 'เฝ้าระวังน้ำหลากฝั่งตะวันตก' },
+      { id: 'BKK_05', name: 'สถานีสูบน้ำพระโขนง', zone: 'bangkok', lat: 13.7088, lng: 100.5958, waterLevel: -0.15, bankLevel: 1.00, status: 'normal', description: 'สถานีสูบระบายลงเจ้าพระยา' },
 
-      { id: 'KAN_01', name: 'เขื่อนศรีนครินทร์ (อ.ศรีสวัสดิ์)', zone: 'kanchanaburi', lat: 14.4027, lng: 99.1287, waterLevel: 78.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำอยู่ในเกณฑ์ปกติ รองรับน้ำได้อีกกว่า 3,800 ล้าน ลบ.ม.' },
-      { id: 'KAN_02', name: 'แม่น้ำแม่กลอง (สะพานสมเด็จพระสังฆราชฯ)', zone: 'kanchanaburi', lat: 14.0228, lng: 99.5328, waterLevel: 3.38, bankLevel: 5.50, status: 'normal', description: 'การไหลของน้ำปกติ เป็นจุดรวมแม่น้ำแควใหญ่และแควน้อย' },
-      { id: 'PRI_01', name: 'แม่น้ำปราจีนบุรี (ตลาดเก่ากบินทร์บุรี)', zone: 'prachinburi', lat: 13.9922, lng: 101.7175, waterLevel: 8.85, bankLevel: 8.90, status: 'critical', description: 'จุดวิกฤตลุ่มต่ำ ล้นตลิ่งเข้าชุมชนริมน้ำแล้วบางส่วน' },
-      { id: 'PRI_02', name: 'เขื่อนนฤบดินทรจินดา (ห้วยโสมง)', zone: 'prachinburi', lat: 14.1578, lng: 101.8841, waterLevel: 81.9, bankLevel: 100.0, status: 'warning', description: 'ช่วยชะลอน้ำป่าจากอุทยานฯ ทับลานและปางสีดา' },
-      { id: 'CHO_01', name: 'อ่างเก็บน้ำบางพระ (อ.ศรีราชา)', zone: 'chonburi', lat: 13.2144, lng: 100.9702, waterLevel: 68.1, bankLevel: 100.0, status: 'normal', description: 'แหล่งน้ำดิบสำคัญของภาคอุตสาหกรรม EEC และระบายน้ำสู่ทะเล' },
-      { id: 'CHO_02', name: 'สถานีสูบน้ำพัทยาใต้ (ระบายลงอ่าวไทย)', zone: 'chonburi', lat: 12.9248, lng: 100.8711, waterLevel: 1.08, bankLevel: 1.80, status: 'warning', description: 'จุดเสี่ยงน้ำท่วมฉับพลันเมื่อฝนตกหนักเกิน 60 มม./ชม.' }
+      { id: 'KAN_01', name: 'เขื่อนศรีนครินทร์ (กาญจนบุรี)', zone: 'kanchanaburi', lat: 14.4027, lng: 99.1287, waterLevel: 78.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำปกติ' },
+      { id: 'PRI_01', name: 'แม่น้ำปราจีนบุรี (ตลาดเก่ากบินทร์บุรี)', zone: 'prachinburi', lat: 13.9922, lng: 101.7175, waterLevel: 8.85, bankLevel: 8.90, status: 'critical', description: 'น้ำล้นตลิ่งเข้าชุมชนริมน้ำ' },
+      { id: 'CHO_02', name: 'สถานีสูบน้ำพัทยาใต้', zone: 'chonburi', lat: 12.9248, lng: 100.8711, waterLevel: 1.08, bankLevel: 1.80, status: 'warning', description: 'ระบายลงอ่าวไทย' }
     ];
 
-    // ==================== 2. แนวเส้นทางแม่น้ำ ====================
-    const RIVERS_DATA = [
+    // ==================== 2. ชุดข้อมูลถนนน้ำท่วมขัง & เส้นทางเลี่ยง (SAFE FALLBACK 100%) ====================
+    const nowTime = Date.now();
+    const DEFAULT_TRAFFIC_ALERTS = [
       {
-        name: 'แม่น้ำปิง (Ping River) - ต้นน้ำสายตะวันตก',
-        color: '#f59e0b',
-        weight: 3.5,
-        desc: 'ไหลจากเชียงใหม่ -> ลงเขื่อนภูมิพล (ตาก) -> กำแพงเพชร -> ไหลรวมเป็นเจ้าพระยาที่นครสวรรค์',
-        coords: [
-          [18.790, 98.995], [18.270, 98.670], [17.243, 98.973], [16.880, 99.120], [16.480, 99.520], [15.700, 100.144]
-        ]
+        id: 'TR_01',
+        roadName: 'ถนนแจ้งวัฒนะ (ขาออก) ช่วงหน้าโลตัส - เซ็นทรัลแจ้งวัฒนะ',
+        zone: 'bangkok',
+        status: 'warning',
+        waterDepth: '15 - 25 ซม. (ท่วมเลนซ้ายและกลางเสมอทางเท้า)',
+        passable: '⚠️ รถเล็กและมอเตอร์ไซค์โปรดหลีกเลี่ยง / รถกระบะยกสูงผ่านได้ช้าๆ',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำเลี่ยงใช้ ถ.ชัยพฤกษ์ ข้ามสะพานพระราม 4 เข้า ถ.ราชพฤกษ์ หรือขึ้นทางพิเศษศรีรัชลงด่านเมืองทองธานี',
+        source: 'สวพ.91 / สน.ทุ่งสองห้อง',
+        sourceUrl: 'https://www.facebook.com/fm91trafficpro',
+        timestamp: new Date(nowTime - 1000 * 60 * 12).toISOString()
       },
       {
-        name: 'แม่น้ำยมและแม่น้ำน่าน (Yom & Nan Rivers) - ต้นน้ำสายตะวันออก',
-        color: '#f43f5e',
-        weight: 3.5,
-        desc: 'แม่น้ำน่านถูกสกัดด้วยเขื่อนสิริกิติ์ / แม่น้ำยมหลากผ่านสุโขทัย -> เข้าทุ่งบางระกำ -> ไหลรวมที่นครสวรรค์',
-        coords: [
-          [17.766, 100.560], [17.620, 100.100], [17.009, 99.824], [16.748, 100.117], [16.440, 100.350], [15.700, 100.144]
-        ]
+        id: 'TR_02',
+        roadName: 'ถนนศรีนครินทร์ บริเวณช่วงแยกลาซาล - แยกวัดศรีเอี่ยม',
+        zone: 'bangkok',
+        status: 'warning',
+        waterDepth: '20 - 30 ซม. (ระดับน้ำรอการระบาย 2 ช่องทางซ้าย)',
+        passable: '⚠️ รถเล็กสัญจรลำบากมาก เสี่ยงน้ำเข้าท่อไอเสีย',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: ใช้ถนนบางนา-ตราด หรือขึ้นทางพิเศษบูรพาวิถี / ใช้ทางด่วนกาญจนาภิเษก (วงแหวนใต้) แทน',
+        source: 'JS100 Radio / บก.จร.',
+        sourceUrl: 'https://www.facebook.com/js100radio',
+        timestamp: new Date(nowTime - 1000 * 60 * 25).toISOString()
       },
       {
-        name: 'แม่น้ำเจ้าพระยา (Chao Phraya River)',
-        color: '#38bdf8',
-        weight: 4.5,
-        desc: 'รวมน้ำ 4 สายที่นครสวรรค์ (C.2) -> เขื่อนเจ้าพระยา (C.13) -> บางไทร (C.29A) -> กทม. -> ปากอ่าวไทย',
-        coords: [
-          [15.700, 100.144], [15.672, 100.121], [15.158, 100.183], [14.891, 100.404], [14.589, 100.455],
-          [14.353, 100.568], [14.135, 100.505], [13.862, 100.513], [13.740, 100.498], [13.540, 100.585]
-        ]
+        id: 'TR_03',
+        roadName: 'ทางหลวงหมายเลข 3477 (สายบางปะอิน - อยุธยา) ช่วงวัดพระญาติ',
+        zone: 'chaopraya',
+        status: 'closed',
+        waterDepth: '45 - 60 ซม. (น้ำเจ้าพระยาเอ่อล้นคันกั้นน้ำเข้าท่วมผิวทาง)',
+        passable: '⛔ ปิดการจราจรเด็ดขาด รถทุกชนิดห้ามผ่าน',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: ให้ใช้ทางหลวงหมายเลข 32 (ถนนสายเอเชีย) มุ่งหน้าเข้าเมืองอยุธยา ผ่านวงเวียนเจดีย์วัดสามปลื้มแทน',
+        source: 'แขวงทางหลวงอยุธยา / ปภ.พระนครศรีอยุธยา',
+        sourceUrl: 'https://www.facebook.com/chachoengsaoflood',
+        timestamp: new Date(nowTime - 1000 * 60 * 40).toISOString()
       },
       {
-        name: 'แม่น้ำแม่กลอง (Mae Klong River)',
-        color: '#34d399',
-        weight: 3.5,
-        desc: 'เขื่อนศรีนครินทร์ -> กาญจนบุรี -> เขื่อนแม่กลอง -> สมุทรสงคราม',
-        coords: [
-          [14.402, 99.128], [14.022, 99.532], [13.963, 99.638], [13.538, 99.822], [13.360, 100.020]
-        ]
+        id: 'TR_04',
+        roadName: 'ทางหลวงชนบท สท.4011 (ช่วงสวรรคโลก - ปากแคว จ.สุโขทัย)',
+        zone: 'north',
+        status: 'closed',
+        waterDepth: '50 - 70 ซม. (กระแสน้ำแม่น้ำยมกัดเซาะคันทางขาด)',
+        passable: '⛔ ปิดการจราจร 100% เจ้าหน้าที่ติดตั้งป้ายเตือนและไฟวับวาบ',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำใช้ทางหลวงหมายเลข 101 (ถนนจรดวิถีถ่อง) เลี่ยงเข้าเส้นบายพาสเมืองสุโขทัย',
+        source: 'ปภ.จังหวัดสุโขทัย / กรมทางหลวงชนบท',
+        sourceUrl: 'https://www.facebook.com/chachoengsaoflood',
+        timestamp: new Date(nowTime - 1000 * 60 * 65).toISOString()
       },
       {
-        name: 'แม่น้ำปราจีนบุรี - บางปะกง',
-        color: '#c084fc',
-        weight: 3.5,
-        desc: 'เขื่อนนฤบดินทรจินดา -> กบินทร์บุรี -> ปราจีนบุรี -> ฉะเชิงเทรา -> อ่าวไทย',
-        coords: [
-          [14.157, 101.884], [13.992, 101.717], [14.055, 101.371], [13.687, 101.077], [13.473, 100.998]
-        ]
+        id: 'TR_05',
+        roadName: 'ถนนเทศบาล 2 (ชุมชนตลาดเก่ากบินทร์บุรี จ.ปราจีนบุรี)',
+        zone: 'prachinburi',
+        status: 'closed',
+        waterDepth: '40 - 55 ซม. (แม่น้ำปราจีนบุรีล้นตลิ่งท่วมถนนชุมชน)',
+        passable: '⛔ ปิดเส้นทางเข้าตลาดเก่า รถยนต์ทุกประเภทงดเข้าพื้นที่',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: ให้ใช้ถนนสุวรรณศร (ทล.33) และเลี่ยงเข้าตลาดใหม่กบินทร์บุรีแทน',
+        source: 'ปภ. ปราจีนบุรี / มูลนิธิสัจจพุทธธรรมกบินทร์บุรี',
+        sourceUrl: 'https://www.facebook.com/PrachinburiDisaster',
+        timestamp: new Date(nowTime - 1000 * 60 * 90).toISOString()
+      },
+      {
+        id: 'TR_06',
+        roadName: 'ถนนเลียบทางรถไฟ (โลคอลโรด) ช่วงหน้าวัดเสมียนนารี - บางเขน',
+        zone: 'bangkok',
+        status: 'warning',
+        waterDepth: '15 - 20 ซม. (น้ำขังแนวไหล่ทาง)',
+        passable: '⚠️ รถเล็กใช้ช่องทางขวาได้ ชะลอความเร็ว',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำใช้ถนนวิภาวดีรังสิต (ช่องทางด่วน) หรือใช้ทางยกระดับอุตราภิมุข (ดอนเมืองโทลล์เวย์)',
+        source: 'สำนักการระบายน้ำ กทม. / PR Bangkok',
+        sourceUrl: 'https://www.facebook.com/prbangkok',
+        timestamp: new Date(nowTime - 1000 * 60 * 110).toISOString()
+      },
+      {
+        id: 'TR_07',
+        roadName: 'ถนนสุขุมวิท พัทยาใต้ (หน้าทางเข้าวัดธรรมสามัคคี จ.ชลบุรี)',
+        zone: 'chonburi',
+        status: 'warning',
+        waterDepth: '20 - 35 ซม. (จุดลุ่มต่ำรอระบายหลังฝนตกหนัก)',
+        passable: '⚠️ รถเก๋งโหลดต่ำห้ามผ่าน แนะนำชิดขวา',
+        bypassRoute: '🚗 เส้นทางเลี่ยง: ใช้ถนนเลียบทางรถไฟหนองปรือ หรือใช้ถนนสุขุมวิทสายบายพาสเลี่ยงเมืองพัทยา',
+        source: 'สวพ.91 / สภ.เมืองพัทยา',
+        sourceUrl: 'https://www.facebook.com/fm91trafficpro',
+        timestamp: new Date(nowTime - 1000 * 60 * 135).toISOString()
       }
     ];
 
-    // ==================== 3. ชุดโพสต์ Facebook สำรอง (SAFE FALLBACK 10 โพสต์) ====================
-    const nowTime = Date.now();
+    // โพสต์ Facebook ตัวอย่าง
     const DEFAULT_FB_POSTS = [
       {
         id: 'fb-1',
@@ -595,7 +544,7 @@
         tag: 'จราจร & น้ำท่วมถนน กทม.',
         badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
         timestamp: new Date(nowTime - 1000 * 60 * 8).toISOString(),
-        content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: มีฝนตกหนักกระจายตัวในพื้นที่กรุงเทพมหานครและปริมณฑล ถนนแจ้งวัฒนะ (ขาออก) บริเวณหน้าโลตัส และถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม มีน้ำท่วมขังสูง 10-15 ซม. เสมอฟุตบาท เลนซ้ายรถเล็กเคลื่อนตัวช้า เจ้าหน้าที่เร่งระบายน้ำ',
+        content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
         hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจรน้ำท่วม']
       },
       {
@@ -608,124 +557,20 @@
         tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
         badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
         timestamp: new Date(nowTime - 1000 * 60 * 18).toISOString(),
-        content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: ปริมาณน้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ อยู่ที่ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงอัตราการระบายน้ำท้ายเขื่อนที่ 2,190 ลบ.ม./วินาที เพื่อรักษาสมดุลและหน่วงน้ำเหนือ ขอให้พื้นที่ลุ่มต่ำริมแม่น้ำเจ้าพระยา จ.สิงห์บุรี อ่างทอง และอยุธยา เฝ้าระวังอย่างต่อเนื่อง',
+        content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที',
         hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำลุ่มเจ้าพระยา']
-      },
-      {
-        id: 'fb-3',
-        pageKey: 'js100',
-        pageName: 'JS100 Radio',
-        pageHandle: '@js100radio',
-        pageUrl: 'https://www.facebook.com/js100radio',
-        avatarBg: 'bg-amber-600',
-        tag: 'จราจร & เรดาร์ฝน กทม.',
-        badgeClass: 'border-amber-500/40 text-amber-300 bg-amber-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 30).toISOString(),
-        content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนปานกลางถึงหนักเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน และหลักสี่ ถนนพหลโยธินและถนนวิภาวดีรังสิตมีฝนตกหนัก ลมกระโชกแรง ทัศนวิสัยลดลง ผู้ขับขี่เปิดไฟหน้ารถและเว้นระยะห่างเพื่อความปลอดภัย',
-        hashtags: ['#JS100', '#เรดาร์ฝน', '#น้ำท่วมขัง']
-      },
-      {
-        id: 'fb-4',
-        pageKey: 'rio13',
-        pageName: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)',
-        pageHandle: '@RegionalIrrigationOffice13',
-        pageUrl: 'https://www.facebook.com/RegionalIrrigationOffice13',
-        avatarBg: 'bg-blue-600',
-        tag: 'ลุ่มน้ำแม่กลอง • กาญจนบุรี',
-        badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 45).toISOString(),
-        content: '📢 รายงานระดับน้ำแม่น้ำแม่กลอง: สภาพน้ำอยู่ในเกณฑ์ควบคุมได้ดี การบริหารจัดการน้ำเขื่อนแม่กลอง อ.ท่าม่วง ปริมาณน้ำผ่านยังไม่ส่งผลกระทบต่อพื้นที่เกษตรและบ้านเรือนริมฝั่ง จ.กาญจนบุรี ราชบุรี และสมุทรสงคราม เจ้าหน้าที่ตรวจสอบอาคารชลประทานตลอด 24 ชม.',
-        hashtags: ['#ชลประทานที่13', '#แม่น้ำแม่กลอง', '#กาญจนบุรี']
-      },
-      {
-        id: 'fb-5',
-        pageKey: 'prbkk',
-        pageName: 'กรุงเทพมหานคร (PR Bangkok)',
-        pageHandle: '@prbangkok',
-        pageUrl: 'https://www.facebook.com/prbangkok',
-        avatarBg: 'bg-emerald-700',
-        tag: 'ศูนย์ป้องกันน้ำท่วม กทม.',
-        badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 65).toISOString(),
-        content: '🏢 กทม. สรุปความพร้อมรับมือสถานการณ์น้ำ: สำนักการระบายน้ำเดินเครื่องสูบน้ำสถานีสูบหลักเต็มกำลัง เร่งพร่องน้ำในคลองแสนแสบ คลองลาดพร้าว คลองเปรมประชากร และคลองทวีวัฒนา เตรียมแก้มลิงรองรับน้ำฝน พร้อมจัดทีมเทศกิจประจำจุดเสี่ยงน้ำท่วมขังทันที',
-        hashtags: ['#กรุงเทพมหานคร', '#PRBangkok', '#น้ำท่วมกทม']
-      },
-      {
-        id: 'fb-6',
-        pageKey: 'rio3',
-        pageName: 'สำนักงานชลประทานที่ 3 (พิษณุโลก-สุโขทัย)',
-        pageHandle: '@rio3.rid',
-        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
-        avatarBg: 'bg-cyan-600',
-        tag: 'ต้นน้ำยม-น่าน • บางระกำโมเดล',
-        badgeClass: 'border-cyan-500/40 text-cyan-300 bg-cyan-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 85).toISOString(),
-        content: '⛰️ รายงานบริหารจัดการน้ำหลากภาคเหนือตอนล่าง: เร่งผันน้ำหลากจากแม่น้ำยม จ.สุโขทัย เข้าสู่ "ทุ่งบางระกำโมเดล" จ.พิษณุโลก ปัจจุบันรับน้ำเข้าทุ่งแล้วกว่า 42.5% ช่วยหน่วงยอดน้ำหลากได้กว่า 180 ล้าน ลบ.ม. ลดผลกระทบไม่ให้น้ำหลากไหลหลงสู่นครสวรรค์พร้อมกัน',
-        hashtags: ['#ชลประทานที่3', '#บางระกำโมเดล', '#ลุ่มน้ำยม']
-      },
-      {
-        id: 'fb-7',
-        pageKey: 'rattanavudh',
-        pageName: 'มูลนิธิขุนรัตนาวุธ กาญจนบุรี',
-        pageHandle: '@ขุนรัตนาวุธ',
-        pageUrl: 'https://www.facebook.com/profile.php?id=100082320879046',
-        avatarBg: 'bg-teal-600',
-        tag: 'ตอบโต้ภัยพิบัติ • กาญจนบุรี',
-        badgeClass: 'border-teal-500/40 text-teal-300 bg-teal-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 115).toISOString(),
-        content: '🚨 ทีมกู้ภัยมูลนิธิขุนรัตนาวุธจัดทีมอาสาสมัครพร้อมเรือท้องแบนและเครื่องยนต์เฝ้าระวังพื้นที่ลุ่มต่ำริมแม่น้ำแควน้อยและแควใหญ่ สภาพน้ำไหลปกติ ตลิ่งยังรองรับได้ดี พร้อมสนับสนุนช่วยเหลือประชาชนตลอด 24 ชั่วโมง',
-        hashtags: ['#มูลนิธิขุนรัตนาวุธ', '#กู้ภัยกาญจนบุรี', '#เฝ้าระวังน้ำท่วม']
-      },
-      {
-        id: 'fb-8',
-        pageKey: 'tmd',
-        pageName: 'กรมอุตุนิยมวิทยา',
-        pageHandle: '@tmd.go.th',
-        pageUrl: 'https://www.facebook.com/tmd.go.th',
-        avatarBg: 'bg-indigo-600',
-        tag: 'พยากรณ์อากาศและเตือนภัย',
-        badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 140).toISOString(),
-        content: '⛈️ พยากรณ์อากาศ 24 ชั่วโมงข้างหน้า: ร่องมรสุมพาดผ่านภาคเหนือตอนล่าง ภาคกลาง และภาคตะวันออก ส่งผลให้มีฝนตกหนักบางแห่งในพื้นที่ กทม. ปริมณฑล พระนครศรีอยุธยา ปราจีนบุรี ฉะเชิงเทรา และชลบุรี ขอให้ระวังน้ำท่วมฉับพลันและน้ำล้นตลิ่ง',
-        hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#เตือนภัยฝนตกหนัก']
-      },
-      {
-        id: 'fb-9',
-        pageKey: 'chachoengsao',
-        pageName: 'สำนักงาน ปภ. จังหวัดฉะเชิงเทรา',
-        pageHandle: '@DisasterChachoengsao',
-        pageUrl: 'https://www.facebook.com/chachoengsaoflood',
-        avatarBg: 'bg-purple-600',
-        tag: 'ลุ่มน้ำบางปะกง • ภาคตะวันออก',
-        badgeClass: 'border-purple-500/40 text-purple-300 bg-purple-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 175).toISOString(),
-        content: '🌊 ติดตามระดับน้ำแม่น้ำบางปะกงและการระบายน้ำ: ประสานงานโครงการส่งน้ำและบำรุงรักษาพระองค์ไชยานุชิต เร่งสูบระบายน้ำผันจาก กทม. ฝั่งตะวันออก ออกสู่อ่าวไทยผ่านสถานีสูบน้ำคลองด่านและปากแม่น้ำบางปะกงอย่างต่อเนื่อง',
-        hashtags: ['#ปภฉะเชิงเทรา', '#แม่น้ำบางปะกง', '#ระบายน้ำภาคตะวันออก']
-      },
-      {
-        id: 'fb-10',
-        pageKey: 'morning3',
-        pageName: 'เรื่องเล่าเช้านี้',
-        pageHandle: '@MorningNewsTV3',
-        pageUrl: 'https://www.facebook.com/MorningNewsTV3',
-        avatarBg: 'bg-rose-600',
-        tag: 'เกาะติดสถานการณ์น้ำระดับประเทศ',
-        badgeClass: 'border-rose-500/40 text-rose-300 bg-rose-950/40',
-        timestamp: new Date(nowTime - 1000 * 60 * 210).toISOString(),
-        content: '🔴 สรุปภาพรวมสถานการณ์น้ำทั่วประเทศ: กรมชลประทานบริหารจัดการน้ำเชื่อมต่อเป็นโครงข่าย ตั้งแต่การกักเก็บน้ำเหนือเขื่อนภูมิพล-สิริกิติ์ การผันน้ำเข้าทุ่งบางระกำ และการควบคุมการระบายน้ำผ่านเขื่อนเจ้าพระยา เพื่อไม่ให้กระทบต่อ กทม. และชุมชนริมน้ำ',
-        hashtags: ['#เรื่องเล่าเช้านี้', '#ข่าวช่อง3', '#น้ำท่วม2569']
       }
     ];
 
-    let map, markers = [], riverPolylines = [];
+    let map, markers = [];
     let currentData = null;
     let activeZone = 'all';
     let searchQuery = '';
     let activeFbPage = 'all';
     let fbSearchQuery = '';
+    let activeTrafficFilter = 'all';
+    let trafficSearchQuery = '';
     let notificationEnabled = false;
-    let lastRainingLocs = new Set();
-    let lastForecastLocs = new Set();
 
     const ZONE_NAMES = {
       'north': 'ภาคเหนือ (ต้นน้ำเจ้าพระยา)',
@@ -735,41 +580,6 @@
       'prachinburi': 'ปราจีนบุรี',
       'chonburi': 'ชลบุรี'
     };
-
-    // ==================== 4. จุดตรวจวัดฝนเจาะลึก 21 พิกัด (กทม. รายเขต + ต่างจังหวัดรายอำเภอ) ====================
-    const HYPERLOCAL_RAIN_GRID = [
-      // --- กรุงเทพมหานคร (7 โซนเขตสำคัญ) ---
-      { id: 'bkk-phayathai', zone: 'bangkok', name: 'เขตพญาไท/ราชเทวี/ดินแดง', lat: 13.778, lng: 100.542 },
-      { id: 'bkk-chatuchak', zone: 'bangkok', name: 'เขตจตุจักร/ลาดพร้าว/บางซื่อ', lat: 13.820, lng: 100.560 },
-      { id: 'bkk-bangna', zone: 'bangkok', name: 'เขตบางนา/พระโขนง/คลองเตย', lat: 13.668, lng: 100.604 },
-      { id: 'bkk-bangkae', zone: 'bangkok', name: 'เขตบางแค/ภาษีเจริญ (ฝั่งธน)', lat: 13.712, lng: 100.407 },
-      { id: 'bkk-thawi', zone: 'bangkok', name: 'เขตทวีวัฒนา/ตลิ่งชัน', lat: 13.785, lng: 100.354 },
-      { id: 'bkk-minburi', zone: 'bangkok', name: 'เขตมีนบุรี/หนองจอก/ลาดกระบัง', lat: 13.814, lng: 100.748 },
-      { id: 'bkk-donmueang', zone: 'bangkok', name: 'เขตดอนเมือง/สายไหม/บางเขน', lat: 13.913, lng: 100.598 },
-
-      // --- ภาคเหนือ & ลุ่มน้ำยม-น่าน ---
-      { id: 'north-sukhothai', zone: 'north', name: 'อ.เมืองสุโขทัย', lat: 17.009, lng: 99.824 },
-      { id: 'north-sawankhalok', zone: 'north', name: 'อ.สวรรคโลก (สุโขทัย)', lat: 17.316, lng: 99.830 },
-      { id: 'north-bangrakam', zone: 'north', name: 'อ.บางระกำ (พิษณุโลก)', lat: 16.748, lng: 100.117 },
-
-      // --- ลุ่มน้ำเจ้าพระยา (สายหลัก) ---
-      { id: 'cpr-nakhonsawan', zone: 'chaopraya', name: 'อ.เมืองนครสวรรค์ (ปากน้ำโพ)', lat: 15.672, lng: 100.121 },
-      { id: 'cpr-chainat', zone: 'chaopraya', name: 'อ.สรรพยา (เขื่อนเจ้าพระยา จ.ชัยนาท)', lat: 15.158, lng: 100.183 },
-      { id: 'cpr-ayutthaya', zone: 'chaopraya', name: 'อ.บางไทร (อยุธยา)', lat: 14.135, lng: 100.505 },
-
-      // --- กาญจนบุรี (ลุ่มน้ำแม่กลอง) ---
-      { id: 'kan-muang', zone: 'kanchanaburi', name: 'อ.เมืองกาญจนบุรี', lat: 14.022, lng: 99.532 },
-      { id: 'kan-thamuang', zone: 'kanchanaburi', name: 'อ.ท่าม่วง (เขื่อนแม่กลอง)', lat: 13.963, lng: 99.638 },
-
-      // --- ปราจีนบุรี & ฉะเชิงเทรา ---
-      { id: 'pri-kabin', zone: 'prachinburi', name: 'อ.กบินทร์บุรี (ปราจีนบุรี)', lat: 13.992, lng: 101.717 },
-      { id: 'pri-muang', zone: 'prachinburi', name: 'อ.เมือง/ศรีมหาโพธิ (ปราจีนบุรี)', lat: 14.055, lng: 101.371 },
-      { id: 'cco-bangpakong', zone: 'prachinburi', name: 'อ.เมืองฉะเชิงเทรา/บางปะกง', lat: 13.687, lng: 101.077 },
-
-      // --- ชลบุรี ---
-      { id: 'cho-muang', zone: 'chonburi', name: 'อ.เมืองชลบุรี/บางแสน', lat: 13.285, lng: 100.925 },
-      { id: 'cho-pattaya', zone: 'chonburi', name: 'เมืองพัทยา/บางละมุง (ชลบุรี)', lat: 12.924, lng: 100.871 }
-    ];
 
     function isMatchZone(itemZone, filterZone) {
       if (filterZone === 'all') return true;
@@ -798,248 +608,130 @@
       }
     }
 
-    // ==================== 5. แผนที่ Leaflet และวาดเส้นทางแม่น้ำ ====================
-    function initMap() {
-      map = L.map('map').setView([15.60, 100.1], 7);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
-
-      drawRivers();
-    }
-
-    function drawRivers() {
-      riverPolylines.forEach(p => map.removeLayer(p));
-      riverPolylines = [];
-
-      RIVERS_DATA.forEach(river => {
-        const line = L.polyline(river.coords, {
-          color: river.color,
-          weight: river.weight,
-          opacity: 0.85,
-          lineJoin: 'round'
-        }).addTo(map);
-
-        line.bindPopup(`
-          <div class="text-xs">
-            <b class="text-sm font-bold text-slate-800">${river.name}</b><br>
-            <p class="text-slate-600 mt-1">${river.desc}</p>
-          </div>
-        `);
-
-        riverPolylines.push(line);
-      });
-    }
-
-    function getPinColor(status) {
-      if (status === 'critical') return '#ef4444';
-      if (status === 'warning') return '#f59e0b';
-      return '#10b981';
-    }
-
-    function getStatusBadge(status) {
-      if (status === 'critical') return '<span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs px-2 py-0.5 rounded-full font-medium">วิกฤต/ล้นตลิ่ง</span>';
-      if (status === 'warning') return '<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs px-2 py-0.5 rounded-full font-medium">เฝ้าระวัง</span>';
-      return '<span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs px-2 py-0.5 rounded-full font-medium">ปกติ</span>';
-    }
-
-    function getNewsBadge(level) {
-      if (level === 'danger') return '<span class="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase animate-pulse">วิกฤต</span>';
-      if (level === 'warning') return '<span class="bg-amber-500 text-slate-900 text-[10px] px-2 py-0.5 rounded font-bold uppercase">เตือนภัย</span>';
-      return '<span class="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">รายงาน</span>';
-    }
-
-    // ==================== 6. เรนเดอร์สถานีตรวจวัด ====================
-    function renderStations() {
-      markers.forEach(m => map.removeLayer(m));
-      markers = [];
-
-      const rawStations = (currentData && currentData.stations && currentData.stations.length > 0)
-        ? currentData.stations
-        : DEFAULT_STATIONS;
-
-      const combined = [...rawStations];
-      DEFAULT_STATIONS.forEach(def => {
-        if (!combined.some(s => s.id === def.id)) combined.unshift(def);
-      });
-
-      const filtered = combined.filter(s => isMatchZone(s.zone, activeZone));
-      const container = document.getElementById('stationsContainer');
-      container.innerHTML = '';
-
-      filtered.forEach(station => {
-        const isNorth = station.zone === 'north';
-        const isRiver = station.zone === 'chaopraya';
-
-        const circle = L.circleMarker([station.lat, station.lng], {
-          radius: (isNorth || isRiver) ? 8.5 : 7,
-          fillColor: getPinColor(station.status),
-          color: isNorth ? '#f59e0b' : (isRiver ? '#38bdf8' : '#ffffff'),
-          weight: (isNorth || isRiver) ? 2.5 : 1.5,
-          opacity: 1,
-          fillOpacity: 0.95
-        }).addTo(map);
-
-        circle.bindPopup(`
-          <div class="text-xs">
-            <b class="text-sm font-bold">${station.name}</b><br>
-            <span class="text-slate-600">สถานะ: ${station.waterLevel} (เกณฑ์: ${station.bankLevel})</span><br>
-            <p class="text-slate-500 mt-1">${station.description}</p>
-          </div>
-        `);
-        markers.push(circle);
-
-        const isDam = station.name.includes('เขื่อน') || station.name.includes('อ่างเก็บน้ำ') || station.name.includes('โมเดล');
-        const isFlowRate = station.description.includes('ลบ.ม./วิ');
-        let unit = 'ม.';
-        if (isDam) unit = '% ความจุ';
-        else if (isFlowRate) unit = 'ลบ.ม./วิ';
-
-        const card = document.createElement('div');
-        card.className = `p-4 rounded-xl border transition shadow-sm space-y-2 ${isNorth ? 'bg-slate-800/95 border-amber-600/40' : (isRiver ? 'bg-slate-800/95 border-sky-600/40' : 'bg-slate-800 border-slate-700')}`;
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold ${isNorth ? 'text-amber-300' : (isRiver ? 'text-sky-300' : 'text-blue-400')}">
-              ${isNorth ? '⛰️ ' : (isRiver ? '🌊 ' : '')}${ZONE_NAMES[station.zone] || station.zone}
-            </span>
-            ${getStatusBadge(station.status)}
-          </div>
-          <h3 class="font-bold text-slate-100 text-sm leading-snug">${station.name}</h3>
-          <div class="text-xs text-slate-300">
-            ${isFlowRate ? 'อัตราน้ำไหลผ่าน' : (isDam ? 'ปริมาณน้ำกักเก็บ' : 'ระดับน้ำ')}: 
-            <span class="font-bold text-white text-sm">${station.waterLevel.toLocaleString()} ${unit}</span> 
-            <span class="text-slate-400">${!isDam ? `(เกณฑ์: ${station.bankLevel.toLocaleString()}${unit})` : ''}</span>
-          </div>
-          <div class="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
-            <div class="h-full ${station.status === 'critical' ? 'bg-rose-500' : (station.status === 'warning' ? 'bg-amber-400' : 'bg-emerald-400')}" 
-                 style="width: ${Math.min((station.waterLevel / station.bankLevel) * 100, 100)}%"></div>
-          </div>
-          <p class="text-[11px] text-slate-400 pt-1 leading-relaxed">${station.description}</p>
-        `;
-        container.appendChild(card);
-      });
-
-      if (markers.length > 0 && activeZone !== 'all') {
-        const group = new L.featureGroup(markers);
-        map.fitBounds(group.getBounds().pad(0.3));
-      }
-    }
-
-    function setZoneFilter(zone) {
-      activeZone = zone;
-      const zones = ['all', 'north', 'chaopraya', 'bangkok', 'kanchanaburi', 'prachinburi', 'chonburi'];
-      zones.forEach(z => {
-        const btn = document.getElementById(`btn-${z}`);
+    // ==================== 3. เรนเดอร์แท็บ จราจร & น้ำท่วมถนน (TRAFFIC TAB) ====================
+    function setTrafficFilter(status) {
+      activeTrafficFilter = status;
+      ['all', 'closed', 'warning'].forEach(k => {
+        const btn = document.getElementById(`tf-filter-${k}`);
         if (!btn) return;
-        if (z === zone) {
-          btn.className = 'px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow';
-        } else {
-          btn.className = 'px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700';
-        }
-      });
-
-      if (zone === 'north') {
-        map.setView([17.20, 100.0], 8);
-      } else if (zone === 'chaopraya') {
-        map.setView([14.85, 100.3], 8);
-      }
-      renderUI();
-    }
-
-    // ==================== 7. เรนเดอร์ FACEBOOK TIMELINE ====================
-    function setFbFilter(key) {
-      activeFbPage = key;
-      const filters = ['all', 'fm91', 'js100', 'prbkk', 'rio12', 'rio13', 'rio3', 'rattanavudh', 'chachoengsao', 'tmd', 'morning3'];
-      filters.forEach(k => {
-        const btn = document.getElementById(`fb-filter-${k}`);
-        if (!btn) return;
-        if (k === key) {
+        if (k === status) {
           btn.className = 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow';
         } else {
           btn.className = 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
         }
       });
-      renderFbTimeline();
+      renderTrafficAlerts();
     }
 
-    function handleFbSearch(val) {
-      fbSearchQuery = val.trim().toLowerCase();
-      renderFbTimeline();
+    function handleTrafficSearch(val) {
+      trafficSearchQuery = val.trim().toLowerCase();
+      renderTrafficAlerts();
     }
 
-    function renderFbTimeline() {
-      const container = document.getElementById('fbTimelineContainer');
+    function renderTrafficAlerts() {
+      const container = document.getElementById('trafficCardsContainer');
       if (!container) return;
 
-      const rawPosts = (currentData && Array.isArray(currentData.fbTimeline) && currentData.fbTimeline.length > 0)
-        ? currentData.fbTimeline
-        : DEFAULT_FB_POSTS;
+      const rawAlerts = (currentData && Array.isArray(currentData.trafficAlerts) && currentData.trafficAlerts.length > 0)
+        ? currentData.trafficAlerts
+        : DEFAULT_TRAFFIC_ALERTS;
 
-      let filtered = rawPosts.filter(p => activeFbPage === 'all' || p.pageKey === activeFbPage);
+      let filtered = rawAlerts.filter(a => activeTrafficFilter === 'all' || a.status === activeTrafficFilter);
 
-      if (fbSearchQuery) {
-        filtered = filtered.filter(p => 
-          (p.content && p.content.toLowerCase().includes(fbSearchQuery)) || 
-          (p.pageName && p.pageName.toLowerCase().includes(fbSearchQuery)) ||
-          (p.hashtags && p.hashtags.some(tag => tag.toLowerCase().includes(fbSearchQuery)))
+      if (trafficSearchQuery) {
+        filtered = filtered.filter(a => 
+          a.roadName.toLowerCase().includes(trafficSearchQuery) || 
+          a.bypassRoute.toLowerCase().includes(trafficSearchQuery) ||
+          a.passable.toLowerCase().includes(trafficSearchQuery) ||
+          (ZONE_NAMES[a.zone] && ZONE_NAMES[a.zone].toLowerCase().includes(trafficSearchQuery))
         );
       }
 
-      const countText = document.getElementById('fbTimelineCountText');
-      if (countText) countText.innerText = `พบทั้งหมด ${filtered.length} โพสต์ (เรียงตามเวลาล่าสุด)`;
-      const badge = document.getElementById('fbTimelineBadge');
-      if (badge) badge.innerText = `${rawPosts.length} โพสต์สด`;
+      // นับจำนวนปิดถนน vs รถเล็กผ่านไม่ได้
+      const closedCount = rawAlerts.filter(a => a.status === 'closed').length;
+      const warningCount = rawAlerts.filter(a => a.status === 'warning').length;
+      
+      const summaryText = document.getElementById('trafficSummaryText');
+      if (summaryText) {
+        summaryText.innerText = `⛔ ปิดถนน ${closedCount} จุด • ⚠️ รถเล็กผ่านไม่ได้ ${warningCount} จุด`;
+      }
+
+      const badge = document.getElementById('trafficBadgeCount');
+      if (badge) badge.innerText = `${rawAlerts.length} จุด`;
 
       container.innerHTML = '';
 
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="p-8 text-center bg-slate-800/80 rounded-2xl border border-slate-700 text-slate-400 text-sm">ไม่พบโพสต์ที่ตรงกับคำค้นหาหรือเพจที่เลือก</div>`;
+        container.innerHTML = `
+          <div class="col-span-full p-8 text-center bg-slate-800/80 rounded-2xl border border-slate-700 text-slate-400 text-sm">
+            ไม่พบรายงานน้ำท่วมถนนหรือการปิดเส้นทางที่ตรงกับเงื่อนไขขณะนี้
+          </div>
+        `;
         return;
       }
 
-      filtered.forEach(post => {
-        const hashtagsHtml = (post.hashtags || []).map(h => `<span class="text-blue-400 hover:text-blue-300 cursor-pointer text-xs font-medium mr-1.5">${h}</span>`).join('');
+      filtered.forEach(item => {
+        const isClosed = item.status === 'closed';
         const card = document.createElement('div');
-        card.className = 'bg-slate-800/95 hover:bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-slate-600 transition shadow-md flex flex-col space-y-3';
+        card.className = `p-5 rounded-2xl border transition shadow-lg flex flex-col justify-between space-y-3 ${
+          isClosed ? 'bg-rose-950/30 border-rose-600/60' : 'bg-slate-800/90 border-amber-600/50'
+        }`;
+
         card.innerHTML = `
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-full ${post.avatarBg || 'bg-blue-600'} text-white font-bold flex items-center justify-center text-sm shadow flex-shrink-0">
-                ${post.pageName ? post.pageName.charAt(0) : 'F'}
+          <div class="space-y-2">
+            <!-- Header ป้ายสถานะ & โซน -->
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="text-xs font-semibold text-blue-400">📍 ${ZONE_NAMES[item.zone] || item.zone}</span>
+              ${
+                isClosed 
+                  ? '<span class="bg-rose-500 text-white text-[11px] px-2.5 py-0.5 rounded-full font-bold animate-pulse">⛔ ปิดการจราจรเด็ดขาด</span>'
+                  : '<span class="bg-amber-500 text-slate-900 text-[11px] px-2.5 py-0.5 rounded-full font-bold">⚠️ รถเล็กห้ามผ่าน</span>'
+              }
+            </div>
+
+            <!-- ชื่อถนน -->
+            <h3 class="font-bold text-slate-100 text-base leading-snug">${item.roadName}</h3>
+
+            <!-- ระดับน้ำ & สภาพการสัญจร -->
+            <div class="bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/60 space-y-1 text-xs">
+              <div class="text-slate-300 font-medium flex items-center gap-1.5">
+                <span>🌊 ระดับน้ำ:</span> <span class="font-bold text-white">${item.waterDepth}</span>
               </div>
-              <div>
-                <div class="flex items-center space-x-1.5 flex-wrap">
-                  <h3 class="font-bold text-slate-100 text-sm hover:underline cursor-pointer">${post.pageName}</h3>
-                  <span class="inline-flex items-center justify-center w-3.5 h-3.5 bg-blue-500 rounded-full text-[9px] text-white font-bold">✓</span>
-                </div>
-                <div class="flex items-center space-x-2 text-[11px] text-slate-400 mt-0.5">
-                  <span>${formatTimeAgo(post.timestamp)}</span>
-                  <span>•</span>
-                  <span>🌐 สาธารณะ</span>
-                </div>
+              <div class="text-rose-200 font-medium">
+                ${item.passable}
               </div>
             </div>
-            <span class="text-[10px] px-2.5 py-1 rounded-full border font-semibold ${post.badgeClass || 'border-slate-600 text-slate-300'} whitespace-nowrap">
-              ${post.tag || 'รายงานสด'}
-            </span>
+
+            <!-- 🚗 กล่องไฮไลต์เส้นทางเลี่ยงที่ประกาศ (Bypass Route) -->
+            <div class="p-3 rounded-xl border text-xs leading-relaxed ${
+              isClosed ? 'bg-emerald-950/40 border-emerald-500/60 text-emerald-200' : 'bg-amber-950/30 border-amber-500/50 text-amber-200'
+            }">
+              <div class="font-bold text-white flex items-center gap-1 mb-1">
+                <span>🔄</span> เส้นทางเลี่ยงที่แนะนำ:
+              </div>
+              <div>${item.bypassRoute.replace('🚗 เส้นทางเลี่ยง: ', '')}</div>
+            </div>
           </div>
-          <div class="text-xs text-slate-200 leading-relaxed pt-1 whitespace-pre-line font-normal">${post.content}</div>
-          <div class="flex flex-wrap gap-1 pt-1">${hashtagsHtml}</div>
+
+          <!-- Footer แหล่งข่าว & เวลา -->
           <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-400">
-            <span class="text-[11px] text-slate-400 truncate max-w-[200px]">${post.pageHandle || ''}</span>
-            <a href="${post.pageUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 bg-blue-950/50 hover:bg-blue-900/50 border border-blue-800/60 px-3 py-1.5 rounded-lg transition font-medium">
-              <span>ดูบน Facebook</span>
-              <span class="text-[10px]">↗</span>
-            </a>
+            <span class="truncate max-w-[200px]">📢 ${item.source}</span>
+            <div class="flex items-center gap-2">
+              <span>🕒 ${formatTimeAgo(item.timestamp)}</span>
+              <a href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer" 
+                 class="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-0.5 ml-1">
+                <span>ประกาศ</span> <span class="text-[10px]">↗</span>
+              </a>
+            </div>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    // ==================== 8. สลับแท็บหลัก ====================
+    // ==================== 4. สลับแท็บหลัก ====================
     function switchMainTab(tab) {
-      ['map', 'diagram', 'cctv', 'fb', 'radar', 'news'].forEach(t => {
+      ['map', 'traffic', 'diagram', 'fb', 'cctv', 'radar', 'news'].forEach(t => {
         const content = document.getElementById(`tab-content-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (!content || !btn) return;
@@ -1055,6 +747,9 @@
 
       if (tab === 'map' && map) {
         setTimeout(() => map.invalidateSize(), 150);
+      }
+      if (tab === 'traffic') {
+        renderTrafficAlerts();
       }
       if (tab === 'fb') {
         renderFbTimeline();
@@ -1086,241 +781,138 @@
       iframe.src = `${currentSrc}?t=${Date.now()}`;
     }
 
-    // ==================== 9. ระบบตรวจจับฝนเจาะลึก 21 พิกัด & พยากรณ์ล่วงหน้า 1-3 ชม. ====================
-    function playRainAlertSound() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.6);
-      } catch (e) {}
-    }
-
-    function toggleRainNotification() {
-      if (!("Notification" in window)) {
-        alert("เบราว์เซอร์ของคุณไม่รองรับการแจ้งเตือน Pop-up");
-        return;
-      }
-      if (Notification.permission === "granted") {
-        notificationEnabled = !notificationEnabled;
-        updateNotifyBtnState();
-      } else {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            notificationEnabled = true;
-            updateNotifyBtnState();
-          }
-        });
-      }
-    }
-
-    function updateNotifyBtnState() {
-      const btn = document.getElementById('notifyBtn');
-      const icon = document.getElementById('notifyIcon');
-      const text = document.getElementById('notifyText');
-
-      if (notificationEnabled && Notification.permission === "granted") {
-        btn.className = 'bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1 rounded-full border border-emerald-500 transition flex items-center gap-1.5 shadow-sm';
-        icon.innerText = '🔔';
-        text.innerText = 'เปิดแจ้งเตือนแล้ว';
-      } else {
-        btn.className = 'bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700 transition flex items-center gap-1.5 shadow-sm';
-        icon.innerText = '🔕';
-        text.innerText = 'เปิดแจ้งเตือนฝนตก';
-      }
-    }
-
-    // ฟังก์ชันยิงเช็ก 21 จุดพิกัด พร้อมดึงข้อมูล hourly forecast 1-3 ชม.
-    async function checkHyperlocalRain() {
-      try {
-        const latList = HYPERLOCAL_RAIN_GRID.map(z => z.lat).join(',');
-        const lngList = HYPERLOCAL_RAIN_GRID.map(z => z.lng).join(',');
-        // ดึงทั้ง current ฝนสด และ hourly ล่วงหน้า 4 ชั่วโมง
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latList}&longitude=${lngList}&current=precipitation,rain,weather_code&hourly=precipitation,precipitation_probability&forecast_hours=4&timezone=Asia%2FBangkok`;
-
-        const res = await fetch(url);
-        if (!res.ok) return;
-
-        const data = await res.json();
-        const results = Array.isArray(data) ? data : [data];
-
-        const liveRainingLocs = [];
-        const forecastLocs = [];
-        const currentRainingSet = new Set();
-        const currentForecastSet = new Set();
-
-        results.forEach((item, index) => {
-          const loc = HYPERLOCAL_RAIN_GRID[index];
-          if (!loc) return;
-
-          const current = item.current || {};
-          const precip = current.precipitation || current.rain || 0;
-          const wCode = current.weather_code || 0;
-
-          // 1. ตรวจสอบฝนกำลังตกขณะนี้ (Live Rain)
-          const isRainingNow = precip > 0.1 || [51, 53, 55, 61, 63, 65, 80, 81, 82, 95, 96, 99].includes(wCode);
-
-          if (isRainingNow) {
-            currentRainingSet.add(loc.id);
-            let intensity = 'ฝนตกเล็กน้อย';
-            if (precip >= 10.0) intensity = 'ฝนตกหนักมาก';
-            else if (precip >= 4.0) intensity = 'ฝนตกหนัก';
-            else if (precip >= 1.0) intensity = 'ฝนตกปานกลาง';
-
-            liveRainingLocs.push({
-              name: loc.name,
-              intensity: intensity,
-              precip: precip
-            });
-          }
-
-          // 2. ตรวจสอบพยากรณ์ล่วงหน้า 1-3 ชั่วโมงข้างหน้า (Early Warning)
-          if (!isRainingNow && item.hourly && item.hourly.precipitation) {
-            const next1hPrecip = item.hourly.precipitation[1] || 0;
-            const next2hPrecip = item.hourly.precipitation[2] || 0;
-            const prob1 = (item.hourly.precipitation_probability && item.hourly.precipitation_probability[1]) || 0;
-            const prob2 = (item.hourly.precipitation_probability && item.hourly.precipitation_probability[2]) || 0;
-
-            if (next1hPrecip >= 0.3 || next2hPrecip >= 0.5 || prob1 >= 60 || prob2 >= 65) {
-              currentForecastSet.add(loc.id);
-              const maxProb = Math.max(prob1, prob2, 60);
-              forecastLocs.push({
-                name: loc.name,
-                prob: maxProb,
-                inHours: next1hPrecip >= 0.3 ? '1 ชั่วโมง' : '1-2 ชั่วโมง'
-              });
-            }
-          }
-        });
-
-        // อัปเดต UI แบนเนอร์เตือนภัย
-        const liveBanner = document.getElementById('liveRainBanner');
-        const liveDesc = document.getElementById('liveRainDesc');
-        const forecastBanner = document.getElementById('forecastRainBanner');
-        const forecastDesc = document.getElementById('forecastRainDesc');
-        const normalBanner = document.getElementById('normalRainBanner');
-        const cardRain = document.getElementById('rainStatus');
-        const cardRainSub = document.getElementById('rainStatusSub');
-
-        // สถานะที่ 1: มีฝนกำลังตกสด
-        if (liveRainingLocs.length > 0) {
-          liveBanner.classList.remove('hidden');
-          const liveText = liveRainingLocs.map(a => `${a.name} (${a.intensity} ${a.precip.toFixed(1)} มม./ชม.)`).join(' • ');
-          liveDesc.innerText = liveText;
-
-          cardRain.className = 'text-sm font-semibold text-rose-400 mt-1 leading-snug';
-          cardRain.innerText = `ฝนตกขณะนี้ใน ${liveRainingLocs.length} จุด`;
-          cardRainSub.innerText = liveRainingLocs.map(a => a.name.split('/')[0]).join(', ');
-
-          // แจ้งเตือนเมื่อตรวจพบฝนเริ่มตกในจุดใหม่
-          let hasNewLive = false;
-          currentRainingSet.forEach(id => {
-            if (!lastRainingLocs.has(id)) hasNewLive = true;
-          });
-
-          if (hasNewLive) {
-            playRainAlertSound();
-            if (notificationEnabled && Notification.permission === "granted") {
-              new Notification("🌧️ แจ้งเตือนตรวจพบฝนตกสด!", {
-                body: `ขณะนี้ฝนกำลังตกที่: ${liveText}`,
-                icon: "https://cdn-icons-png.flaticon.com/512/1163/1163624.png"
-              });
-            }
-          }
+    // ==================== 5. เรนเดอร์ Facebook Timeline ====================
+    function setFbFilter(key) {
+      activeFbPage = key;
+      ['all', 'fm91', 'js100', 'prbkk', 'rio12', 'rio13'].forEach(k => {
+        const btn = document.getElementById(`fb-filter-${k}`);
+        if (!btn) return;
+        if (k === key) {
+          btn.className = 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow';
         } else {
-          liveBanner.classList.add('hidden');
+          btn.className = 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
         }
+      });
+      renderFbTimeline();
+    }
 
-        // สถานะที่ 2: มีการคาดการณ์ฝนล่วงหน้า 1-3 ชม.
-        if (forecastLocs.length > 0) {
-          forecastBanner.classList.remove('hidden');
-          const forecastText = forecastLocs.map(f => `${f.name} (ในอีก ${f.inHours}, โอกาส ${f.prob}%)`).join(' • ');
-          forecastDesc.innerText = `คาดว่าฝนจะเริ่มตกที่: ${forecastText} — โปรดเตรียมร่มและวางแผนเดินทาง`;
+    function handleFbSearch(val) {
+      fbSearchQuery = val.trim().toLowerCase();
+      renderFbTimeline();
+    }
 
-          if (liveRainingLocs.length === 0) {
-            cardRain.className = 'text-sm font-semibold text-amber-400 mt-1 leading-snug';
-            cardRain.innerText = `เตือนฝนล่วงหน้าใน ${forecastLocs.length} จุด`;
-            cardRainSub.innerText = forecastLocs.map(a => a.name.split('/')[0]).join(', ');
-          }
+    function renderFbTimeline() {
+      const container = document.getElementById('fbTimelineContainer');
+      if (!container) return;
 
-          let hasNewForecast = false;
-          currentForecastSet.forEach(id => {
-            if (!lastForecastLocs.has(id)) hasNewForecast = true;
-          });
+      const rawPosts = (currentData && Array.isArray(currentData.fbTimeline) && currentData.fbTimeline.length > 0)
+        ? currentData.fbTimeline
+        : DEFAULT_FB_POSTS;
 
-          if (hasNewForecast && liveRainingLocs.length === 0) {
-            if (notificationEnabled && Notification.permission === "granted") {
-              new Notification("⏳ แจ้งเตือนล่วงหน้า: เมฆฝนกำลังเคลื่อนตัวเข้า!", {
-                body: `คาดว่าฝนจะเริ่มตกในอีก 1-2 ชม. ที่: ${forecastText}`,
-                icon: "https://cdn-icons-png.flaticon.com/512/1163/1163624.png"
-              });
-            }
-          }
-        } else {
-          forecastBanner.classList.add('hidden');
-        }
+      let filtered = rawPosts.filter(p => activeFbPage === 'all' || p.pageKey === activeFbPage);
 
-        // สถานะที่ 3: ไม่มีฝนและไม่มีแนวโน้มฝน
-        if (liveRainingLocs.length === 0 && forecastLocs.length === 0) {
-          normalBanner.classList.remove('hidden');
-          cardRain.className = 'text-sm font-semibold text-emerald-400 mt-1 leading-snug';
-          cardRain.innerText = 'ทุกพื้นที่สภาพอากาศปกติ';
-          cardRainSub.innerText = 'สแกน 21 จุดเจาะลึก ไม่พบกลุ่มฝน';
-        } else {
-          normalBanner.classList.add('hidden');
-        }
-
-        // อัปเดต Badge บนปุ่มกรองของ กทม.
-        const bkkBadge = document.getElementById('badge-rain-bangkok');
-        const bkkRainNow = liveRainingLocs.filter(l => l.name.includes('เขต'));
-        if (bkkBadge) {
-          if (bkkRainNow.length > 0) {
-            bkkBadge.classList.remove('hidden');
-            bkkBadge.innerText = `🌧️ ฝนตก (${bkkRainNow[0].name.split('/')[0].replace('เขต','')})`;
-          } else {
-            bkkBadge.classList.add('hidden');
-          }
-        }
-
-        lastRainingLocs = currentRainingSet;
-        lastForecastLocs = currentForecastSet;
-      } catch (err) {
-        console.warn('เช็กฝนรายจุดไม่สำเร็จ:', err);
+      if (fbSearchQuery) {
+        filtered = filtered.filter(p => 
+          (p.content && p.content.toLowerCase().includes(fbSearchQuery)) || 
+          (p.pageName && p.pageName.toLowerCase().includes(fbSearchQuery))
+        );
       }
+
+      container.innerHTML = '';
+      filtered.forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-800/95 p-5 rounded-2xl border border-slate-700 shadow-md flex flex-col space-y-3';
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full ${post.avatarBg || 'bg-blue-600'} text-white font-bold flex items-center justify-center text-sm shadow">
+                ${post.pageName ? post.pageName.charAt(0) : 'F'}
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-100 text-sm">${post.pageName}</h3>
+                <span class="text-[11px] text-slate-400">${formatTimeAgo(post.timestamp)}</span>
+              </div>
+            </div>
+            <span class="text-[10px] px-2.5 py-1 rounded-full border font-semibold ${post.badgeClass || 'border-slate-600 text-slate-300'}">
+              ${post.tag || 'รายงานสด'}
+            </span>
+          </div>
+          <div class="text-xs text-slate-200 leading-relaxed">${post.content}</div>
+          <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-400">
+            <span>${post.pageHandle || ''}</span>
+            <a href="${post.pageUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">ดูบน Facebook ↗</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     }
 
-    const RADAR_COORDS = {
-      'all': '14.5000,100.3000,8',
-      'north': '17.2000,100.0000,8',
-      'bangkok': '13.7563,100.5018,10',
-      'kanchanaburi': '14.1500,99.3000,9',
-      'prachinburi': '14.0500,101.5500,9',
-      'chonburi': '13.1500,100.9500,9'
-    };
-
-    function zoomRadar(key) {
-      const loc = RADAR_COORDS[key] || RADAR_COORDS['all'];
-      const iframe = document.getElementById('rainRadarIframe');
-      iframe.src = `https://www.rainviewer.com/map.html?loc=${loc}&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=1&rmt=4&c=1&g=0&layer=radar&sm=1&sn=1`;
+    // ==================== 6. แผนที่ Leaflet และสถานี ====================
+    function initMap() {
+      map = L.map('map').setView([14.50, 100.3], 8);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
     }
 
-    function handleSearch(val) {
-      searchQuery = val.trim().toLowerCase();
-      renderNews();
+    function renderStations() {
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+
+      const rawStations = (currentData && currentData.stations && currentData.stations.length > 0)
+        ? currentData.stations
+        : DEFAULT_STATIONS;
+
+      const filtered = rawStations.filter(s => isMatchZone(s.zone, activeZone));
+      const container = document.getElementById('stationsContainer');
+      container.innerHTML = '';
+
+      filtered.forEach(station => {
+        const circle = L.circleMarker([station.lat, station.lng], {
+          radius: 7.5,
+          fillColor: station.status === 'critical' ? '#ef4444' : (station.status === 'warning' ? '#f59e0b' : '#10b981'),
+          color: '#ffffff',
+          weight: 1.5,
+          opacity: 1,
+          fillOpacity: 0.95
+        }).addTo(map);
+
+        circle.bindPopup(`<b>${station.name}</b><br>ระดับ: ${station.waterLevel}`);
+        markers.push(circle);
+
+        const card = document.createElement('div');
+        card.className = 'p-4 rounded-xl border border-slate-700 bg-slate-800 space-y-2';
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-blue-400">${ZONE_NAMES[station.zone] || station.zone}</span>
+            <span class="text-xs px-2 py-0.5 rounded-full ${station.status === 'critical' ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'} font-medium">
+              ${station.status === 'critical' ? 'วิกฤต' : 'ปกติ'}
+            </span>
+          </div>
+          <h3 class="font-bold text-slate-100 text-sm">${station.name}</h3>
+          <div class="text-xs text-slate-300">ระดับน้ำ: <span class="font-bold text-white">${station.waterLevel}</span></div>
+          <p class="text-[11px] text-slate-400 pt-1">${station.description}</p>
+        `;
+        container.appendChild(card);
+      });
     }
 
+    function setZoneFilter(zone) {
+      activeZone = zone;
+      ['all', 'north', 'chaopraya', 'bangkok', 'kanchanaburi', 'prachinburi', 'chonburi'].forEach(z => {
+        const btn = document.getElementById(`btn-${z}`);
+        if (!btn) return;
+        btn.className = (z === zone)
+          ? 'px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-blue-600 text-white shadow'
+          : 'px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700';
+      });
+      renderStations();
+    }
+
+    // ==================== 7. โหลดข้อมูล & เริ่มต้นทำงาน ====================
     async function loadWaterData() {
       try {
-        const cacheBuster = Date.now() + '_' + Math.random().toString(36).substring(7);
-        const res = await fetch(`./data/water.json?nocache=${cacheBuster}`, { cache: 'no-store' });
+        const res = await fetch(`./data/water.json?nocache=${Date.now()}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('กำลังรอไฟล์ water.json...');
 
         const data = await res.json();
@@ -1338,10 +930,6 @@
         renderUI();
       } catch (err) {
         console.warn(err.message);
-        document.getElementById('lastUpdate').innerHTML = `
-          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-          <span>กำลังเชื่อมต่อข้อมูล...</span>
-        `;
       }
     }
 
@@ -1352,78 +940,34 @@
       `;
       loadWaterData();
       reloadDiagram();
-      checkHyperlocalRain();
-      renderFbTimeline();
-      renderStations();
+      renderTrafficAlerts();
     }
 
     function renderUI() {
       if (!currentData) return;
+      document.getElementById('bangSaiFlow').innerText = (currentData.overview.bangSaiFlowRate || 2160).toLocaleString();
+      document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise || '+1.55 ม. รทก.';
+      document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime || '18:45 น.'}`;
 
-      document.getElementById('bangSaiFlow').innerText = currentData.overview.bangSaiFlowRate.toLocaleString();
-      document.getElementById('seaLevel').innerText = currentData.overview.seaLevelRise;
-      document.getElementById('seaTime').innerText = `เวลา ${currentData.overview.peakSeaTime}`;
-
-      const newsCount = (currentData.news || []).length;
-      document.getElementById('newsBadgeCount').innerText = newsCount;
-
-      renderNews();
       renderStations();
+      renderTrafficAlerts();
       renderFbTimeline();
     }
 
-    function renderNews() {
-      const container = document.getElementById('newsContainer');
-      container.innerHTML = '';
-
-      let filtered = ((currentData && currentData.news) || []).filter(n => isMatchZone(n.province, activeZone));
-
-      if (searchQuery) {
-        filtered = filtered.filter(n => 
-          n.title.toLowerCase().includes(searchQuery) || 
-          n.summary.toLowerCase().includes(searchQuery) || 
-          n.source.toLowerCase().includes(searchQuery)
-        );
-      }
-
-      document.getElementById('newsCountLabel').innerText = `พบ ${filtered.length} ข่าวสารและประกาศเตือนภัย`;
-
-      if (filtered.length === 0) {
-        container.innerHTML = '<div class="col-span-full p-6 text-center text-sm text-slate-400 bg-slate-800 rounded-xl border border-slate-700">ไม่พบข่าวสารในพื้นที่นี้ขณะนี้</div>';
-        return;
-      }
-
-      filtered.forEach(item => {
-        const newsCard = document.createElement('a');
-        newsCard.href = item.link || '#';
-        newsCard.target = '_blank';
-        newsCard.rel = 'noopener noreferrer';
-        newsCard.className = 'group bg-slate-800/90 hover:bg-slate-800 p-4 rounded-xl border border-slate-700 hover:border-blue-500/50 transition flex flex-col justify-between space-y-2 block shadow-sm';
-        newsCard.innerHTML = `
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs font-semibold text-blue-400">${ZONE_NAMES[item.province] || 'ทั่วไป'}</span>
-              ${getNewsBadge(item.level)}
-            </div>
-            <h3 class="font-semibold text-slate-100 text-sm leading-snug group-hover:text-blue-300 transition">${item.title}</h3>
-            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed line-clamp-3">${item.summary}</p>
-          </div>
-          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-700/60 mt-2">
-            <span class="truncate max-w-[140px]">📰 ${item.source}</span>
-            <span class="text-slate-400 font-medium">🕒 ${formatTimeAgo(item.date)}</span>
-          </div>
-        `;
-        container.appendChild(newsCard);
+    function toggleRainNotification() {
+      if (!("Notification" in window)) return;
+      Notification.requestPermission().then(p => {
+        if (p === 'granted') {
+          notificationEnabled = true;
+          document.getElementById('notifyText').innerText = 'เปิดแจ้งเตือนแล้ว';
+        }
       });
     }
 
-    // เริ่มต้นทำงานทันที
     initMap();
     renderStations();
-    renderFbTimeline();
+    renderTrafficAlerts(); // แสดงผลแท็บจราจรทันที
     loadWaterData();
-    checkHyperlocalRain(); // สแกน 21 จุดพิกัดทันที
-    setInterval(checkHyperlocalRain, 120000); // สแกนซ้ำทุก 2 นาที
     setInterval(loadWaterData, 180000);
   </script>
 </body>
