@@ -122,7 +122,6 @@ async function fetchAllRealtimeNews() {
   return finalList.slice(0, 45);
 }
 
-// ชุดข้อมูลถนนน้ำท่วมขัง ปิดถนน และทางเลี่ยงที่ประกาศ
 function generateTrafficAlerts(now) {
   const t = now.getTime();
   return [
@@ -130,7 +129,7 @@ function generateTrafficAlerts(now) {
       id: 'TR_01',
       roadName: 'ถนนแจ้งวัฒนะ (ขาออก) ช่วงหน้าโลตัส - เซ็นทรัลแจ้งวัฒนะ',
       zone: 'bangkok',
-      status: 'warning', // warning = รถเล็กผ่านไม่ได้, closed = ปิดถนน, normal = สัญจรได้
+      status: 'warning',
       waterDepth: '15 - 25 ซม. (ท่วมเลนซ้ายและกลางเสมอทางเท้า)',
       passable: '⚠️ รถเล็กและมอเตอร์ไซค์โปรดหลีกเลี่ยง / รถกระบะยกสูงผ่านได้ช้าๆ',
       bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำเลี่ยงใช้ ถ.ชัยพฤกษ์ ข้ามสะพานพระราม 4 เข้า ถ.ราชพฤกษ์ หรือขึ้นทางพิเศษศรีรัชลงด่านเมืองทองธานี',
@@ -182,33 +181,9 @@ function generateTrafficAlerts(now) {
       waterDepth: '40 - 55 ซม. (แม่น้ำปราจีนบุรีล้นตลิ่งท่วมถนนชุมชน)',
       passable: '⛔ ปิดเส้นทางเข้าตลาดเก่า รถยนต์ทุกประเภทงดเข้าพื้นที่',
       bypassRoute: '🚗 เส้นทางเลี่ยง: ให้ใช้ถนนสุวรรณศร (ทล.33) และเลี่ยงเข้าตลาดใหม่กบินทร์บุรีแทน',
-      source: 'ปภ. ปราจีนบุรี / มูลนิธิสัจจพุทธธรรมกบินทร์บุรี',
-      sourceUrl: 'https://www.facebook.com/PrachinburiDisaster',
+      source: 'ปภ. ปราจีนบุรี',
+      sourceUrl: 'https://www.facebook.com/prd.prachinburi',
       timestamp: new Date(t - 1000 * 60 * 90).toISOString()
-    },
-    {
-      id: 'TR_06',
-      roadName: 'ถนนเลียบทางรถไฟ (โลคอลโรด) ช่วงหน้าวัดเสมียนนารี - บางเขน',
-      zone: 'bangkok',
-      status: 'warning',
-      waterDepth: '15 - 20 ซม. (น้ำขังแนวไหล่ทาง)',
-      passable: '⚠️ รถเล็กใช้ช่องทางขวาได้ ชะลอความเร็ว',
-      bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำใช้ถนนวิภาวดีรังสิต (ช่องทางด่วน) หรือใช้ทางยกระดับอุตราภิมุข (ดอนเมืองโทลล์เวย์)',
-      source: 'สำนักการระบายน้ำ กทม. / PR Bangkok',
-      sourceUrl: 'https://www.facebook.com/prbangkok',
-      timestamp: new Date(t - 1000 * 60 * 110).toISOString()
-    },
-    {
-      id: 'TR_07',
-      roadName: 'ถนนสุขุมวิท พัทยาใต้ (หน้าทางเข้าวัดธรรมสามัคคี จ.ชลบุรี)',
-      zone: 'chonburi',
-      status: 'warning',
-      waterDepth: '20 - 35 ซม. (จุดลุ่มต่ำรอระบายหลังฝนตกหนัก)',
-      passable: '⚠️ รถเก๋งโหลดต่ำห้ามผ่าน แนะนำชิดขวา',
-      bypassRoute: '🚗 เส้นทางเลี่ยง: ใช้ถนนเลียบทางรถไฟหนองปรือ หรือใช้ถนนสุขุมวิทสายบายพาสเลี่ยงเมืองพัทยา',
-      source: 'สวพ.91 / สภ.เมืองพัทยา',
-      sourceUrl: 'https://www.facebook.com/fm91trafficpro',
-      timestamp: new Date(t - 1000 * 60 * 135).toISOString()
     }
   ];
 }
@@ -217,7 +192,20 @@ function generateFacebookTimeline(now) {
   const t = now.getTime();
   const posts = [
     {
-      id: 'fb-post-1',
+      id: 'fb-post-sorrayuth',
+      pageKey: 'sorrayuth',
+      pageName: 'สรยุทธ สุทัศนะจินดา กรรมกรข่าว',
+      pageHandle: '@sorrayuth9115',
+      pageUrl: 'https://www.facebook.com/sorrayuth9115',
+      avatarBg: 'bg-red-600',
+      tag: 'ด่วน! สถานการณ์น้ำ',
+      badgeClass: 'border-red-500/40 text-red-300 bg-red-950/40',
+      timestamp: new Date(t - 1000 * 60 * 5).toISOString(),
+      content: '🔴 ด่วน! กรมชลประทานแจ้งเตือนมวลน้ำหลากก้อนใหญ่จากภาคเหนือตอนล่างกำลังเคลื่อนตัวเข้าสู่ลุ่มน้ำเจ้าพระยา ขอให้ประชาชนที่อาศัยอยู่ริมแม่น้ำ 7 จังหวัดภาคกลาง ยกของขึ้นที่สูงและติดตามประกาศอย่างใกล้ชิด',
+      hashtags: ['#สรยุทธสุทัศนะจินดา', '#กรรมกรข่าว', '#น้ำท่วม']
+    },
+    {
+      id: 'fb-post-fm91',
       pageKey: 'fm91',
       pageName: 'สวพ.91 (FM91 Trafficpro)',
       pageHandle: '@fm91trafficpro',
@@ -225,33 +213,59 @@ function generateFacebookTimeline(now) {
       avatarBg: 'bg-emerald-600',
       tag: 'จราจร & น้ำท่วมถนน กทม.',
       badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
-      timestamp: new Date(t - 1000 * 60 * 8).toISOString(),
-      content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
-      hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจรน้ำท่วม']
+      timestamp: new Date(t - 1000 * 60 * 12).toISOString(),
+      content: '🌧️ อัปเดตน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
+      hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจร']
     },
     {
-      id: 'fb-post-2',
+      id: 'fb-post-tmd',
+      pageKey: 'tmd',
+      pageName: 'กรมอุตุนิยมวิทยา',
+      pageHandle: '@tmd.go.th',
+      pageUrl: 'https://www.facebook.com/tmd.go.th',
+      avatarBg: 'bg-indigo-600',
+      tag: 'ประกาศเตือนภัยอากาศ',
+      badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
+      timestamp: new Date(t - 1000 * 60 * 25).toISOString(),
+      content: '⛈️ พยากรณ์อากาศและเตือนภัย: ร่องมรสุมกำลังแรงพาดผ่านภาคเหนือตอนล่างและภาคกลาง ทำให้มีฝนตกหนักถึงหนักมาก ขอให้ประชาชนบริเวณดังกล่าวระวังอันตรายจากฝนตกสะสมที่อาจทำให้เกิดน้ำท่วมฉับพลัน',
+      hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#ฝนตกหนัก']
+    },
+    {
+      id: 'fb-post-prdprachin',
+      pageKey: 'prdprachin',
+      pageName: 'สำนักงานประชาสัมพันธ์จังหวัดปราจีนบุรี',
+      pageHandle: '@prd.prachinburi',
+      pageUrl: 'https://www.facebook.com/prd.prachinburi',
+      avatarBg: 'bg-purple-600',
+      tag: 'แจ้งเตือน ปราจีนบุรี',
+      badgeClass: 'border-purple-500/40 text-purple-300 bg-purple-950/40',
+      timestamp: new Date(t - 1000 * 60 * 40).toISOString(),
+      content: '⚠️ ประกาศแจ้งเตือน! ระดับน้ำแม่น้ำปราจีนบุรี บริเวณ อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ มีแนวโน้มเพิ่มสูงขึ้นจากมวลน้ำป่า ขอให้ชาวชุมชนตลาดเก่ากบินทร์บุรีและพื้นที่ลุ่มต่ำเตรียมรับมือและเฝ้าระวังตลอด 24 ชั่วโมง',
+      hashtags: ['#ประชาสัมพันธ์ปราจีนบุรี', '#น้ำท่วมปราจีนบุรี']
+    },
+    {
+      id: 'fb-post-rio12',
       pageKey: 'rio12',
-      pageName: 'สำนักงานชลประทานที่ 12 (เขื่อนเจ้าพระยา)',
+      pageName: 'สำนักงานชลประทานที่ 12',
       pageHandle: '@rio12chainat',
       pageUrl: 'https://www.facebook.com/chachoengsaoflood',
       avatarBg: 'bg-sky-600',
       tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
       badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
-      timestamp: new Date(t - 1000 * 60 * 18).toISOString(),
+      timestamp: new Date(t - 1000 * 60 * 55).toISOString(),
       content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที',
-      hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำลุ่มเจ้าพระยา']
+      hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำ']
     },
     {
-      id: 'fb-post-3',
+      id: 'fb-post-js100',
       pageKey: 'js100',
       pageName: 'JS100 Radio',
       pageHandle: '@js100radio',
       pageUrl: 'https://www.facebook.com/js100radio',
       avatarBg: 'bg-amber-600',
-      tag: 'จราจร & เรดาร์ฝน กทม.',
+      tag: 'จราจร & เรดาร์ฝน',
       badgeClass: 'border-amber-500/40 text-amber-300 bg-amber-950/40',
-      timestamp: new Date(t - 1000 * 60 * 30).toISOString(),
+      timestamp: new Date(t - 1000 * 60 * 75).toISOString(),
       content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน ถนนศรีนครินทร์และพหลโยธินบางช่วงมีน้ำท่วมขังเสมอทางเท้า',
       hashtags: ['#JS100', '#เรดาร์ฝน', '#น้ำท่วมขัง']
     }
@@ -294,7 +308,7 @@ async function updateWaterData() {
 
   const outputPath = path.join(outputDir, 'water.json');
   fs.writeFileSync(outputPath, JSON.stringify(waterPayload, null, 2), 'utf-8');
-  console.log(`บันทึกข้อมูลสำเร็จเมื่อ ${now.toLocaleTimeString('th-TH')} จุดแจ้งเตือนจราจร ${waterPayload.trafficAlerts.length} จุด`);
+  console.log(`บันทึกข้อมูลสำเร็จเมื่อ ${now.toLocaleTimeString('th-TH')}`);
 }
 
 updateWaterData().catch(err => {
