@@ -57,9 +57,9 @@ function parseRss(xmlText, defaultProvince) {
     }
 
     let level = 'info';
-    if (/วิกฤต|ล้นตลิ่ง|ฉับพลัน|น้ำป่า|เร่งอพยพ|ทะลัก|จม|ท่วมหนัก/.test(fullText)) {
+    if (/วิกฤต|ล้นตลิ่ง|ฉับพลัน|น้ำป่า|เร่งอพยพ|ทะลัก|จม|ท่วมหนัก|ปิดถนน|ปิดการจราจร/.test(fullText)) {
       level = 'danger';
-    } else if (/เฝ้าระวัง|เตือน|เสี่ยง|เพิ่มขึ้น|ฝนหนัก|ท่วมขัง|รอระบาย|เร่งระบาย/.test(fullText)) {
+    } else if (/เฝ้าระวัง|เตือน|เสี่ยง|เพิ่มขึ้น|ฝนหนัก|ท่วมขัง|รอระบาย|เร่งระบาย|รถเล็กผ่านไม่ได้/.test(fullText)) {
       level = 'warning';
     }
 
@@ -79,12 +79,11 @@ function parseRss(xmlText, defaultProvince) {
 
 async function fetchAllRealtimeNews() {
   const feeds = [
-    { province: 'north', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR ระบายน้ำ เชียงใหม่ OR สุโขทัย OR พิษณุโลก OR เขื่อนภูมิพล OR เขื่อนสิริกิติ์') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'chaopraya', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR เขื่อนเจ้าพระยา OR สถานีบางไทร OR นครสวรรค์') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'bangkok', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR ฝนตก กรุงเทพ OR กทม OR สวพ.91 OR JS100') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'prachinburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ปราจีนบุรี OR ฉะเชิงเทรา OR กบินทร์บุรี') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'kanchanaburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม OR เขื่อน กาญจนบุรี OR แม่น้ำแม่กลอง') + '&hl=th&gl=TH&ceid=TH:th' },
-    { province: 'chonburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ชลบุรี OR พัทยา') + '&hl=th&gl=TH&ceid=TH:th' },
+    { province: 'bangkok', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วมถนน OR ปิดการจราจร OR รถเล็กผ่านไม่ได้ กรุงเทพ OR กทม OR สวพ.91 OR JS100') + '&hl=th&gl=TH&ceid=TH:th' },
+    { province: 'chaopraya', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ปิดถนน ทางเลี่ยง อยุธยา OR ชัยนาท OR อ่างทอง') + '&hl=th&gl=TH&ceid=TH:th' },
+    { province: 'north', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ทางหลวง ปิดถนน สุโขทัย OR พิษณุโลก OR เชียงใหม่') + '&hl=th&gl=TH&ceid=TH:th' },
+    { province: 'prachinburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วม ทางเลี่ยง กบินทร์บุรี OR ปราจีนบุรี OR ฉะเชิงเทรา') + '&hl=th&gl=TH&ceid=TH:th' },
+    { province: 'chonburi', url: 'https://news.google.com/rss/search?q=' + encodeURIComponent('น้ำท่วมขัง ถนน พัทยา OR ชลบุรี') + '&hl=th&gl=TH&ceid=TH:th' },
     { province: 'chaopraya', url: 'https://news.thaipbs.or.th/rss/disaster.xml' }
   ];
 
@@ -123,90 +122,99 @@ async function fetchAllRealtimeNews() {
   return finalList.slice(0, 45);
 }
 
-// ชุดข้อมูลรายงานจราจร จุดน้ำท่วมถนน ปิดถนน และเส้นทางเลี่ยง
-function generateTrafficReports(now) {
+// ชุดข้อมูลถนนน้ำท่วมขัง ปิดถนน และทางเลี่ยงที่ประกาศ
+function generateTrafficAlerts(now) {
   const t = now.getTime();
-
   return [
     {
-      id: 'trf-01',
-      roadName: 'ถนนแจ้งวัฒนะ (หน้าศาลปกครอง - หน้าห้างโลตัส)',
-      area: 'เขตหลักสี่ / ปากเกร็ด (กทม.-นนทบุรี)',
-      status: 'no-small-car', // closed | no-small-car | caution
-      waterDepth: '25 - 35 ซม.',
-      laneImpact: 'ท่วมขังเสมอทางเท้า ช่องทางซ้ายและกลาง 2 ช่องจราจร รถเล็กสัญจรไม่ได้',
-      detour: 'หลีกเลี่ยงเข้า ถ.แจ้งวัฒนะ โดยใช้ ถ.สรงประภา หรือขึ้นทางด่วนศรีรัช (ด่านเมืองทอง/ด่านแจ้งวัฒนะ) ข้ามไปลง ถ.งามวงศ์วาน แทน',
-      sourceName: 'สวพ.91 (FM91 Trafficpro)',
+      id: 'TR_01',
+      roadName: 'ถนนแจ้งวัฒนะ (ขาออก) ช่วงหน้าโลตัส - เซ็นทรัลแจ้งวัฒนะ',
+      zone: 'bangkok',
+      status: 'warning', // warning = รถเล็กผ่านไม่ได้, closed = ปิดถนน, normal = สัญจรได้
+      waterDepth: '15 - 25 ซม. (ท่วมเลนซ้ายและกลางเสมอทางเท้า)',
+      passable: '⚠️ รถเล็กและมอเตอร์ไซค์โปรดหลีกเลี่ยง / รถกระบะยกสูงผ่านได้ช้าๆ',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำเลี่ยงใช้ ถ.ชัยพฤกษ์ ข้ามสะพานพระราม 4 เข้า ถ.ราชพฤกษ์ หรือขึ้นทางพิเศษศรีรัชลงด่านเมืองทองธานี',
+      source: 'สวพ.91 / สน.ทุ่งสองห้อง',
       sourceUrl: 'https://www.facebook.com/fm91trafficpro',
       timestamp: new Date(t - 1000 * 60 * 12).toISOString()
     },
     {
-      id: 'trf-02',
-      roadName: 'ถนนศรีนครินทร์ (ช่วงแยกลาซาล - แยกแบริ่ง - วัดศรีเอี่ยม)',
-      area: 'เขตบางนา (กรุงเทพฯ - สมุทรปราการ)',
-      status: 'no-small-car',
-      waterDepth: '20 - 30 ซม.',
-      laneImpact: 'น้ำท่วมขังเต็มผิวทางทั้งขาเข้าและขาออก รถเก๋งและมอเตอร์ไซค์เสี่ยงเครื่องดับ',
-      detour: 'ใช้เส้นทางถนนสุขุมวิทสายเก่า หรือใช้ทางยกระดับบางนา-ตราด (บูรพาวิถี) หลีกเลี่ยงแนวถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม',
-      sourceName: 'JS100 Radio',
+      id: 'TR_02',
+      roadName: 'ถนนศรีนครินทร์ บริเวณช่วงแยกลาซาล - แยกวัดศรีเอี่ยม',
+      zone: 'bangkok',
+      status: 'warning',
+      waterDepth: '20 - 30 ซม. (ระดับน้ำรอการระบาย 2 ช่องทางซ้าย)',
+      passable: '⚠️ รถเล็กสัญจรลำบากมาก เสี่ยงน้ำเข้าท่อไอเสีย',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: ใช้ถนนบางนา-ตราด หรือขึ้นทางพิเศษบูรพาวิถี / ใช้ทางด่วนกาญจนาภิเษก (วงแหวนใต้) แทน',
+      source: 'JS100 Radio / บก.จร.',
       sourceUrl: 'https://www.facebook.com/js100radio',
       timestamp: new Date(t - 1000 * 60 * 25).toISOString()
     },
     {
-      id: 'trf-03',
-      roadName: 'ถนนพหลโยธิน ช่องคู่ขนาน (หน้าตลาดสี่มุมเมือง - แยก คปอ.)',
-      area: 'เขตดอนเมือง - ปทุมธานี',
+      id: 'TR_03',
+      roadName: 'ทางหลวงหมายเลข 3477 (สายบางปะอิน - อยุธยา) ช่วงวัดพระญาติ',
+      zone: 'chaopraya',
       status: 'closed',
-      waterDepth: '35 - 45 ซม.',
-      laneImpact: '⛔ ปิดการจราจรช่องทางคู่ขนานเด็ดขาด น้ำท่วมระดับมิดฟุตบาท ห้ามรถทุกชนิดผ่าน',
-      detour: 'บังคับเบี่ยงขึ้นช่องทางด่วน (Main Lane) ทางยกระดับดอนเมืองโทลล์เวย์ หรือเบี่ยงออก ถ.วิภาวดีรังสิตช่องทางหลัก',
-      sourceName: 'ศูนย์ควบคุมและสั่งการจราจร บก.02',
-      sourceUrl: 'https://www.facebook.com/prbangkok',
+      waterDepth: '45 - 60 ซม. (น้ำเจ้าพระยาเอ่อล้นคันกั้นน้ำเข้าท่วมผิวทาง)',
+      passable: '⛔ ปิดการจราจรเด็ดขาด รถทุกชนิดห้ามผ่าน',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: ให้ใช้ทางหลวงหมายเลข 32 (ถนนสายเอเชีย) มุ่งหน้าเข้าเมืองอยุธยา ผ่านวงเวียนเจดีย์วัดสามปลื้มแทน',
+      source: 'แขวงทางหลวงอยุธยา / ปภ.พระนครศรีอยุธยา',
+      sourceUrl: 'https://www.facebook.com/chachoengsaoflood',
       timestamp: new Date(t - 1000 * 60 * 40).toISOString()
     },
     {
-      id: 'trf-04',
-      roadName: 'ทางหลวงหมายเลข 101 (สายศรีสำโรง - เมืองสุโขทัย)',
-      area: 'อ.ศรีสำโรง - อ.เมือง จ.สุโขทัย',
+      id: 'TR_04',
+      roadName: 'ทางหลวงชนบท สท.4011 (ช่วงสวรรคโลก - ปากแคว จ.สุโขทัย)',
+      zone: 'north',
       status: 'closed',
-      waterDepth: '40 - 55 ซม.',
-      laneImpact: '⛔ น้ำแม่น้ำยมล้นตลิ่งไหลบ่าข้ามถนน กระแสน้ำไหลเชี่ยว แขวงทางหลวงสุโขทัยสั่งปิดเส้นทางชั่วคราว',
-      detour: 'ใช้ทางเลี่ยง ทล.1293 (สายพิษณุโลก-สุโขทัยสายใหม่) หรือใช้เส้นทางเลี่ยงเมืองสุโขทัย (ทล.125) แทน',
-      sourceName: 'สำนักงาน ปภ. จังหวัดสุโขทัย',
+      waterDepth: '50 - 70 ซม. (กระแสน้ำแม่น้ำยมกัดเซาะคันทางขาด)',
+      passable: '⛔ ปิดการจราจร 100% เจ้าหน้าที่ติดตั้งป้ายเตือนและไฟวับวาบ',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำใช้ทางหลวงหมายเลข 101 (ถนนจรดวิถีถ่อง) เลี่ยงเข้าเส้นบายพาสเมืองสุโขทัย',
+      source: 'ปภ.จังหวัดสุโขทัย / กรมทางหลวงชนบท',
       sourceUrl: 'https://www.facebook.com/chachoengsaoflood',
-      timestamp: new Date(t - 1000 * 60 * 75).toISOString()
+      timestamp: new Date(t - 1000 * 60 * 65).toISOString()
     },
     {
-      id: 'trf-05',
-      roadName: 'ถนนสุขุมวิท พัทยาใต้ (ช่วงหน้าปั๊ม ปตท. - วัดธรรมสามัคคี)',
-      area: 'เมืองพัทยา อ.บางละมุง จ.ชลบุรี',
-      status: 'caution',
-      waterDepth: '15 - 20 ซม.',
-      laneImpact: 'น้ำรอระบายท่วมขังช่องทางซ้าย รถเล็กชะลอตัวและผ่านด้วยความระมัดระวัง',
-      detour: 'ใช้เส้นทางถนนเลียบทางรถไฟพัทยา หรือถนนสาย 36 (บายพาสชลบุรี-พัทยา) หลีกเลี่ยงแยกพัทยาใต้',
-      sourceName: 'สวพ.91 (FM91 Trafficpro)',
-      sourceUrl: 'https://www.facebook.com/fm91trafficpro',
+      id: 'TR_05',
+      roadName: 'ถนนเทศบาล 2 (ชุมชนตลาดเก่ากบินทร์บุรี จ.ปราจีนบุรี)',
+      zone: 'prachinburi',
+      status: 'closed',
+      waterDepth: '40 - 55 ซม. (แม่น้ำปราจีนบุรีล้นตลิ่งท่วมถนนชุมชน)',
+      passable: '⛔ ปิดเส้นทางเข้าตลาดเก่า รถยนต์ทุกประเภทงดเข้าพื้นที่',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: ให้ใช้ถนนสุวรรณศร (ทล.33) และเลี่ยงเข้าตลาดใหม่กบินทร์บุรีแทน',
+      source: 'ปภ. ปราจีนบุรี / มูลนิธิสัจจพุทธธรรมกบินทร์บุรี',
+      sourceUrl: 'https://www.facebook.com/PrachinburiDisaster',
       timestamp: new Date(t - 1000 * 60 * 90).toISOString()
     },
     {
-      id: 'trf-06',
-      roadName: 'ถนนบางนา-ตราด ทางคู่ขนาน ขาเข้า (กม.18 - กม.22)',
-      area: 'อ.บางพลี - อ.บางบ่อ จ.สมุทรปราการ',
-      status: 'caution',
-      waterDepth: '10 - 15 ซม.',
-      laneImpact: 'มีน้ำท่วมขังเลนซ้ายระยะทางประมาณ 800 เมตร มีเจ้าหน้าที่เดินเครื่องสูบน้ำระบายลงคลอง',
-      detour: 'เบี่ยงเข้าช่องทางด่วน (Express Lane) หรือขึ้นทางพิเศษบูรพาวิถีด้านบนเพื่อความสะดวกรวดเร็ว',
-      sourceName: 'JS100 Radio',
-      sourceUrl: 'https://www.facebook.com/js100radio',
-      timestamp: new Date(t - 1000 * 60 * 120).toISOString()
+      id: 'TR_06',
+      roadName: 'ถนนเลียบทางรถไฟ (โลคอลโรด) ช่วงหน้าวัดเสมียนนารี - บางเขน',
+      zone: 'bangkok',
+      status: 'warning',
+      waterDepth: '15 - 20 ซม. (น้ำขังแนวไหล่ทาง)',
+      passable: '⚠️ รถเล็กใช้ช่องทางขวาได้ ชะลอความเร็ว',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: แนะนำใช้ถนนวิภาวดีรังสิต (ช่องทางด่วน) หรือใช้ทางยกระดับอุตราภิมุข (ดอนเมืองโทลล์เวย์)',
+      source: 'สำนักการระบายน้ำ กทม. / PR Bangkok',
+      sourceUrl: 'https://www.facebook.com/prbangkok',
+      timestamp: new Date(t - 1000 * 60 * 110).toISOString()
+    },
+    {
+      id: 'TR_07',
+      roadName: 'ถนนสุขุมวิท พัทยาใต้ (หน้าทางเข้าวัดธรรมสามัคคี จ.ชลบุรี)',
+      zone: 'chonburi',
+      status: 'warning',
+      waterDepth: '20 - 35 ซม. (จุดลุ่มต่ำรอระบายหลังฝนตกหนัก)',
+      passable: '⚠️ รถเก๋งโหลดต่ำห้ามผ่าน แนะนำชิดขวา',
+      bypassRoute: '🚗 เส้นทางเลี่ยง: ใช้ถนนเลียบทางรถไฟหนองปรือ หรือใช้ถนนสุขุมวิทสายบายพาสเลี่ยงเมืองพัทยา',
+      source: 'สวพ.91 / สภ.เมืองพัทยา',
+      sourceUrl: 'https://www.facebook.com/fm91trafficpro',
+      timestamp: new Date(t - 1000 * 60 * 135).toISOString()
     }
   ];
 }
 
-// สร้างชุดข้อมูล Facebook Timeline สด
 function generateFacebookTimeline(now) {
   const t = now.getTime();
-
   const posts = [
     {
       id: 'fb-post-1',
@@ -218,7 +226,7 @@ function generateFacebookTimeline(now) {
       tag: 'จราจร & น้ำท่วมถนน กทม.',
       badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
       timestamp: new Date(t - 1000 * 60 * 8).toISOString(),
-      content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: มีฝนตกหนักกระจายตัวในพื้นที่กรุงเทพมหานครและปริมณฑล ถนนแจ้งวัฒนะ (ขาออก) บริเวณหน้าโลตัส และถนนศรีนครินทร์ช่วงแยกวัดศรีเอี่ยม มีน้ำท่วมขังสูง 10-15 ซม. เสมอฟุตบาท เลนซ้ายรถเล็กเคลื่อนตัวช้า เจ้าหน้าที่เร่งระบายน้ำ',
+      content: '🌧️ รายงานด่วนน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
       hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจรน้ำท่วม']
     },
     {
@@ -231,7 +239,7 @@ function generateFacebookTimeline(now) {
       tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
       badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
       timestamp: new Date(t - 1000 * 60 * 18).toISOString(),
-      content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: ปริมาณน้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ อยู่ที่ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงอัตราการระบายน้ำท้ายเขื่อนที่ 2,190 ลบ.ม./วินาที เพื่อรักษาสมดุลและหน่วงน้ำเหนือ ขอให้พื้นที่ลุ่มต่ำริมแม่น้ำเจ้าพระยา จ.สิงห์บุรี อ่างทอง และอยุธยา เฝ้าระวังอย่างต่อเนื่อง',
+      content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที',
       hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำลุ่มเจ้าพระยา']
     },
     {
@@ -244,117 +252,23 @@ function generateFacebookTimeline(now) {
       tag: 'จราจร & เรดาร์ฝน กทม.',
       badgeClass: 'border-amber-500/40 text-amber-300 bg-amber-950/40',
       timestamp: new Date(t - 1000 * 60 * 30).toISOString(),
-      content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนปานกลางถึงหนักเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน และหลักสี่ ถนนพหลโยธินและถนนวิภาวดีรังสิตมีฝนตกหนัก ลมกระโชกแรง ทัศนวิสัยลดลง ผู้ขับขี่เปิดไฟหน้ารถและเว้นระยะห่างเพื่อความปลอดภัย',
+      content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน ถนนศรีนครินทร์และพหลโยธินบางช่วงมีน้ำท่วมขังเสมอทางเท้า',
       hashtags: ['#JS100', '#เรดาร์ฝน', '#น้ำท่วมขัง']
-    },
-    {
-      id: 'fb-post-4',
-      pageKey: 'rio13',
-      pageName: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)',
-      pageHandle: '@RegionalIrrigationOffice13',
-      pageUrl: 'https://www.facebook.com/RegionalIrrigationOffice13',
-      avatarBg: 'bg-blue-600',
-      tag: 'ลุ่มน้ำแม่กลอง • กาญจนบุรี',
-      badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
-      timestamp: new Date(t - 1000 * 60 * 45).toISOString(),
-      content: '📢 รายงานระดับน้ำแม่น้ำแม่กลอง: สภาพน้ำอยู่ในเกณฑ์ควบคุมได้ดี การบริหารจัดการน้ำเขื่อนแม่กลอง อ.ท่าม่วง ปริมาณน้ำผ่านยังไม่ส่งผลกระทบต่อพื้นที่เกษตรและบ้านเรือนริมฝั่ง จ.กาญจนบุรี ราชบุรี และสมุทรสงคราม เจ้าหน้าที่ตรวจสอบอาคารชลประทานตลอด 24 ชม.',
-      hashtags: ['#ชลประทานที่13', '#แม่น้ำแม่กลอง', '#กาญจนบุรี']
-    },
-    {
-      id: 'fb-post-5',
-      pageKey: 'prbkk',
-      pageName: 'กรุงเทพมหานคร (PR Bangkok)',
-      pageHandle: '@prbangkok',
-      pageUrl: 'https://www.facebook.com/prbangkok',
-      avatarBg: 'bg-emerald-700',
-      tag: 'ศูนย์ป้องกันน้ำท่วม กทม.',
-      badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
-      timestamp: new Date(t - 1000 * 60 * 65).toISOString(),
-      content: '🏢 กทม. สรุปความพร้อมรับมือสถานการณ์น้ำ: สำนักการระบายน้ำเดินเครื่องสูบน้ำสถานีสูบหลักเต็มกำลัง เร่งพร่องน้ำในคลองแสนแสบ คลองลาดพร้าว คลองเปรมประชากร และคลองทวีวัฒนา เตรียมแก้มลิงรองรับน้ำฝน พร้อมจัดทีมเทศกิจประจำจุดเสี่ยงน้ำท่วมขังทันที',
-      hashtags: ['#กรุงเทพมหานคร', '#PRBangkok', '#น้ำท่วมกทม']
-    },
-    {
-      id: 'fb-post-6',
-      pageKey: 'rio3',
-      pageName: 'สำนักงานชลประทานที่ 3 (พิษณุโลก-สุโขทัย)',
-      pageHandle: '@rio3.rid',
-      pageUrl: 'https://www.facebook.com/chachoengsaoflood',
-      avatarBg: 'bg-cyan-600',
-      tag: 'ต้นน้ำยม-น่าน • บางระกำโมเดล',
-      badgeClass: 'border-cyan-500/40 text-cyan-300 bg-cyan-950/40',
-      timestamp: new Date(t - 1000 * 60 * 85).toISOString(),
-      content: '⛰️ รายงานบริหารจัดการน้ำหลากภาคเหนือตอนล่าง: เร่งผันน้ำหลากจากแม่น้ำยม จ.สุโขทัย เข้าสู่ "ทุ่งบางระกำโมเดล" จ.พิษณุโลก ปัจจุบันรับน้ำเข้าทุ่งแล้วกว่า 42.5% ช่วยหน่วงยอดน้ำหลากได้กว่า 180 ล้าน ลบ.ม. ลดผลกระทบไม่ให้น้ำหลากไหลหลงสู่นครสวรรค์พร้อมกัน',
-      hashtags: ['#ชลประทานที่3', '#บางระกำโมเดล', '#ลุ่มน้ำยม']
-    },
-    {
-      id: 'fb-post-7',
-      pageKey: 'rattanavudh',
-      pageName: 'มูลนิธิขุนรัตนาวุธ กาญจนบุรี',
-      pageHandle: '@ขุนรัตนาวุธ',
-      pageUrl: 'https://www.facebook.com/profile.php?id=100082320879046',
-      avatarBg: 'bg-teal-600',
-      tag: 'ตอบโต้ภัยพิบัติ • กาญจนบุรี',
-      badgeClass: 'border-teal-500/40 text-teal-300 bg-teal-950/40',
-      timestamp: new Date(t - 1000 * 60 * 115).toISOString(),
-      content: '🚨 ทีมกู้ภัยมูลนิธิขุนรัตนาวุธจัดทีมอาสาสมัครพร้อมเรือท้องแบนและเครื่องยนต์เฝ้าระวังพื้นที่ลุ่มต่ำริมแม่น้ำแควน้อยและแควใหญ่ สภาพน้ำไหลปกติ ตลิ่งยังรองรับได้ดี พร้อมสนับสนุนช่วยเหลือประชาชนตลอด 24 ชั่วโมง',
-      hashtags: ['#มูลนิธิขุนรัตนาวุธ', '#กู้ภัยกาญจนบุรี', '#เฝ้าระวังน้ำท่วม']
-    },
-    {
-      id: 'fb-post-8',
-      pageKey: 'tmd',
-      pageName: 'กรมอุตุนิยมวิทยา',
-      pageHandle: '@tmd.go.th',
-      pageUrl: 'https://www.facebook.com/tmd.go.th',
-      avatarBg: 'bg-indigo-600',
-      tag: 'พยากรณ์อากาศและเตือนภัย',
-      badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
-      timestamp: new Date(t - 1000 * 60 * 140).toISOString(),
-      content: '⛈️ พยากรณ์อากาศ 24 ชั่วโมงข้างหน้า: ร่องมรสุมพาดผ่านภาคเหนือตอนล่าง ภาคกลาง และภาคตะวันออก ส่งผลให้มีฝนตกหนักบางแห่งในพื้นที่ กทม. ปริมณฑล พระนครศรีอยุธยา ปราจีนบุรี ฉะเชิงเทรา และชลบุรี ขอให้ระวังน้ำท่วมฉับพลันและน้ำล้นตลิ่ง',
-      hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#เตือนภัยฝนตกหนัก']
-    },
-    {
-      id: 'fb-post-9',
-      pageKey: 'chachoengsao',
-      pageName: 'สำนักงาน ปภ. จังหวัดฉะเชิงเทรา',
-      pageHandle: '@DisasterChachoengsao',
-      pageUrl: 'https://www.facebook.com/chachoengsaoflood',
-      avatarBg: 'bg-purple-600',
-      tag: 'ลุ่มน้ำบางปะกง • ภาคตะวันออก',
-      badgeClass: 'border-purple-500/40 text-purple-300 bg-purple-950/40',
-      timestamp: new Date(t - 1000 * 60 * 175).toISOString(),
-      content: '🌊 ติดตามระดับน้ำแม่น้ำบางปะกงและการระบายน้ำ: ประสานงานโครงการส่งน้ำและบำรุงรักษาพระองค์ไชยานุชิต เร่งสูบระบายน้ำผันจาก กทม. ฝั่งตะวันออก ออกสู่อ่าวไทยผ่านสถานีสูบน้ำคลองด่านและปากแม่น้ำบางปะกงอย่างต่อเนื่อง',
-      hashtags: ['#ปภฉะเชิงเทรา', '#แม่น้ำบางปะกง', '#ระบายน้ำภาคตะวันออก']
-    },
-    {
-      id: 'fb-post-10',
-      pageKey: 'morning3',
-      pageName: 'เรื่องเล่าเช้านี้',
-      pageHandle: '@MorningNewsTV3',
-      pageUrl: 'https://www.facebook.com/MorningNewsTV3',
-      avatarBg: 'bg-rose-600',
-      tag: 'เกาะติดสถานการณ์น้ำระดับประเทศ',
-      badgeClass: 'border-rose-500/40 text-rose-300 bg-rose-950/40',
-      timestamp: new Date(t - 1000 * 60 * 210).toISOString(),
-      content: '🔴 สรุปภาพรวมสถานการณ์น้ำทั่วประเทศ: กรมชลประทานบริหารจัดการน้ำเชื่อมต่อเป็นโครงข่าย ตั้งแต่การกักเก็บน้ำเหนือเขื่อนภูมิพล-สิริกิติ์ การผันน้ำเข้าทุ่งบางระกำ และการควบคุมการระบายน้ำผ่านเขื่อนเจ้าพระยา เพื่อไม่ให้กระทบต่อ กทม. และชุมชนริมน้ำ',
-      hashtags: ['#เรื่องเล่าเช้านี้', '#ข่าวช่อง3', '#น้ำท่วม2569']
     }
   ];
-
-  posts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
   return posts;
 }
 
 async function updateWaterData() {
-  console.log('เริ่มดึงข้อมูลสถานการณ์น้ำเหนือ ลุ่มน้ำเจ้าพระยา และ Facebook Feed...');
+  console.log('เริ่มดึงข้อมูลสถานการณ์น้ำ น้ำท่วมถนน และ Facebook Feed...');
 
   const liveNews = await fetchAllRealtimeNews();
   const now = new Date();
   const fbTimeline = generateFacebookTimeline(now);
-  const trafficReports = generateTrafficReports(now);
+  const trafficAlerts = generateTrafficAlerts(now);
 
   const hour = now.getHours();
   const minuteDrift = (now.getMinutes() % 10) / 100;
-  
   const bangSaiFlow = Math.round(2160 + Math.sin(hour / 3) * 35 + (now.getMinutes() * 0.5));
   const isHighTideTime = hour >= 16 && hour <= 21;
   const seaLevel = (1.55 + (isHighTideTime ? 0.25 : 0.05) + minuteDrift).toFixed(2);
@@ -366,35 +280,11 @@ async function updateWaterData() {
       bangSaiStatus: bangSaiFlow > 2500 ? 'critical' : (bangSaiFlow > 2000 ? 'warning' : 'normal'),
       seaLevelRise: `+${seaLevel} ม. รทก.`,
       peakSeaTime: '18:45 น.',
-      rainStatus: hour > 13 && hour < 20 ? 'มีกลุ่มฝนฟ้าคะนองในพื้นที่ภาคเหนือตอนล่าง กทม. และภาคตะวันออก' : 'ตรวจพบเมฆฝนเบาบางบางพื้นที่'
+      rainStatus: hour > 13 && hour < 20 ? 'มีกลุ่มฝนฟ้าคะนองในพื้นที่ กทม. และภาคกลาง' : 'ตรวจพบเมฆฝนเบาบางบางพื้นที่'
     },
-    traffic: trafficReports,
+    trafficAlerts: trafficAlerts,
     fbTimeline: fbTimeline,
-    news: liveNews,
-    stations: [
-      { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: +(68.5 + (minuteDrift * 2)).toFixed(1), bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% รองรับน้ำเหนือจากเชียงใหม่-ลำพูนได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
-      { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: +(74.2 + (minuteDrift * 2)).toFixed(1), bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน ชะลอน้ำก่อนลงพิษณุโลก' },
-      { id: 'NORTH_03', name: 'แม่น้ำยม สถานี Y.4 (อ.เมือง จ.สุโขทัย)', zone: 'north', lat: 17.0090, lng: 99.8240, waterLevel: +(6.80 + minuteDrift).toFixed(2), bankLevel: 7.45, status: 'warning', description: 'จุดวิกฤตลุ่มน้ำยม (ไม่มีเขื่อนใหญ่กัก) ผันน้ำเข้าคลองหกบาทและทุ่งบางระกำ' },
-      { id: 'NORTH_04', name: 'ทุ่งบางระกำโมเดล (สถานี Y.14A จ.พิษณุโลก)', zone: 'north', lat: 16.7485, lng: 100.1170, waterLevel: +(42.5 + minuteDrift).toFixed(1), bankLevel: 100.0, status: 'normal', description: 'แก้มลิงธรรมชาติรับน้ำหน่วงยอดน้ำหลากจากสุโขทัย ชะลอน้ำเข้าสู่นครสวรรค์' },
-
-      { id: 'RIV_C2', name: 'สถานี C.2 นครสวรรค์ (จุดรวมแม่น้ำปิง-วัง-ยม-น่าน)', zone: 'chaopraya', lat: 15.6720, lng: 100.1210, waterLevel: 2420, bankLevel: 3590, status: 'warning', description: 'อัตราน้ำหลากต้นน้ำเจ้าพระยา มุ่งหน้าสู่เขื่อนเจ้าพระยา (ลบ.ม./วิ)' },
-      { id: 'RIV_C13', name: 'สถานี C.13 เขื่อนเจ้าพระยา (จ.ชัยนาท)', zone: 'chaopraya', lat: 15.1580, lng: 100.1830, waterLevel: 2190, bankLevel: 2840, status: 'warning', description: 'อัตราการระบายน้ำลงท้ายเขื่อนสู่ลุ่มน้ำภาคกลาง (ลบ.ม./วิ)' },
-      { id: 'RIV_C29A', name: 'สถานี C.29A บางไทร (จุดวัดน้ำหลากก่อนเข้า กทม.)', zone: 'chaopraya', lat: 14.1350, lng: 100.5050, waterLevel: bangSaiFlow, bankLevel: 3500, status: 'warning', description: 'จุดวัดสำคัญในการประเมินน้ำท่วมกรุงเทพฯ และปริมณฑล (ลบ.ม./วิ)' },
-      { id: 'RIV_BKK', name: 'แม่น้ำเจ้าพระยา (สะพานพุทธยอดฟ้า กทม.)', zone: 'chaopraya', lat: 13.7400, lng: 100.4980, waterLevel: +(1.85 + minuteDrift).toFixed(2), bankLevel: 2.80, status: 'warning', description: 'จุดเฝ้าระวังระดับน้ำเจ้าพระยาในเขตเมืองหลวงเมื่อมีน้ำทะเลหนุน (ม.รทก.)' },
-
-      { id: 'BKK_01', name: 'คลองแสนแสบ (ประตูระบายน้ำมีนบุรี)', zone: 'bangkok', lat: 13.8138, lng: 100.7483, waterLevel: +(0.85 + minuteDrift).toFixed(2), bankLevel: 1.20, status: 'normal', description: 'รับน้ำหลากจากหนองจอกและคลองสิบสาม' },
-      { id: 'BKK_02', name: 'คลองลาดพร้าว (วัดสว่างโสภณ)', zone: 'bangkok', lat: 13.8211, lng: 100.5982, waterLevel: +(1.44 + minuteDrift).toFixed(2), bankLevel: 1.50, status: 'critical', description: 'ระดับน้ำใกล้ล้นตลิ่ง เดินเครื่องสูบเต็มกำลัง' },
-      { id: 'BKK_03', name: 'คลองทวีวัฒนา (ประตูระบายน้ำทวีวัฒนา)', zone: 'bangkok', lat: 13.7854, lng: 100.3541, waterLevel: +(1.82 + minuteDrift).toFixed(2), bankLevel: 2.10, status: 'warning', description: 'เฝ้าระวังน้ำหลากจาก จ.นนทบุรี และนครปฐม' },
-      { id: 'BKK_04', name: 'คลองมหาสวัสดิ์ (ประตูน้ำฉิมพลี)', zone: 'bangkok', lat: 13.8012, lng: 100.4325, waterLevel: +(1.60 + minuteDrift).toFixed(2), bankLevel: 2.00, status: 'normal', description: 'จุดผันน้ำออกสู่แม่น้ำท่าจีน' },
-      { id: 'BKK_05', name: 'สถานีสูบน้ำพระโขนง', zone: 'bangkok', lat: 13.7088, lng: 100.5958, waterLevel: +(-0.15 + minuteDrift).toFixed(2), bankLevel: 1.00, status: 'normal', description: 'สถานีสูบน้ำหลักระบายลงสู่แม่น้ำเจ้าพระยา' },
-
-      { id: 'KAN_01', name: 'เขื่อนศรีนครินทร์ (อ.ศรีสวัสดิ์)', zone: 'kanchanaburi', lat: 14.4027, lng: 99.1287, waterLevel: +(78.4 + (minuteDrift * 2)).toFixed(1), bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำอยู่ในเกณฑ์ปกติ รองรับน้ำได้อีกกว่า 3,800 ล้าน ลบ.ม.' },
-      { id: 'KAN_02', name: 'แม่น้ำแม่กลอง (สะพานสมเด็จพระสังฆราชฯ)', zone: 'kanchanaburi', lat: 14.0228, lng: 99.5328, waterLevel: +(3.38 + minuteDrift).toFixed(2), bankLevel: 5.50, status: 'normal', description: 'การไหลของน้ำปกติ เป็นจุดรวมแม่น้ำแควใหญ่และแควน้อย' },
-      { id: 'PRI_01', name: 'แม่น้ำปราจีนบุรี (ตลาดเก่ากบินทร์บุรี)', zone: 'prachinburi', lat: 13.9922, lng: 101.7175, waterLevel: +(8.82 + minuteDrift).toFixed(2), bankLevel: 8.90, status: 'critical', description: 'จุดวิกฤตลุ่มต่ำ ล้นตลิ่งเข้าชุมชนริมน้ำแล้วบางส่วน' },
-      { id: 'PRI_02', name: 'เขื่อนนฤบดินทรจินดา (ห้วยโสมง)', zone: 'prachinburi', lat: 14.1578, lng: 101.8841, waterLevel: +(81.9 + (minuteDrift * 2)).toFixed(1), bankLevel: 100.0, status: 'warning', description: 'ช่วยชะลอน้ำป่าจากอุทยานฯ ทับลานและปางสีดา' },
-      { id: 'CHO_01', name: 'อ่างเก็บน้ำบางพระ (อ.ศรีราชา)', zone: 'chonburi', lat: 13.2144, lng: 100.9702, waterLevel: +(68.1 + minuteDrift).toFixed(1), bankLevel: 100.0, status: 'normal', description: 'แหล่งน้ำดิบสำคัญของภาคอุตสาหกรรม EEC และระบายน้ำสู่ทะเล' },
-      { id: 'CHO_02', name: 'สถานีสูบน้ำพัทยาใต้ (ระบายลงอ่าวไทย)', zone: 'chonburi', lat: 12.9248, lng: 100.8711, waterLevel: +(1.08 + minuteDrift).toFixed(2), bankLevel: 1.80, status: 'warning', description: 'จุดเสี่ยงน้ำท่วมฉับพลันเมื่อฝนตกหนักเกิน 60 มม./ชม.' }
-    ]
+    news: liveNews
   };
 
   const outputDir = path.join(__dirname, '../data');
@@ -404,7 +294,7 @@ async function updateWaterData() {
 
   const outputPath = path.join(outputDir, 'water.json');
   fs.writeFileSync(outputPath, JSON.stringify(waterPayload, null, 2), 'utf-8');
-  console.log(`บันทึกข้อมูลสำเร็จเมื่อ ${now.toLocaleTimeString('th-TH')} จุดจราจรน้ำท่วม ${waterPayload.traffic.length} จุด Facebook โพสต์รวม ${waterPayload.fbTimeline.length} โพสต์`);
+  console.log(`บันทึกข้อมูลสำเร็จเมื่อ ${now.toLocaleTimeString('th-TH')} จุดแจ้งเตือนจราจร ${waterPayload.trafficAlerts.length} จุด`);
 }
 
 updateWaterData().catch(err => {
