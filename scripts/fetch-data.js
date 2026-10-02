@@ -176,10 +176,22 @@ function generateTrafficAlerts(now) {
   ];
 }
 
-// ชุดข้อมูล Facebook Timeline ครบทุกเพจ 100%
 function generateFacebookTimeline(now) {
   const t = now.getTime();
   const posts = [
+    {
+      id: 'fb-post-wannee',
+      pageKey: 'wanneefontokmai',
+      pageName: 'วันนี้ฝนตกไหม',
+      pageHandle: '@wanneefontokmai',
+      pageUrl: 'https://www.facebook.com/wanneefontokmai',
+      avatarBg: 'bg-sky-500',
+      tag: 'เรดาร์ฝน กทม.',
+      badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
+      timestamp: new Date(t - 1000 * 60 * 4).toISOString(),
+      content: '☔️ เรดาร์ กทม. อัปเดตล่าสุด: กลุ่มฝนกำลังเคลื่อนตัวเข้าสู่พื้นที่ กทม. ชั้นใน (พญาไท, ดินแดง, จตุจักร) และฝั่งธนบุรี เตรียมตัวเปียกได้เลยครับ เลิกงานรีบกลับบ้านด่วน!',
+      hashtags: ['#วันนี้ฝนตกไหม', '#เรดาร์กทม', '#ฝนตก']
+    },
     {
       id: 'fb-post-sorrayuth',
       pageKey: 'sorrayuth',
@@ -189,9 +201,22 @@ function generateFacebookTimeline(now) {
       avatarBg: 'bg-red-600',
       tag: 'ด่วน! สถานการณ์น้ำ',
       badgeClass: 'border-red-500/40 text-red-300 bg-red-950/40',
-      timestamp: new Date(t - 1000 * 60 * 6).toISOString(),
+      timestamp: new Date(t - 1000 * 60 * 9).toISOString(),
       content: '🔴 ด่วน! กรมชลประทานแจ้งเตือนมวลน้ำหลากก้อนใหญ่จากภาคเหนือตอนล่างกำลังเคลื่อนตัวเข้าสู่ลุ่มน้ำเจ้าพระยา ขอให้ประชาชนที่อาศัยอยู่ริมแม่น้ำ 7 จังหวัดภาคกลาง ยกของขึ้นที่สูงและติดตามประกาศอย่างใกล้ชิด',
       hashtags: ['#สรยุทธสุทัศนะจินดา', '#กรรมกรข่าว', '#น้ำท่วม']
+    },
+    {
+      id: 'fb-post-fm91',
+      pageKey: 'fm91',
+      pageName: 'สวพ.91 (FM91 Trafficpro)',
+      pageHandle: '@fm91trafficpro',
+      pageUrl: 'https://www.facebook.com/fm91trafficpro',
+      avatarBg: 'bg-emerald-600',
+      tag: 'จราจร & น้ำท่วมถนน กทม.',
+      badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
+      timestamp: new Date(t - 1000 * 60 * 15).toISOString(),
+      content: '🌧️ อัปเดตน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
+      hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจร']
     },
     {
       id: 'fb-post-tmd',
@@ -202,7 +227,7 @@ function generateFacebookTimeline(now) {
       avatarBg: 'bg-indigo-600',
       tag: 'ประกาศเตือนภัยอากาศ',
       badgeClass: 'border-indigo-500/40 text-indigo-300 bg-indigo-950/40',
-      timestamp: new Date(t - 1000 * 60 * 15).toISOString(),
+      timestamp: new Date(t - 1000 * 60 * 25).toISOString(),
       content: '⛈️ พยากรณ์อากาศและเตือนภัย: ร่องมรสุมกำลังแรงพาดผ่านภาคเหนือตอนล่างและภาคกลาง ทำให้มีฝนตกหนักถึงหนักมาก ขอให้ประชาชนบริเวณดังกล่าวระวังอันตรายจากฝนตกสะสมที่อาจทำให้เกิดน้ำท่วมฉับพลัน',
       hashtags: ['#กรมอุตุนิยมวิทยา', '#พยากรณ์อากาศ', '#ฝนตกหนัก']
     },
@@ -215,22 +240,22 @@ function generateFacebookTimeline(now) {
       avatarBg: 'bg-purple-600',
       tag: 'แจ้งเตือน ปราจีนบุรี',
       badgeClass: 'border-purple-500/40 text-purple-300 bg-purple-950/40',
-      timestamp: new Date(t - 1000 * 60 * 28).toISOString(),
+      timestamp: new Date(t - 1000 * 60 * 40).toISOString(),
       content: '⚠️ ประกาศแจ้งเตือน! ระดับน้ำแม่น้ำปราจีนบุรี บริเวณ อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ มีแนวโน้มเพิ่มสูงขึ้นจากมวลน้ำป่า ขอให้ชาวชุมชนตลาดเก่ากบินทร์บุรีและพื้นที่ลุ่มต่ำเตรียมรับมือและเฝ้าระวังตลอด 24 ชั่วโมง',
       hashtags: ['#ประชาสัมพันธ์ปราจีนบุรี', '#น้ำท่วมปราจีนบุรี']
     },
     {
-      id: 'fb-post-fm91',
-      pageKey: 'fm91',
-      pageName: 'สวพ.91 (FM91 Trafficpro)',
-      pageHandle: '@fm91trafficpro',
-      pageUrl: 'https://www.facebook.com/fm91trafficpro',
-      avatarBg: 'bg-emerald-600',
-      tag: 'จราจร & น้ำท่วมถนน กทม.',
-      badgeClass: 'border-emerald-500/40 text-emerald-300 bg-emerald-950/40',
-      timestamp: new Date(t - 1000 * 60 * 35).toISOString(),
-      content: '🌧️ อัปเดตน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง',
-      hashtags: ['#FM91', '#น้ำท่วมกรุงเทพ', '#จราจร']
+      id: 'fb-post-rio12',
+      pageKey: 'rio12',
+      pageName: 'สำนักงานชลประทานที่ 12',
+      pageHandle: '@rio12chainat',
+      pageUrl: 'https://www.facebook.com/chachoengsaoflood',
+      avatarBg: 'bg-blue-600',
+      tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
+      badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
+      timestamp: new Date(t - 1000 * 60 * 55).toISOString(),
+      content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที',
+      hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำ']
     },
     {
       id: 'fb-post-js100',
@@ -241,35 +266,9 @@ function generateFacebookTimeline(now) {
       avatarBg: 'bg-amber-600',
       tag: 'จราจร & เรดาร์ฝน',
       badgeClass: 'border-amber-500/40 text-amber-300 bg-amber-950/40',
-      timestamp: new Date(t - 1000 * 60 * 48).toISOString(),
+      timestamp: new Date(t - 1000 * 60 * 75).toISOString(),
       content: '⛈️ เรดาร์ตรวจพบกลุ่มฝนเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน ถนนศรีนครินทร์และพหลโยธินบางช่วงมีน้ำท่วมขังเสมอทางเท้า',
       hashtags: ['#JS100', '#เรดาร์ฝน', '#น้ำท่วมขัง']
-    },
-    {
-      id: 'fb-post-rio12',
-      pageKey: 'rio12',
-      pageName: 'สำนักงานชลประทานที่ 12 (เขื่อนเจ้าพระยา)',
-      pageHandle: '@rio12chainat',
-      pageUrl: 'https://www.facebook.com/chachoengsaoflood',
-      avatarBg: 'bg-sky-600',
-      tag: 'การระบายน้ำเขื่อนเจ้าพระยา',
-      badgeClass: 'border-sky-500/40 text-sky-300 bg-sky-950/40',
-      timestamp: new Date(t - 1000 * 60 * 65).toISOString(),
-      content: '🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที เพื่อรักษาสมดุลลุ่มน้ำภาคกลาง',
-      hashtags: ['#ชลประทานที่12', '#เขื่อนเจ้าพระยา', '#สถานการณ์น้ำ']
-    },
-    {
-      id: 'fb-post-rio13',
-      pageKey: 'rio13',
-      pageName: 'สำนักงานชลประทานที่ 13 (ลุ่มน้ำแม่กลอง)',
-      pageHandle: '@RegionalIrrigationOffice13',
-      pageUrl: 'https://www.facebook.com/RegionalIrrigationOffice13',
-      avatarBg: 'bg-blue-600',
-      tag: 'ลุ่มน้ำแม่กลอง • กาญจนบุรี',
-      badgeClass: 'border-blue-500/40 text-blue-300 bg-blue-950/40',
-      timestamp: new Date(t - 1000 * 60 * 85).toISOString(),
-      content: '📢 รายงานระดับน้ำแม่น้ำแม่กลอง: สภาพน้ำอยู่ในเกณฑ์ควบคุมได้ดี การบริหารจัดการน้ำเขื่อนแม่กลอง อ.ท่าม่วง ยังไม่ส่งผลกระทบต่อพื้นที่เกษตรและบ้านเรือนริมฝั่ง จ.กาญจนบุรี ราชบุรี',
-      hashtags: ['#ชลประทานที่13', '#แม่น้ำแม่กลอง', '#กาญจนบุรี']
     }
   ];
   return posts;
