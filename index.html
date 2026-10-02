@@ -138,7 +138,7 @@
       </button>
       <button id="tab-btn-cctv" onclick="switchMainTab('cctv')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>📷 ศูนย์ส่องกล้อง CCTV สด</span>
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white">ของแท้ 100%</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500 text-white">7 ระบบ</span>
       </button>
       <button id="tab-btn-traffic" onclick="switchMainTab('traffic')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition bg-slate-800 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap">
         <span>🚦 จราจร & น้ำท่วมถนน</span>
@@ -178,7 +178,7 @@
             กทม. <span id="badge-rain-bangkok" class="hidden text-[10px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded-full ml-1 font-bold">🌧️ ฝนตก</span>
           </button>
           <button onclick="setZoneFilter('kanchanaburi')" id="btn-kanchanaburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
-            กาญจนบุรี
+            กาญจนบุรี (แม่กลอง)
           </button>
           <button onclick="setZoneFilter('prachinburi')" id="btn-prachinburi" class="px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
             ปราจีนบุรี
@@ -201,7 +201,7 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 2: รวมกล้อง CCTV สดทางการ (ของแท้ 100%) ==================== -->
+    <!-- ==================== TAB 2: รวมกล้อง CCTV สดทางการ (เพิ่ม อบจ.กาญจนบุรี) ==================== -->
     <section id="tab-content-cctv" class="space-y-4 hidden">
       <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-sm">
         <div>
@@ -209,7 +209,7 @@
             <span>📷</span> ศูนย์ส่องกล้อง CCTV สตรีมสดทางการ (Official Real-Time CCTV)
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">
-            รวบรวมระบบกล้องของหน่วยงานรัฐโดยตรง ส่องสดเห็นสภาพถนน ระดับน้ำในคลอง และประตูระบายน้ำแบบเรียลไทม์
+            รวบรวมระบบกล้องของหน่วยงานรัฐโดยตรง ส่องสดเห็นสภาพถนน ระดับน้ำในคลอง เขื่อน และประตูระบายน้ำแบบเรียลไทม์
           </p>
         </div>
         <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-950 border border-emerald-600/50 text-emerald-300 font-medium">
@@ -217,10 +217,30 @@
         </span>
       </div>
 
-      <!-- แผงการ์ดกล้อง CCTV จริง 6 แหล่งใหญ่ -->
+      <!-- แผงการ์ดกล้อง CCTV จริง 7 แหล่งใหญ่ (รวม อบจ.กาญจนบุรี) -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         
-        <!-- 1. BMA Traffic CCTV -->
+        <!-- 1. CCTV อบจ.กาญจนบุรี (Smart City KANPAO - เพิ่มใหม่ตามสั่ง) -->
+        <div class="bg-slate-800 p-5 rounded-2xl border border-teal-500/50 flex flex-col justify-between space-y-3 shadow-md hover:border-teal-400 transition relative overflow-hidden">
+          <div class="absolute -top-3 -right-3 w-16 h-16 bg-teal-500/10 rounded-full blur-xl pointer-events-none"></div>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-teal-400">อบจ. กาญจนบุรี (KANPAO)</span>
+              <span class="bg-teal-500/20 text-teal-300 text-[10px] px-2 py-0.5 rounded-full font-bold">แม่กลอง • แควน้อย-ใหญ่</span>
+            </div>
+            <h3 class="font-bold text-slate-100 text-base">กล้อง CCTV อบจ.กาญจนบุรี (Smart City)</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              ภาพถ่ายทอดสดกล้องวงจรปิดครอบคลุมตัวเมืองกาญจนบุรี สะพานข้ามแม่น้ำแคว จุดตัดทางแยกสำคัญ และแนวแม่น้ำในพื้นที่ จ.กาญจนบุรี
+            </p>
+          </div>
+          <a href="https://kanpao.go.th/cctvform/cameraList" target="_blank" rel="noopener noreferrer" 
+             class="w-full bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow">
+            <span>📷 เปิดส่องกล้อง อบจ.กาญจนบุรี (kanpao.go.th)</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <!-- 2. BMA Traffic CCTV -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-3 shadow-md hover:border-indigo-500/50 transition">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -239,7 +259,7 @@
           </a>
         </div>
 
-        <!-- 2. สำนักการระบายน้ำ กทม. -->
+        <!-- 3. สำนักการระบายน้ำ กทม. -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-3 shadow-md hover:border-cyan-500/50 transition">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -258,7 +278,7 @@
           </a>
         </div>
 
-        <!-- 3. กรมทางหลวง -->
+        <!-- 4. กรมทางหลวง -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-3 shadow-md hover:border-amber-500/50 transition">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -277,7 +297,7 @@
           </a>
         </div>
 
-        <!-- 4. กฟผ. / EGAT Water -->
+        <!-- 5. กฟผ. / EGAT Water -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-3 shadow-md hover:border-emerald-500/50 transition">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -296,7 +316,7 @@
           </a>
         </div>
 
-        <!-- 5. iTIC Live -->
+        <!-- 6. iTIC Live -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-3 shadow-md hover:border-rose-500/50 transition">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -315,7 +335,7 @@
           </a>
         </div>
 
-        <!-- 6. Longdo Water Portal -->
+        <!-- 7. Longdo Water Portal -->
         <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 flex flex-col justify-between space-y-3 shadow-md hover:border-blue-500/50 transition">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -676,7 +696,7 @@
       }
     ];
 
-    // ==================== พิกัด 21 จุดตรวจฝนเจาะลึก ====================
+    // พิกัด 21 จุดตรวจฝนเจาะลึก
     const HYPERLOCAL_RAIN_GRID = [
       { id: 'bkk-phayathai', zone: 'bangkok', name: 'เขตพญาไท/ราชเทวี/ดินแดง', lat: 13.778, lng: 100.542 },
       { id: 'bkk-chatuchak', zone: 'bangkok', name: 'เขตจตุจักร/ลาดพร้าว', lat: 13.820, lng: 100.560 },
@@ -700,7 +720,7 @@
       { id: 'cho-pattaya', zone: 'chonburi', name: 'เมืองพัทยา', lat: 12.924, lng: 100.871 }
     ];
 
-    // ==================== กู้คืนชุดสถานีหลักฉบับสมบูรณ์ (DEFAULT_STATIONS) ====================
+    // ชุดสถานีหลักฉบับสมบูรณ์ (DEFAULT_STATIONS)
     const DEFAULT_STATIONS = [
       { id: 'NORTH_01', name: 'เขื่อนภูมิพล (จ.ตาก - แม่น้ำปิง)', zone: 'north', lat: 17.2435, lng: 98.9734, waterLevel: 68.5, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 68.5% รองรับน้ำเหนือจากเชียงใหม่ได้อีกกว่า 4,200 ล้าน ลบ.ม.' },
       { id: 'NORTH_02', name: 'เขื่อนสิริกิติ์ (จ.อุตรดิตถ์ - แม่น้ำน่าน)', zone: 'north', lat: 17.7667, lng: 100.5600, waterLevel: 74.2, bankLevel: 100.0, status: 'normal', description: 'ความจุน้ำ 74.2% กักเก็บมวลน้ำป่าจากเทือกเขาน่าน ชะลอน้ำก่อนลงพิษณุโลก' },
@@ -767,9 +787,11 @@
       ['all', 'closed', 'warning'].forEach(k => {
         const btn = document.getElementById(`tf-filter-${k}`);
         if (!btn) return;
-        btn.className = (k === status)
-          ? 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow'
-          : 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
+        if (k === status) {
+          btn.className = 'px-3 py-1.5 bg-blue-600 text-white rounded-lg font-medium whitespace-nowrap transition shadow';
+        } else {
+          btn.className = 'px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg font-medium whitespace-nowrap transition';
+        }
       });
       renderTrafficAlerts();
     }
@@ -860,8 +882,8 @@
 
       if (fbSearchQuery) {
         filtered = filtered.filter(p => 
-          (p.content && p.content.toLowerCase().includes(fbSearchQuery)) || 
-          (p.pageName && p.pageName.toLowerCase().includes(fbSearchQuery))
+          p.content.toLowerCase().includes(fbSearchQuery) || 
+          p.pageName.toLowerCase().includes(fbSearchQuery)
         );
       }
 
@@ -902,7 +924,6 @@
       }).addTo(map);
     }
 
-    // ฟังก์ชันนี้เรียกใช้ DEFAULT_STATIONS ฉบับเต็ม 20+ แห่งเสมอ
     function renderStations() {
       markers.forEach(m => map.removeLayer(m));
       markers = [];
@@ -1160,14 +1181,12 @@
       });
     }
 
-    // เริ่มต้นทำงานทันที
     initMap();
-    renderStations();      // แสดงสถานีทั้งหมด 20+ แห่งทันที ไม่แหว่งแน่นอน
-    renderTrafficAlerts(); // แสดงจุดปิดถนน/น้ำท่วมทันที
-    renderFbTimeline();    // แสดงโพสต์ Facebook ทันที
-    checkHyperlocalRain(); // สแกนฝน 21 จุดทันที
+    renderStations();
+    renderTrafficAlerts();
+    renderFbTimeline(); 
+    checkHyperlocalRain(); 
     loadWaterData();
-
     setInterval(checkHyperlocalRain, 120000);
     setInterval(loadWaterData, 180000);
   </script>
