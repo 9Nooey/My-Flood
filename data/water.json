@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-10-28T07:39:57.682Z",
+  "timestamp": "2026-10-28T14:29:20.245Z",
   "overview": {
-    "bangSaiFlowRate": 2205,
+    "bangSaiFlowRate": 2140,
     "bangSaiStatus": "warning",
     "seaLevelRise": "+1.69 ม. รทก.",
     "peakSeaTime": "18:45 น.",
-    "rainStatus": "ตรวจพบเมฆฝนเบาบางบางพื้นที่"
+    "rainStatus": "มีกลุ่มฝนฟ้าคะนองในพื้นที่ กทม. และภาคกลาง"
   },
   "trafficAlerts": [
     {
@@ -18,7 +18,7 @@
       "bypassRoute": "🚗 เส้นทางเลี่ยง: แนะนำเลี่ยงใช้ ถ.ชัยพฤกษ์ ข้ามสะพานพระราม 4 เข้า ถ.ราชพฤกษ์ หรือขึ้นทางพิเศษศรีรัชลงด่านเมืองทองธานี",
       "source": "สวพ.91 / สน.ทุ่งสองห้อง",
       "sourceUrl": "https://www.facebook.com/fm91trafficpro",
-      "timestamp": "2026-10-28T07:27:57.682Z"
+      "timestamp": "2026-10-28T14:17:20.245Z"
     },
     {
       "id": "TR_02",
@@ -30,7 +30,7 @@
       "bypassRoute": "🚗 เส้นทางเลี่ยง: ใช้ถนนบางนา-ตราด หรือขึ้นทางพิเศษบูรพาวิถี / ใช้ทางด่วนกาญจนาภิเษก (วงแหวนใต้) แทน",
       "source": "JS100 Radio / บก.จร.",
       "sourceUrl": "https://www.facebook.com/js100radio",
-      "timestamp": "2026-10-28T07:14:57.682Z"
+      "timestamp": "2026-10-28T14:04:20.245Z"
     },
     {
       "id": "TR_03",
@@ -42,7 +42,7 @@
       "bypassRoute": "🚗 เส้นทางเลี่ยง: ให้ใช้ทางหลวงหมายเลข 32 (ถนนสายเอเชีย) มุ่งหน้าเข้าเมืองอยุธยา ผ่านวงเวียนเจดีย์วัดสามปลื้มแทน",
       "source": "แขวงทางหลวงอยุธยา / ปภ.พระนครศรีอยุธยา",
       "sourceUrl": "https://www.facebook.com/chachoengsaoflood",
-      "timestamp": "2026-10-28T06:59:57.682Z"
+      "timestamp": "2026-10-28T13:49:20.245Z"
     },
     {
       "id": "TR_05",
@@ -54,7 +54,7 @@
       "bypassRoute": "🚗 เส้นทางเลี่ยง: ให้ใช้ถนนสุวรรณศร (ทล.33) และเลี่ยงเข้าตลาดใหม่กบินทร์บุรีแทน",
       "source": "ปภ. ปราจีนบุรี",
       "sourceUrl": "https://www.facebook.com/prd.prachinburi",
-      "timestamp": "2026-10-28T06:09:57.682Z"
+      "timestamp": "2026-10-28T12:59:20.245Z"
     }
   ],
   "fbTimeline": [
@@ -67,7 +67,7 @@
       "avatarBg": "bg-sky-500",
       "tag": "เรดาร์ฝน กทม.",
       "badgeClass": "border-sky-500/40 text-sky-300 bg-sky-950/40",
-      "timestamp": "2026-10-28T07:35:57.682Z",
+      "timestamp": "2026-10-28T14:25:20.245Z",
       "content": "☔️ เรดาร์ กทม. อัปเดตล่าสุด: กลุ่มฝนกำลังเคลื่อนตัวเข้าสู่พื้นที่ กทม. ชั้นใน (พญาไท, ดินแดง, จตุจักร) และฝั่งธนบุรี เตรียมตัวเปียกได้เลยครับ เลิกงานรีบกลับบ้านด่วน!",
       "hashtags": [
         "#วันนี้ฝนตกไหม",
@@ -84,7 +84,7 @@
       "avatarBg": "bg-red-600",
       "tag": "ด่วน! สถานการณ์น้ำ",
       "badgeClass": "border-red-500/40 text-red-300 bg-red-950/40",
-      "timestamp": "2026-10-28T07:30:57.682Z",
+      "timestamp": "2026-10-28T14:20:20.245Z",
       "content": "🔴 ด่วน! กรมชลประทานแจ้งเตือนมวลน้ำหลากก้อนใหญ่จากภาคเหนือตอนล่างกำลังเคลื่อนตัวเข้าสู่ลุ่มน้ำเจ้าพระยา ขอให้ประชาชนที่อาศัยอยู่ริมแม่น้ำ 7 จังหวัดภาคกลาง ยกของขึ้นที่สูงและติดตามประกาศอย่างใกล้ชิด",
       "hashtags": [
         "#สรยุทธสุทัศนะจินดา",
@@ -101,7 +101,7 @@
       "avatarBg": "bg-emerald-600",
       "tag": "จราจร & น้ำท่วมถนน กทม.",
       "badgeClass": "border-emerald-500/40 text-emerald-300 bg-emerald-950/40",
-      "timestamp": "2026-10-28T07:24:57.682Z",
+      "timestamp": "2026-10-28T14:14:20.245Z",
       "content": "🌧️ อัปเดตน้ำท่วมขังผิวจราจร: ถนนแจ้งวัฒนะ (ขาออก) หน้าห้างโลตัส มีน้ำท่วมขังสูง 15-20 ซม. เลนซ้ายรถเล็กเคลื่อนตัวช้า แนะนำใช้ ถ.ชัยพฤกษ์ หรือด่วนศรีรัชเป็นทางเลี่ยง",
       "hashtags": [
         "#FM91",
@@ -118,7 +118,7 @@
       "avatarBg": "bg-indigo-600",
       "tag": "ประกาศเตือนภัยอากาศ",
       "badgeClass": "border-indigo-500/40 text-indigo-300 bg-indigo-950/40",
-      "timestamp": "2026-10-28T07:14:57.682Z",
+      "timestamp": "2026-10-28T14:04:20.245Z",
       "content": "⛈️ พยากรณ์อากาศและเตือนภัย: ร่องมรสุมกำลังแรงพาดผ่านภาคเหนือตอนล่างและภาคกลาง ทำให้มีฝนตกหนักถึงหนักมาก ขอให้ประชาชนบริเวณดังกล่าวระวังอันตรายจากฝนตกสะสมที่อาจทำให้เกิดน้ำท่วมฉับพลัน",
       "hashtags": [
         "#กรมอุตุนิยมวิทยา",
@@ -135,7 +135,7 @@
       "avatarBg": "bg-purple-600",
       "tag": "แจ้งเตือน ปราจีนบุรี",
       "badgeClass": "border-purple-500/40 text-purple-300 bg-purple-950/40",
-      "timestamp": "2026-10-28T06:59:57.682Z",
+      "timestamp": "2026-10-28T13:49:20.245Z",
       "content": "⚠️ ประกาศแจ้งเตือน! ระดับน้ำแม่น้ำปราจีนบุรี บริเวณ อ.กบินทร์บุรี และ อ.ศรีมหาโพธิ มีแนวโน้มเพิ่มสูงขึ้นจากมวลน้ำป่า ขอให้ชาวชุมชนตลาดเก่ากบินทร์บุรีและพื้นที่ลุ่มต่ำเตรียมรับมือและเฝ้าระวังตลอด 24 ชั่วโมง",
       "hashtags": [
         "#ประชาสัมพันธ์ปราจีนบุรี",
@@ -151,7 +151,7 @@
       "avatarBg": "bg-blue-600",
       "tag": "การระบายน้ำเขื่อนเจ้าพระยา",
       "badgeClass": "border-blue-500/40 text-blue-300 bg-blue-950/40",
-      "timestamp": "2026-10-28T06:44:57.682Z",
+      "timestamp": "2026-10-28T13:34:20.245Z",
       "content": "🌊 ประกาศสถานการณ์น้ำเขื่อนเจ้าพระยา จ.ชัยนาท: น้ำเหนือหลากผ่านสถานี C.2 นครสวรรค์ 2,420 ลบ.ม./วินาที เขื่อนเจ้าพระยาคงการระบายท้ายเขื่อน 2,190 ลบ.ม./วินาที",
       "hashtags": [
         "#ชลประทานที่12",
@@ -168,7 +168,7 @@
       "avatarBg": "bg-amber-600",
       "tag": "จราจร & เรดาร์ฝน",
       "badgeClass": "border-amber-500/40 text-amber-300 bg-amber-950/40",
-      "timestamp": "2026-10-28T06:24:57.682Z",
+      "timestamp": "2026-10-28T13:14:20.245Z",
       "content": "⛈️ เรดาร์ตรวจพบกลุ่มฝนเคลื่อนตัวเข้าปกคลุมเขตจตุจักร ลาดพร้าว บางเขน ถนนศรีนครินทร์และพหลโยธินบางช่วงมีน้ำท่วมขังเสมอทางเท้า",
       "hashtags": [
         "#JS100",
@@ -179,7 +179,7 @@
   ],
   "news": [
     {
-      "id": "news-qw3kjg0",
+      "id": "news-rbtcpv5",
       "province": "chonburi",
       "title": "รายงานสถานการณ์น้ำท่วมขัง บนทางหลวงหมายเลข 344 ช่วงกม.36+400 ในพื้นที่ต.หนองไผ่แก้ว อ.บ้านบึง จ.ชลบุรี",
       "date": "Sun, 25 Oct 2026 04:12:28 GMT",
@@ -189,7 +189,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiswdBVV95cUxPVFRVcHVyMDJjOE4yMGJBbHJzSnpRWmtGR0dxcUJycHdGUHkyMmFsNWsxT1liSTdCa3dp..."
     },
     {
-      "id": "news-uczfqma",
+      "id": "news-rui0evm",
       "province": "prachinburi",
       "title": "ภาคใต้ยังมีฝนหนักถึงหนักมาก! ไทยตอนบนระวังฝนฟ้าคะนอง ลมกระโชกแรง และฟ้าผ่า 📢 ประกาศกรมอุตุนิยมวิทยา ฉ.4 | 25 ตุลาคม 2569 เวลา 05.00 น. มีผลกระทบช่วงวันที่ 25–28 ตุลาคม 2569 🔎 เปลี่ยนจากประกาศรอบก่อนอย่างไร? 📍 พื้นที่ที่คาดว่าจะได้รับผลกระทบรายวัน 25 ต.ค. 256",
       "date": "Sat, 24 Oct 2026 23:20:40 GMT",
@@ -199,7 +199,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMigAhBVV95cUxOS1g4dHhvQnB1anlVaFoxMjNTT2JDQ2dwaWlRYTBjQU1yQVBxT0Q3N3hqdFZsS2ZDUmhT..."
     },
     {
-      "id": "news-21vxp6n",
+      "id": "news-53s8p72",
       "province": "chonburi",
       "title": "เช้านี้ 24 ต.ค.69 แยกผู้ใหญ่ฮ้อ ถนน 344 ชลบุรี-แกลง กม.36 ทั้ง 2 ฝั่ง น้ำท่วมขังหลังฝนตกหนัก #น้ำท่วม #ถนน344 #ข่าวจราจรสวพFM91 เครดิต อลงกรณ์ พยัคฆ์บูรพา",
       "date": "Sat, 24 Oct 2026 04:21:17 GMT",
@@ -209,7 +209,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMixwZBVV95cUxOSE1RZy1zMnEzX0Nva3ozejR5bDdBME9HbWlNS0p2bnhVcWhqa0ctdkNBLUxJcm5wdjc5..."
     },
     {
-      "id": "news-tvyfeco",
+      "id": "news-dj7wntu",
       "province": "prachinburi",
       "title": "น้ำท่วมตะวันออกซ้ำเติมประมง พื้นที่เลี้ยงปลา-กุ้งเสียหายกว่า 2 แสนไร่",
       "date": "Fri, 23 Oct 2026 04:24:57 GMT",
@@ -219,7 +219,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiWEFVX3lxTE9RRDQyOUpQNExIdXUwRmpmdEN4YXdSNnNGSVlETHl6Ml9HWGdnZVdjRzJkNTRONXRNRmsy..."
     },
     {
-      "id": "news-mnbpxa6",
+      "id": "news-517edgh",
+      "province": "prachinburi",
+      "title": "กรมควบคุมโรค กระทรวงสาธารณสุข. . ⚠️ น้ำท่วมปนเปื้อนสารปิโตรเคมี ต้องระวังอะไรบ้าง? กรมควบคุมโรคลงพื้นที่ จ.ปราจีนบุรี คัดกรองประชาชนกลุ่มเสี่ยงจากการสัมผัสน้ำท่วมที่อาจปนเปื้อนสารปิโตรเคมี พร้อมเก็บตัวอย่างปัสสาวะกลุ่มเสี่ยงกว่า 50 ตัวอย่าง เพื่อตรวจหาสารเคมีและติดตามผล",
+      "date": "Thu, 22 Oct 2026 09:30:31 GMT",
+      "source": "Facebook",
+      "link": "https://news.google.com/rss/articles/CBMilAhBVV95cUxQN3ZVNXJxTTRqMThfT0ZGSE1LUklnSHo4ZVhQR3NOV1FqQUVreDNpUTlPT2JLQUJuQ1dQejBvWmFBdHBFQkxZRkxzek52Rnp0TC1yWktIaDBraGltekxJR19SNTBNTWE2aXp6U1cwR25BLTdNYkVrUUxfNEc0Wnk4RmVLRGZQVG1xOU1zazFYSkhZLUhkbXMwU29XNGtBNmxSbk1EZEgxenQ2aGUwOG5IUnAyZ1EtM2NnWEZOMnFHX0QwWDNqblRxcTJ4WDk4UnFzLVQ1cHd6Y3NsOEtpRWU5V1FOb2dpMFp1Qm9VTGt3cWRqb0gxczlrY0l0dlU4LU9tNlhtSnR0NWZiYy1SakZtdTVUMGRiWVBFSGN6OVZPVVhhVVlYSC13UlV5eC16aGFlek9RU1RsOFdZeXN2SUhCNzFOczhVUlZRYnFndURNMjg3V2VHVGhmbUhPQ2RuQ2dhalhENFhGaXRyWXhtMVZ4dWk1b3Z6akFNMEJqYkgtdHVQYkpyTHQ5ZnI2VWFFeVZrYkd4ZXZUT2xQSVpMRlk0anltYy1KV2ZLRTFDX3VzYlZ5b0hzTXA4cXpmdUhabHBtRy1Fck4wMndVSlJWOGdwWGs3ZXBkYk5yd0JwWHFMSVNQQXpBZl9ld1lnZlQtWFJfeWd2TWhsY2tUZDhmYzNmMVZYbGhNTGhIWmo3Mlp5T01lZUlJMmdUT1hFWEJ4bTIzWjNydDNaOFZSb0FoOEtVQTc0aGtJeGVyRjdyTUlucWxXWDZQdlBxaEpPQ1draXNyMi1LS2tuT1RYaVJlLS10dUp2eTVreFpoWUgtUkl3RmYtTTRRNUxPRnBMRjBfWkwwYzhVV0F1WHFWTV9nMmZUMl84dENpb0E1emgtaHV0SlNyRkI3ZUwxV3JZLWlab05DVWhsUFU5dmZDOE95VERtMXVpOXFIRFZNZjBJb3ZCWllKSWszc2FDWTd1NUprM0U1aTVQakFuVmVOLXBmZGdaTnNUN2s5NEVxYkpIRnNWYTBnYjIwbFE4bnNIcVQxOVRZZGVQQVdrRl9TWnBsa0RGbWMzZVBrcl9SeGRnOE5TY2o0SlpGdzF6M2hMNTZnRFJNZ3ljVHkwbTRFc0d6U181U0Z0T21paUJNQmRMTno0VnEwYzdwcWg4Wl9pdUV6X1VtTGRCVjEyaVdUOHA4V2J2bXpIbHBHc0k3SWkyb0d0WjltcWpnNDFyZ2tOckpIY3EzeUxrejRCZ2NIRUFXVDNqR2MxMXZ3eGhUZk9TY1JXcS02dHRhZEI4ZEh0amwweHZvOWVneEZETGRmWDc0MHpDb2lzajFlMVpjUU9KSzh4Q2N3OGtJYWF2VElQXzRUVkJPTWlKcFZ5Q3h0RVhmM1pwNUZnNkY?oc=5",
+      "level": "warning",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMilAhBVV95cUxQN3ZVNXJxTTRqMThfT0ZGSE1LUklnSHo4ZVhQR3NOV1FqQUVreDNpUTlPT2JLQUJuQ1dQ..."
+    },
+    {
+      "id": "news-nxfzho7",
       "province": "chonburi",
       "title": "ฝนถล่มชั่วโมงเดียว! สุขุมวิทบางเสร่จม 3 กม. น้ำทะลักเข้าบ้านหลายสิบหลัง ชาวบ้านสุดทนท่วมซ้ำซาก! . ฝนตกหนักต่อเนื่องราว 1 ชั่วโมงในพื้นที่ ต.บางเสร่ อ.สัตหีบ จ.ชลบุรี ทำถนนสุขุมวิทฝั่งขาเข้าสัตหีบ ตั้งแต่แยกไฟแดงชุมชนบ้านบางเสร่ถึงหน้าหมู่บ้านเดอะปาล์ม ระยะทางประมาณ 3 กิโลเม",
       "date": "Wed, 21 Oct 2026 13:20:29 GMT",
@@ -229,7 +239,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMi6gdBVV95cUxPSU1BRmE2M0RzOUlTS0hxbDZ2alJWT3NzMlpkWDQyRnFuVjVxYUMyTkdmN3Y1b3F5RkVn..."
     },
     {
-      "id": "news-jcyirmz",
+      "id": "news-jr2rbus",
       "province": "chonburi",
       "title": "ท่วมซ้ำซาก! ฝนถล่มชลบุรีแค่ 1 ชั่วโมง ถนนสุขุมวิท-บางเสร่ จมบาดาล",
       "date": "Wed, 21 Oct 2026 12:58:37 GMT",
@@ -239,7 +249,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiW0FVX3lxTFB1TEpLRkt4MGg3Vmp4dXk1X2xOeUs2dEdidXlTTjBKUlk2b3Zja3RNZi0zSDBfcUxoUVpx..."
     },
     {
-      "id": "news-0pbbyhm",
+      "id": "news-puq955a",
       "province": "chonburi",
       "title": "พัทยาฝนถล่ม ไม่นานแต่หนักทำน้ำท่วมขังรอระบาย",
       "date": "Wed, 21 Oct 2026 09:45:14 GMT",
@@ -249,7 +259,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTFBmWG05N19BMnBrYi1vWVRFbXVvWTZ4Z1pOYm9kVHJxN0xGZ2ZMOUI5c1pkSWtfdjc5X05r..."
     },
     {
-      "id": "news-mx2l439",
+      "id": "news-v9oycee",
       "province": "chonburi",
       "title": "ฝนถล่มพัทยา! สุขุมวิทพัทยาใต้ท่วมขัง รถติดหนัก ปิดช่องซ้าย รถเล็กผ่านลำบาก",
       "date": "Mon, 19 Oct 2026 11:28:07 GMT",
@@ -259,7 +269,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE5MbGJ0SER1X2czc3gyV2gzN1pOOXlwaWZhc2llU1ljU3l3OFRnZDh6UnF3dE5wMlFJVFcz..."
     },
     {
-      "id": "news-zlb12tv",
+      "id": "news-r0i680a",
       "province": "chonburi",
       "title": "ฝนถล่มพัทยา! น้ำท่วมสุขุมวิทพัทยาใต้ รถติดหนัก ปิดช่องซ้าย เตือนตะวันออกเสี่ยงฝนหนัก",
       "date": "Mon, 19 Oct 2026 11:05:00 GMT",
@@ -269,7 +279,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE84dTBhTWZCQ0FSUkNHemZ6Qm9UYldIdkMwRmUtUkFudGpVVVZkbzFMZm9GdHZ4eHRNcERY..."
     },
     {
-      "id": "news-dk3lq0o",
+      "id": "news-ynqq9pp",
       "province": "chonburi",
       "title": "ฝนถล่มพัทยา! สุขุมวิทพัทยาใต้น้ำท่วมขัง รถติดหนัก ปิดช่องซ้าย รถเล็กผ่านลำบาก เตือนภาคตะวันออกเสี่ยงฝนหนัก",
       "date": "Mon, 19 Oct 2026 10:13:00 GMT",
@@ -279,17 +289,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiXEFVX3lxTE5NbUNmb1g1MzlETDhES093QmV2MjZaa2tudlVMR2pUN1VQeE9zV1FjaUJoeVVBWlh2a3Vm..."
     },
     {
-      "id": "news-lhzhoy9",
-      "province": "chonburi",
-      "title": "พัทยาอ่วม! ฝนถล่มหนักท่วมถ.สุขุมวิทพัทยาใต้ แนะรถเล็กเลี่ยงเส้นทาง",
-      "date": "Mon, 19 Oct 2026 10:02:00 GMT",
-      "source": "อมรินทร์ทีวี ช่อง 34",
-      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBRZDVoazhkSFFmRmpXWk9oTjVfajdkNFVXdk5JYS1DbWNBdmx1dTBOeGJfcy1DZUd6dWQ2akxKeV92Z1VqQlJQal9MMmRJMkdGdEZwWWVR?oc=5",
-      "level": "info",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiVkFVX3lxTFBRZDVoazhkSFFmRmpXWk9oTjVfajdkNFVXdk5JYS1DbWNBdmx1dTBOeGJfcy1DZUd6dWQ2..."
-    },
-    {
-      "id": "news-ow37ms9",
+      "id": "news-q8d7q6m",
       "province": "chonburi",
       "title": "น้ำท่วมขัง! ถนนเทพรัตน กม.29 มุ่งหน้าชลบุรี",
       "date": "Mon, 19 Oct 2026 07:00:00 GMT",
@@ -299,7 +299,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTFBuRW5zX2h0R0Y5NnFIa3dTdDN5NDVjQWRXTzYzM25veTNhZUJNZG9oMUFWMnZFMjBmM1Ff..."
     },
     {
-      "id": "news-xz9dk2g",
+      "id": "news-wkfmtz1",
+      "province": "chonburi",
+      "title": "ฝนถล่มพัทยา ส่งผลให้เกิดน้ำท่วมขังบนถนนสุขุมวิท บริเวณพัทยาใต้ รถติดหนัก รถเล็กสัญจรลำบาก",
+      "date": "Mon, 19 Oct 2026 07:00:00 GMT",
+      "source": "ช่อง 7",
+      "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE15MXVXSHVUaUZDU1Y4Q3BHdnV1Z19VaEV3M2hCTjdZRW9vYy1pOXZsb0dNRnNjWllsQmV1MTBzYmlsSC1WcXpFVGZkTQ?oc=5",
+      "level": "warning",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiS0FVX3lxTE15MXVXSHVUaUZDU1Y4Q3BHdnV1Z19VaEV3M2hCTjdZRW9vYy1pOXZsb0dNRnNjWllsQmV1..."
+    },
+    {
+      "id": "news-p5sh762",
       "province": "chonburi",
       "title": "เช้านี้ ถนนเทพรัตน (บางนา-ตราด) ช่องคู่ขนาน กม.29 มุ่งหน้าชลบุรี น้ำท่วม รถติดหนักเลี่ยงได้เลี่ยง ข้อมูล/ภาพ@Lee ลูกเสือปราการ #น้ำท่วม #ถนนเทพรัตน #ข่าวจราจรสวพFM91",
       "date": "Sun, 18 Oct 2026 07:00:00 GMT",
@@ -309,7 +319,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMixwdBVV95cUxQWUkxZzhjZkZpaktSZ0VDZW0yMTZ3TUdrc01YRG5CNk1zdHhteHNGYzA3UGlBNGlQMzRs..."
     },
     {
-      "id": "news-67cfk2q",
+      "id": "news-3jg5bbd",
+      "province": "chonburi",
+      "title": "ศจร.ตร. ชื่นชมตำรวจจราจร สภ.ศรีราชา ยืนหยัดเคียงข้างประชาชนจนสถานการณ์คลี่คลายได้อย่างรวดเร็ว",
+      "date": "Thu, 15 Oct 2026 10:24:03 GMT",
+      "source": "ไทยแทบลอยด์",
+      "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5WMXhfUlphRmEycmQxT3NnZzZzcmhJZ2w3YUNvMXpYWHNYLWNNTTNNb2puelJCOUI1bEp1U2trVnVuUi1ncTNvX0g5V3czbWNy?oc=5",
+      "level": "info",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiUEFVX3lxTE5WMXhfUlphRmEycmQxT3NnZzZzcmhJZ2w3YUNvMXpYWHNYLWNNTTNNb2puelJCOUI1bEp1..."
+    },
+    {
+      "id": "news-8akgzfr",
       "province": "kanchanaburi",
       "title": "เผยสถานการณ์น้ำท่วมถนน ผ่านไม่ได้ 3 จุด ใน กาญจนบุรี-ปราจีนบุรี-ระยอง แนะเลี่ยงเส้นทาง | The Bangkok Insight",
       "date": "Thu, 15 Oct 2026 07:00:00 GMT",
@@ -319,17 +339,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiVkFVX3lxTE8zb05RdnhUNHhXd3F2VjlnYW9hT3VTUnE0RUJXbWh3WXE4T1oxWkZ1a2VYSFVrTzdSY3ly..."
     },
     {
-      "id": "news-jae463x",
-      "province": "chonburi",
-      "title": "ลุยฝน ลุยน้ำ ดูแลทุกเส้นทาง ศจร.ตร. ชื่นชมตำรวจจราจร สภ.ศรีราชา ยืนหยัดเคียงข้างประชาชนจนสถานการณ์คลี่คลายได้อย่างรวดเร็ว",
-      "date": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "source": "สวพ.FM91",
-      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1vTG9mRHdmUVVLLUs5OTJBSzdab3AtbFNQbXdiQURZb0ZtTV85RVBHT01FUEhUdTFkV2pfVnJJMlFwSlBEZ3RVUVpFZlRYUWM3N1JF?oc=5",
-      "level": "info",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE1vTG9mRHdmUVVLLUs5OTJBSzdab3AtbFNQbXdiQURZb0ZtTV85RVBHT01FUEhUdTFkV2pf..."
-    },
-    {
-      "id": "news-022gkuv",
+      "id": "news-zqoq9ye",
       "province": "chonburi",
       "title": "\"ชลบุรี\" ฝนถล่ม 2ชม. น้ำท่วมขังสูงบนผิวจราจร | 14 ต.ค. 69 | ไทยรัฐนิวส์โชว์",
       "date": "Thu, 15 Oct 2026 07:00:00 GMT",
@@ -339,7 +349,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQbzQ2eFliVEhyYmFscE5tNU9HOWh1Y2dhNVZVZldwZVBkRV9vU1MwZmtDNEhLZkhnQU42..."
     },
     {
-      "id": "news-b275stm",
+      "id": "news-blbi9r9",
       "province": "chonburi",
       "title": "ฝนถล่มศรีราชา 2 ชั่วโมง น้ำท่วมหน้าเกาะลอย-ถนนเก้ากิโล น้ำทะเลหนุนระบายช้า จยย.ลุยน้ำลำบาก",
       "date": "Thu, 15 Oct 2026 00:22:10 GMT",
@@ -349,7 +359,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiVEFVX3lxTFBrcEJzd3NmTnpmUGktdTJxdm9WOGZCU2pPZFVCbS1GLU5TWFdJYWFacXBXWll4ZVhJdVRS..."
     },
     {
-      "id": "news-8wsw4bg",
+      "id": "news-k7276bn",
       "province": "chonburi",
       "title": "ฝนถล่ม2ชั่วโมง ศรีราชา อ่วม น้ำท่วมสูง ซ้ำเผชิญวิกฤต น้ำทะเลหนุน เตือนรถเลี่ยงเข้าพื้นที่เสี่ยง",
       "date": "Wed, 14 Oct 2026 12:45:00 GMT",
@@ -359,7 +369,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTFBvWGthZWtNZnljZ0ljNUFkajc5eEwwUG1vT1hNbUtLRVppTXV5cnE5UHRCMFc0V3JyZ1VH..."
     },
     {
-      "id": "news-n3e0r1c",
+      "id": "news-j26qmth",
       "province": "prachinburi",
       "title": "น้ำท่วมทางหลวง 11 จังหวัด สั่งปิด 6 เส้นทางวิกฤตใน 3 จังหวัดใหญ่",
       "date": "Wed, 14 Oct 2026 07:00:00 GMT",
@@ -369,7 +379,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE5HaGFzRkdIOUpPTHItY1FlMzcyejRZRWlIMGJzQnM4ZjFWdHhlaVUtVGFUVjZIdmUtWTJV..."
     },
     {
-      "id": "news-6ivtwws",
+      "id": "news-kussmep",
+      "province": "chonburi",
+      "title": "ฝนถล่มศรีราชา 2 ชั่วโมง น้ำทะเลหนุนซ้ำ ทำน้ำท่วมสูงหน้าเกาะลอย-ถนนเก้ากิโล",
+      "date": "Wed, 14 Oct 2026 07:00:00 GMT",
+      "source": "Thairath",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE8wWUo2Yno3bU52a0sxdnNtLTk3VE1LeEYyR183dXdWRExLbEV3T1FxNTROaUhQam9jUkNUUEV0b3N6NHROZ2R0OGhydWFDZWNnbHFnUHVscDNoRnBCWXNV?oc=5",
+      "level": "info",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiX0FVX3lxTE8wWUo2Yno3bU52a0sxdnNtLTk3VE1LeEYyR183dXdWRExLbEV3T1FxNTROaUhQam9jUkNU..."
+    },
+    {
+      "id": "news-o308y2i",
       "province": "chonburi",
       "title": "ฝนถล่มศรีราชา 2 ชม. น้ำทะเลหนุนสูงซ้ำเติม ท่วมขังหน้าเกาะลอย-ถนนเก้ากิโล จยย. สัญจรลำบาก จนท. เร่งระบาย . เมื่อเวลา 18.00 น. วันที่ 14 ตุลาคม 2569 เกิดเหตุฝนตกหนักต่อเนื่องนานกว่า 2 ชั่วโมง ในพื้นที่อำเภอศรีราชา จังหวัดชลบุรี ส่งผลให้เกิดน้ำท่วมขังบนผิวจราจรหลายจุด โดยเฉพ",
       "date": "Wed, 14 Oct 2026 07:00:00 GMT",
@@ -379,17 +399,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMi2wdBVV95cUxPR3FqeFB0bXdHVXN4MmltNjd0UDFzeUV6MUJIZDNOMWtuVFZkb2psc3Rfc1R2U2tmVGdx..."
     },
     {
-      "id": "news-kxlwxgf",
-      "province": "chonburi",
-      "title": "ฝนถล่มศรีราชา 2 ชั่วโมง น้ำทะเลหนุนซ้ำ ทำน้ำท่วมสูงหน้าเกาะลอย-ถนนเก้ากิโล",
-      "date": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "source": "Thairath.co.th",
-      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE8wWUo2Yno3bU52a0sxdnNtLTk3VE1LeEYyR183dXdWRExLbEV3T1FxNTROaUhQam9jUkNUUEV0b3N6NHROZ2R0OGhydWFDZWNnbHFnUHVscDNoRnBCWXNV?oc=5",
-      "level": "info",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiX0FVX3lxTE8wWUo2Yno3bU52a0sxdnNtLTk3VE1LeEYyR183dXdWRExLbEV3T1FxNTROaUhQam9jUkNU..."
-    },
-    {
-      "id": "news-p3bzkq5",
+      "id": "news-10tl6c8",
       "province": "chonburi",
       "title": "น้ำท่วมขังศรีราชา 2 ชั่วโมง เจอทะเลหนุนระบายช้า ชลบุรีแจ้งเตือนผู้ใช้รถระวังอุบัติเหตุ",
       "date": "Wed, 14 Oct 2026 07:00:00 GMT",
@@ -399,7 +409,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMibkFVX3lxTFA0aWUwQldsMnYzZnRVSENnaGpMSlc4cTE1cElEZkdSMGtxb0J5UGdQdEZIeFRhUVhoWnVv..."
     },
     {
-      "id": "news-xvizke8",
+      "id": "news-xjpo44n",
       "province": "prachinburi",
       "title": "เช็กเส้นทางเลี่ยง 8 จุดน้ำท่วมตัดขาด 13 จังหวัดกระทบหนัก",
       "date": "Mon, 12 Oct 2026 07:00:00 GMT",
@@ -409,7 +419,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTFByWWs3U2g0VWtDX3lFdkFBYUMwTExMUC13VW5nRHFHRzYxc2JDN3hEZ2RlYlR0RWNWUmFp..."
     },
     {
-      "id": "news-udtl2su",
+      "id": "news-h5mzsop",
       "province": "bangkok",
       "title": "ตร.ยันช่วงจัดประชุม IMF–World Bank ไม่ปิดการจราจร แต่เตรียมพร้อมแผนฉุกเฉิน",
       "date": "Sun, 11 Oct 2026 07:00:00 GMT",
@@ -419,7 +429,27 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiWEFVX3lxTE1Zb0dDVWxhMG9GN2Ziakc1d2NlY0tPQU9ITzJTUHdTeG9vS2tIU1E4VjdCTGQySWJNQzNE..."
     },
     {
-      "id": "news-nf2ni2r",
+      "id": "news-drvjuoy",
+      "province": "bangkok",
+      "title": "ตำรวจยืนยันไม่มีการปิดการจราจร ตลอดห้วงการประชุม IMF–World Bank",
+      "date": "Sun, 11 Oct 2026 07:00:00 GMT",
+      "source": "จส. 100",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFAzNGlCMThtcFFOaFVxaDlCa2tzTWtUbTdoVlZ2ckszWkIzbFlnZ1plVWNRbzh5Ul9YSzZwNkZrNDhqYjZsUTM5WXlVRlptM1N1WVVESHUzZUJQUQ?oc=5",
+      "level": "danger",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiWkFVX3lxTFAzNGlCMThtcFFOaFVxaDlCa2tzTWtUbTdoVlZ2ckszWkIzbFlnZ1plVWNRbzh5Ul9YSzZw..."
+    },
+    {
+      "id": "news-v446rc1",
+      "province": "bangkok",
+      "title": "อัปเดต น้ำท่วมถนนฉลองกรุง ลาดกระบัง กทม. ติดเครื่องสูบน้ำเพิ่ม เร่งคืนผิวจราจร",
+      "date": "Sat, 10 Oct 2026 07:00:00 GMT",
+      "source": "bangkokbiznews",
+      "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE85cHdicEVodU9rUHdPcGxXZVB3NkR4VU9MX1VCOXVlTHpQREdLVzc1Zmt6Mk45RllIY2lwSGpSNzdlNEpJRFQ1YW9LaTJ4bU1qYUlMbEc5VHo3NWJXUjZhU3NPTnFfZw?oc=5",
+      "level": "info",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE85cHdicEVodU9rUHdPcGxXZVB3NkR4VU9MX1VCOXVlTHpQREdLVzc1Zmt6Mk45RllIY2lw..."
+    },
+    {
+      "id": "news-wzc0u8l",
       "province": "prachinburi",
       "title": "อัปเดตเส้นทางน้ำท่วมถนนฉะเชิงเทรา 10 สาย รถเล็กผ่านไม่ได้",
       "date": "Sat, 10 Oct 2026 07:00:00 GMT",
@@ -429,7 +459,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiWEFVX3lxTE5TTGdxdkNrR0s1UDYwb2hPSFJWNXU4M3RSNTkxOEpySDhQWnZVUVA3amNsWFladVJZQ01D..."
     },
     {
-      "id": "news-bqln6wg",
+      "id": "news-hnsq5ix",
+      "province": "chonburi",
+      "title": "ชลบุรีอ่วม! ฝนตกหนัก มวลน้ำมหาศาลท่วมฉับพลัน ถนนสุขุมวิทหลายจุดน้ำท่วมสูง",
+      "date": "Fri, 09 Oct 2026 11:34:23 GMT",
+      "source": "CH3Plus.com",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1FNG1xZzF3QWtERHRXcXc3VENUUXp6NGd5M29yTWt4Sy1EWUlLSzM2Mmt5MkNlNm9BQUNyanRGMy15c3RuTVRXNkt4NWx3TTNwTFVEV3J3NGxES2Zhdmc?oc=5",
+      "level": "danger",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiXkFVX3lxTE1FNG1xZzF3QWtERHRXcXc3VENUUXp6NGd5M29yTWt4Sy1EWUlLSzM2Mmt5MkNlNm9BQUNy..."
+    },
+    {
+      "id": "news-uby91t5",
       "province": "bangkok",
       "title": "🚗🌧️ สถานการณ์น้ำท่วมถนนสายหลัก วันที่ 10 ต.ค. 69 เวลา 06.30 น. 🟢 ถนนแห้ง รถสัญจรได้ตามปกติ 1. ถนนสีหบุรานุกิจ 2. ถนนเจ้าคุณทหาร บริเวณแยกคู่ขนาน–ฉลองกรุง มีน้ำขังหน้าคันหินเป็นบางช่วง 3. ถนนสุวินทวงศ์ ขาเข้าสุวินทวงศ์ 2–4 สูง 5 ซม. 🟡 น้ำขังเล็กน้อย รถสัญจรได้ แต่ควรใช้",
       "date": "Fri, 09 Oct 2026 07:00:00 GMT",
@@ -439,7 +479,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMi7AZBVV95cUxQbVZTMFZfbU1SSjd3Ym54ckhwdzhIV3pHQWFCZzFTNHhoQWU5Uzg0RXRiZU9XMEFOR3R5..."
     },
     {
-      "id": "news-zi9h3rt",
+      "id": "news-2ibx6v1",
+      "province": "bangkok",
+      "title": "น้ำท่วมกรุงเทพฯ 9 ต.ค. 69 เช็ก 7 ถนนมีน้ำขัง เส้นไหนผ่านได้",
+      "date": "Fri, 09 Oct 2026 07:00:00 GMT",
+      "source": "TNN",
+      "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE16ZHFjYnpIclczbm1PZUpmQVZwM0FKZnhGN0dtRHVHcXFhV09VWk9GOHVpNnhtbXZ3QVRqSlNHUmYtYlVyZWp5TzhnX1dzMGpwa2MtQw?oc=5",
+      "level": "info",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiVEFVX3lxTE16ZHFjYnpIclczbm1PZUpmQVZwM0FKZnhGN0dtRHVHcXFhV09VWk9GOHVpNnhtbXZ3QVRq..."
+    },
+    {
+      "id": "news-xc17n6b",
       "province": "prachinburi",
       "title": "เช็กเส้นทางน้ำท่วม!! กรมทางหลวงชนบท เผยถนนในโครงข่ายที่ได้รับผลกระทบในจังหวัดปราจีนบุรี ผ่านไม่ได้ 12 สายทาง พร้อมเข้าซ่อมแซมถนนอย่างเร่งด่วนในบางจังหวัดที่น้ำลดลงแล้ อ่านต่อคลิก >>> https://www.fm91bkk.com/newsarticle/80227 #กรมทางหลวงชนบท #ปราจีนบุรี #น้",
       "date": "Fri, 09 Oct 2026 07:00:00 GMT",
@@ -449,7 +499,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMinAhBVV95cUxNV04tYjFiX2ctVlFpeTFOdk16M2hOWGMtTWRsZDdIMGg1WWhiN2xyaHdSWktSalhUa042..."
     },
     {
-      "id": "news-w9rvvzw",
+      "id": "news-3ohhm18",
       "province": "prachinburi",
       "title": "เช็กด่วน! อัปเดตเส้นทางสัญจร–ทางเลี่ยงน้ำท่วมปราจีนบุรี ทล.304 และ ทล.33 หลายจุดเปิดวิ่งได้ เตือน ‘บ้านสร้าง’ น้ำสูงเกินเมตร ห้ามรถเล็กเข้าเด็ดขาด . แขวงทางหลวงปราจีนบุรี อัปเดตเส้นทางคมนาคมประจำวันที่ 9 ตุลาคม 2569 โดยสายทางที่กลับมาเปิดสัญจรได้แล้ว ได้แก่ ทล.319 แยกโ",
       "date": "Fri, 09 Oct 2026 07:00:00 GMT",
@@ -459,7 +509,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMixgdBVV95cUxOVW9faUhNbWFXTzhKNFpYbjN2S3FPM1VUS3hWd1JoVmJ4cDRFMHl1TkM4WG9URkw3R1Q5..."
     },
     {
-      "id": "news-8h2ce9w",
+      "id": "news-gsg7kzg",
       "province": "prachinburi",
       "title": "UPDATE :​ นายกฯ สั่งเร่งฟื้นฟู ‘ปราจีนฯ-ฉะเชิงเทรา’ จี้จ่ายเยียวยาน้ำท่วมด่วน พร้อมเฝ้าระวังฝนระลอกใหม่ 14 จังหวัดใต้ วันนี้ (10 ตุลาคม) ที่กรมป้องกันและบรรเทาสาธารณภัย (ปภ.) อนุทิน ชาญวีรกูล นายกรัฐมนตรีและรัฐมนตรีว่าการกระทรวงมหาดไทย เป็นประธานการประชุมกองบัญชาการป้",
       "date": "Fri, 09 Oct 2026 07:00:00 GMT",
@@ -469,7 +519,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMisAdBVV95cUxNTlJ0ckpySDFPZExnRENuRUpETXQ5Yjc2SXppaUZXNjZyVDN4b3lwanlqUHlHNkJNWWRW..."
     },
     {
-      "id": "news-jha2rhn",
+      "id": "news-l4kaz8b",
       "province": "prachinburi",
       "title": "น้ำท่วมปราจีนบุรี เช็ก 11 เส้นทางแนะเลี่ยงไม่สามารถสัญจรผ่านได้",
       "date": "Thu, 08 Oct 2026 07:00:00 GMT",
@@ -479,7 +529,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiVEFVX3lxTE5DTVVZcFdvbERHTGtBRk1mY2FHcmtGanlobWVYSmJNMm8xZ0VhaGJnX0M0ckV4QjZNMkdH..."
     },
     {
-      "id": "news-6uwkb9x",
+      "id": "news-drp3l97",
       "province": "prachinburi",
       "title": "น้ำท่วมนครนายก ทช. เตือนเลี่ยง 8 เส้นทาง น้ำท่วมสูง รถเล็กผ่านไม่ได้ 2 จุด",
       "date": "Thu, 08 Oct 2026 07:00:00 GMT",
@@ -489,7 +539,17 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE1IaTRjVTJmQjNmWU0xTkoyU21ublNoYVo3XzFIZVlhdkVnbzFndVNxeTFUYzBjdjNfei04..."
     },
     {
-      "id": "news-v1zgcje",
+      "id": "news-l3d6bs1",
+      "province": "chonburi",
+      "title": "นทท.ต่างชาติเดินฝ่าน้ำท่วม “พัทยา” ไม่เห็นทางพลัดตกคลอง พลเมืองดีเร่งช่วยได้ทัน 2 ราย อีก 1 รายสูญหาย",
+      "date": "Thu, 08 Oct 2026 05:40:56 GMT",
+      "source": "CH3Plus.com",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1haUZBQmhFc0kyRGlacUI1VHlETG14ZVhSQWJTdS1lV0xaQnVrQmdyTXV6d0ZWeUhSaE1VUmxDdG43NUE2Tkx4T3lUYTJVLTVvVGI3TU1DTUQtOTlqY1E?oc=5",
+      "level": "info",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiXkFVX3lxTE1haUZBQmhFc0kyRGlacUI1VHlETG14ZVhSQWJTdS1lV0xaQnVrQmdyTXV6d0ZWeUhSaE1V..."
+    },
+    {
+      "id": "news-vmcy4ds",
       "province": "bangkok",
       "title": "อัปเดตสถานการณ์น้ำท่วมถนนสายหลักในกรุงเทพฯ ข้อมูล ณ วันที่ 7 ตุลาคม 2569 เวลา 06.30 น.",
       "date": "Wed, 07 Oct 2026 07:00:00 GMT",
@@ -499,7 +559,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE0xZGhlSGtfRkNMaFJiTFVDNmZJeHFvbk0ySlRNYmxhM1F2cG5zRUNNbW5iZnJwYllPY0xT..."
     },
     {
-      "id": "news-lrnpdi7",
+      "id": "news-yzpvzxd",
       "province": "bangkok",
       "title": "'ธีรรัตน์' จวก กทม. เมินน้ำท่วมถนนเจ้าคุณทหาร ทำนิคมลาดกระบังป่วน",
       "date": "Wed, 07 Oct 2026 07:00:00 GMT",
@@ -509,7 +569,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiYkFVX3lxTE42OEFwUnNLRnlkcHpobGd5WDQ4LVpYaFRQcGNHeFhZd0RBcW9IWmcyZldGNFVWc000NjRM..."
     },
     {
-      "id": "news-7vjets0",
+      "id": "news-xpabr77",
       "province": "bangkok",
       "title": "อัปเดตน้ำท่วมถนนสายหลักในกรุงเทพฯ เส้นไหนผ่านได้- ไม่ได้",
       "date": "Wed, 07 Oct 2026 07:00:00 GMT",
@@ -519,7 +579,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE94WnhwTDc1ZTZzV3QzU1h6TTRlMG1iVk9rbWxVRE8xWUJkall2ZFI3NVAwSVcxQ2E5YTlF..."
     },
     {
-      "id": "news-ru6ollp",
+      "id": "news-p2puxt4",
       "province": "prachinburi",
       "title": "น้ำท่วมปราจีนฯ ทช. เตือนเลี่ยง 11 เส้นทาง น้ำท่วมสูง-ถนนขาด รถผ่านไม่ได้",
       "date": "Wed, 07 Oct 2026 07:00:00 GMT",
@@ -529,7 +589,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTFB3eURJVVRuR1RVcUpielhkVWpKUWExc2RPWE1IM05ab3RXeWVQaEtnWUlWQm44TjdBUWlJ..."
     },
     {
-      "id": "news-yqc6d06",
+      "id": "news-od1t3u1",
       "province": "prachinburi",
       "title": "น้ำท่วมปราจีนบุรี ชาวบ้านปักหลักสู้ภัย ยกที่นอนขึ้นสูง-ใช้เรือสัญจร สะท้อนนี่ไม่ใช่ความเคยชิน แต่คือการเอาตัวรอด วันนี้ (7 ตุลาคม) ช่างภาพข่าว THE STANDARD ลงพื้นที่ติดตามสถานการณ์อุทกภัยในพื้นที่หมู่ 11 บ้านสามพอก ตำบลบางแตน อำเภอบ้านสร้าง จังหวัดปราจีนบุรี ซึ่งได้รับผลกระ",
       "date": "Wed, 07 Oct 2026 07:00:00 GMT",
@@ -539,7 +599,7 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMihghBVV95cUxOODREeXRrNHQ1d05rTV9OdndpQlpLemtPNXlBT2lUeDN3ZEhuQ3FYY0owN09vcWFJNmRJ..."
     },
     {
-      "id": "news-5j23yjg",
+      "id": "news-qscmxoy",
       "province": "bangkok",
       "title": "เช็กก่อนเดินทาง น้ำท่วมถนน กทม. \"ฉลองกรุง-หลวงแพ่ง-ลาดกระบัง\" หลายจุดน้ำยังสูง",
       "date": "Tue, 06 Oct 2026 07:00:00 GMT",
@@ -549,84 +609,24 @@
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTFBuTVZsQzMxNWpkX1NmQ29kWlFSdVZKNEIwN1J4aGcwMFpnOENLNnlSTnE0UjRpRlVRd2Zf..."
     },
     {
-      "id": "news-va8culo",
-      "province": "prachinburi",
-      "title": "คนพื้นที่โพสต์เอง เส้น 3001 องครักษ์-บางน้ำเปรี้ยว ช่วงคลอง22-สะพานรถไฟคลองหกวา รถเล็กควรเลี่ยงน้ำแรง ผู้ใช้เฟซบุ๊กชื่อ **Sakkarach Sohheng Gor** โพสต์แจ้งเตือนสถานการณ์น้ำบนถนนสาย 3001 องครักษ์–บางน้ำเปรี้ยว ช่วงคลอง 22 ถึงสะพานรถไฟคลองหกวา เมื่อช่วงเช้าวันที่",
-      "date": "Mon, 05 Oct 2026 07:00:00 GMT",
-      "source": "Facebook",
-      "link": "https://news.google.com/rss/articles/CBMinwdBVV95cUxNOEplXzFKXzZvVmlQMktfLWNacXlwWW0yazhaN2xDaDltNUhDbzZEbmVQRGxubVI0MVVGNm54X3ZpZk1vUVJYMmVta0d6azNxc1p4YU1JUkF6dEZiX056VE9ub0dlMnVlOTBRTGg0V0VWc18tQVhZMFd3cmZwUl92MDRKN0YydmdqMF82VU1pV2U1dXBLNjJ1ZURRc05zRFhXcHppblpOd0VpYkRrSG9PWHVPaU5fMmNUTUFHdWFucDNSMElRVm02NkI1SFRkMGduam9zZ0IwQ3FpYUEyVVZTMkVfdFhsYU1RVUJIWkVLalpxZjNGWGU1YzZOb1d5dEQzSmh3N2dJcFNrUW5zTEZFRmVFY2tCeEFWUi1WNHdLMHl0YlhrR1hHVFplVWJwS1JTRzRVZHdxVEpDTkgybG5ObjVsTnRHZUx4OGtmbU5TWUxrNXZfaktSMVBDR0hDWjhqX3hvbUJPZ1FOMlV5cXF0emxvNGFrajk5bmF4eFpHVkNoTklSdVlDc21GUDBqSUpqWnQxT3NrR1Fwc1JnYmhlS2N0ZDI4QUNrMi1TeUpqd2FLSHExTkZudXlZVnctd0VLOHZONTk3RVJMVFNBTjFtWWMwbHZ0VUVwbUNmZjFTdEgyZ2hKYy0tNmRDOHVrWE1CcHpTWVZmSTRUOXUtQ3lZTXdHRzQyTE8wYkdRRTB2XzZ6a1A3SFN4S1MzV2FTUWRhaUJZMGZiYlgxVkZNbHROVUo3cmxraW1ybVAyUjZVNGZDR1FtSUZQWVlZeE5kNkVUOHB6ck1BNXRUaGNsQmZfdHFVSWpubXptQmo5SGNOUGRPclFLanRxdmZlbHl3SGdtenhrWTF2WHQ3d1AxN2FkRnQxWHFTTFpZb2UwMjFUY1NIZURhYk05YXZGMVlKdFozTWw2c0I0aGtEdi1nMjctUVktN3hRaFd5bkJhblN5bnhZdFl2eEk3dFNMV2xwVkZ6QmgwaTkwbHc2N2U0T3RlSTNieE56YkJvaE53SXd2ekFFRjZ6VVdsQlI1d2JHSHhiNFNra3UyaVZERC0zRGZxV3QyOE1UeFQ3RFNXRHJ3WEg4V2pINEpxRkdnT3p4TWxhNUdtb3NaUGtBTHl2Y0ZFVG04SE5VTVFaS0I2YVpvaDV2aE9DX1JTcmRycURkLTdtWTU3bFJoaEhJblJSSE5HV3NiVGdkWGpPSm9rcUQ0dlBBUk1VZGhYZzhBVnlBblE?oc=5",
-      "level": "warning",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMinwdBVV95cUxNOEplXzFKXzZvVmlQMktfLWNacXlwWW0yazhaN2xDaDltNUhDbzZEbmVQRGxubVI0MVVG..."
+      "id": "news-x3hj1e1",
+      "province": "bangkok",
+      "title": "เช็กก่อนเดินทาง! เปิดพิกัดน้ำท่วมถนนสายหลัก กทม. ลาดกระบัง-ฉลองกรุง-พหลโยธิน อ่วมหนักหลายจุด",
+      "date": "Tue, 06 Oct 2026 02:42:00 GMT",
+      "source": "สยามรัฐ",
+      "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5KX2RJcnRpdEZzbW1aZmNhN1lWU2ZDb0pIaTZENGpxTXkwRmNhLWZ3OWdhcE8yMnRZUElwNE5aNDJnWUVpVXJXNjBNUEM?oc=5",
+      "level": "info",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiTEFVX3lxTE5KX2RJcnRpdEZzbW1aZmNhN1lWU2ZDb0pIaTZENGpxTXkwRmNhLWZ3OWdhcE8yMnRZUElw..."
     },
     {
-      "id": "news-f4y0ujt",
+      "id": "news-hj5p0a5",
       "province": "chonburi",
-      "title": "พัทยาตั้งรับ “Rain Bomb” เตือนฝนหนักช่วงบ่าย ระดมเครื่องสูบน้ำ-แบ็กโฮรับมือน้ำท่วมขัง",
-      "date": "Mon, 05 Oct 2026 07:00:00 GMT",
-      "source": "MGR Online",
-      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE92RDlxNERMVlc1RHZRaktPM2ZvRTJUekJ4b09SOEgyUkp6R3ZYb1RvcFp0dnp3dzltZWtuaVk4QVBSX3AwNjFadHRNMGdnWVpKSW9HbU1YbVV4VlZj?oc=5",
+      "title": "พัทยาพร้อมรับ “Rain Bomb” เตือนฝนหนักบ่ายนี้ ระดมสูบน้ำ-แบ็กโฮรับมือน้ำท่วม",
+      "date": "Mon, 05 Oct 2026 14:31:56 GMT",
+      "source": "77 ข่าวเด็ด",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5XYmtTQW80XzZVNDM3WnJHYkFfUHpuZ0Z2RmVCZmNobVZ6WExqNU5HalBwd25sRGRoUDhxS2Z5dVhmcGpOVzNJWnBZaWNwTG8tWXdEVTNfWlMwdjktUW9GMVUtU3E?oc=5",
       "level": "warning",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiXEFVX3lxTE92RDlxNERMVlc1RHZRaktPM2ZvRTJUekJ4b09SOEgyUkp6R3ZYb1RvcFp0dnp3dzltZWtu..."
-    },
-    {
-      "id": "news-jmdujk9",
-      "province": "prachinburi",
-      "title": "เช็กเส้นทางเลี่ยง น้ำท่วมถนน 19 จังหวัด ทางหลวงพัง 156 แห่ง รถสัญจรไม่ได้ 39 จุด",
-      "date": "Sun, 04 Oct 2026 07:00:00 GMT",
-      "source": "Thairath.co.th",
-      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4tRzNNVUE1bFdVRXgzRmpOampJc0pTQzlmSVh4V0tZNmU1TzlpeGlVX0xQaU15aklyUnRzR1JMb2pvV1VYZlNvSThTaFVwSjY2LXhvbWltaENlTHhydzZCLWVBeHdYeUk?oc=5",
-      "level": "info",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZ0FVX3lxTE4tRzNNVUE1bFdVRXgzRmpOampJc0pTQzlmSVh4V0tZNmU1TzlpeGlVX0xQaU15aklyUnRz..."
-    },
-    {
-      "id": "news-jld609a",
-      "province": "prachinburi",
-      "title": "🚨 อัปเดต ทล.305 กม.41+800 หน้า มศว องครักษ์ รถเล็กควรเลี่ยงเส้นทาง 📅 วันที่ 4 ตุลาคม 2569 เวลา 20.00 น. แนวกระสอบทรายพังทลาย ส่งผลให้มีน้ำท่วมขังบนผิวจราจรสูงประมาณ 20–35 ซม. ⚠️ ขณะนี้สัญจรผ่านได้ลำบาก 🚗 รถเล็กควรหลีกเลี่ยงเส้นทางบริเวณนี้ 🗺️ ผู้เดินทางทั้งมุ่งหน้",
-      "date": "Sun, 04 Oct 2026 07:00:00 GMT",
-      "source": "Facebook",
-      "link": "https://news.google.com/rss/articles/CBMi0gZBVV95cUxNRFBOaFkySG45a2JDV1NRUFYyYTBHVnZjOFVyZEs4aU5lcHB3UjRZbHdNXzl0bDRzR1NQSVMyYkNOMmpnTmQwYi1NUS1iMUM0aHZPalJKVzB1LVpWendiV1lXTWhtUzluS0hNM2FqTHFpcm90UFZ4akc0cVYwbXBmM2l6aHR0RmttekljbFlwWG9pNDl1YnBUblJOZXliOWtBYXBSYmFWQ1gxTEt1cXA1eUQtMEV6ck12dkI3X0tkTXNxS1lUMlFPWFM4cVVzVWU0cUJSRFJmNlN2RXE0dExGNWtvbmZsWVdHSkVCUk5xcWhUZWJYTHQwakhfeDl4WUdXM2NMbDNzN2NKNllucXBTWkt1UFYxR0V2enVBbkMtbU5lXzhyakRqbUxZY3N2NFEycmE3Y2R5d24yRkdUTnprQnp4WUVoWkxtUk90RzRZLWxSRnI1YWY4TnZPQXYweGhXRVdaZkVMMGFVRVFDU01UOEtNVjQyRjl2M0Q0MlZYR251SkZid3U2cF9QSm9kSnZjeHdGUXNfRlM2cGNaUjJPRXEzNmJaS1AtQ3NhSUVoeURHVzVDMVFsYjJVM1VTUjN1VldtQlVMWVVSYVY3ZlVtSnc4ZWUtMnB1ZGRoaVhyajZmSkhmaUdDMU9WTjZJN0FZSmplbHlOSEVCV0pnUUxwME84Y2RqTHFwZE1kV3Z4bDBJNkFkYjkwSFhoVUdNXzktbEdtMXV5bHNTNjBHeWZlNEpKQUQ0QkdoZzVxcFpNSEJ0ZVN3SDYzcEhGZ18yZEtSNTVYNlNUWFI0RGFrcVFrLVNWQnVyNXNtSHVxT2xfOXJ0dGgwRTdNQkstWjVOQV9saWJSdjZrZE1qRFh1ZzRBWTFZNlRPcmNHWU5TbFdsakRtRzEyTUJHUXhPMFhMbWFpQWduMXFTWEdWR3ZvTHRXQ0NrWkd1WmNIN3ZqZmp1QThaVk1RM2VHSnRpSFZ5WTQ1T00wTlg0UnJEd2NCSmlrRU1zSlA4YmprLV9ybmxlV0RVcGhHazU2RVN6ZU9WMkZQcGVQdUZ0a0kxRkxLdjltOVpMU0dveDFselF2SXhPWmtiM0RVLUdOTEJmamlRcmNRc1NiaTdXMFlnQzNtS0dvUFNn?oc=5",
-      "level": "warning",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMi0gZBVV95cUxNRFBOaFkySG45a2JDV1NRUFYyYTBHVnZjOFVyZEs4aU5lcHB3UjRZbHdNXzl0bDRzR1NQ..."
-    },
-    {
-      "id": "news-3y1eqlp",
-      "province": "chonburi",
-      "title": "บ่ายนี้ (5 ต.ค.) พัทยา ระวัง Rain Bomb ฝนตกหนัก ‼️ . พื้นที่ต่ำเสี่ยงน้ำท่วมขัง ขอให้ ปชช.ในพื้นที่เฝ้าระวังอย่างใกล้ชิด . #ไทยคู่ฟ้า #สื่อสารรัฐบาลไทย ------------------- 👍Website : www.thaigov.go.th 👍Facebook/ X : ไทยคู่ฟ้า 👍YouTube : ไทยคู่ฟ้า ทำเนียบรัฐบาล 👍TikTok : ไทยคู่ฟ้",
-      "date": "Sun, 04 Oct 2026 07:00:00 GMT",
-      "source": "Facebook",
-      "link": "https://news.google.com/rss/articles/CBMi4AZBVV95cUxNNm5LTnh4aUVJTG51eEVSZUppYVd3N3daOVhyMmFtVnQtbWNkd3VLTS1IcXN0Vk12cWxveXdqTWE4emc0RDFEZUYzZnBGOWsxUjJyalczZHNsUjZfQ1FaTnhDYXNqVlFkZjRsRC1RVGFOSTRlX0ttZ2hZeWEza3FTMFRxYWNtdHVkZF9DR2xqbllHZ0NUQ0U0aXB4UFdQVW1OWVZjVmNfTGIxSHVrZ01rb2xxaXZHQ0xaeFlCdFppeWJjcElPQUFHVmNlaGxuTGZKVTE3cVZrNXN2ZTMtdFNucmFZUGJXRUNmcWZvVkhmandHUk4xUzlNMHIyTkZiYWRVUnlLYktmSnl6bEJkRDFqdkpVZ0wxU1RCaVE4Rmtha0lUb1JEQUlheTV6T0RTOHpjODBueVJJNEtsWUo3MWdGT081RnNJalNBVVV6RU1Rb3VTcy1lYmktXzBjT3J4a1o3ekhKc0xSUHVHRVVfRVIyR0R2Q0daSDVvS0RVRmtRQ3hWdG5BMTJES1NXSFkzcV82T2tDVWZ1c1FUbTRRMlN5VUpUT2FCVG53eV84dS1OY1VxdENwSGRLWXJ5QkVyOWNnODUtdmZtUlZqRVNzMExId2hXRDFqdy14ZmhnanZjN2xSRVVHYlJHSjA1TDN3bnJHRU5ZdS1iN2hVS09Bc2N5OVY0dEpGUTdvMlF6VDlyVEFUX1VZVndMT3dsWWQwZ2t2aHNhUEt3TG00VDBqOWU4UWJ5U3ZzcDMxMXU1d3dRa3A3aDh3aVdtcjYyRk5GZU1hQnI1U0lyck5CYjdvT2Fzc09PblIzQzlpaGJ3Y3VNcnhGT3NMUW5MSEVFajQ0aXpYQ0xVY3AtUkpKSzBpNjNkbXRzMFpONS1zcXk4MkJXX0xKeHNtMi1BRFFXa0JmNUVoLUhLUTZ2dDk3VWdCV1VqekNBZHZFZ3FWNkVreXZOZTBQcTlFR1VWUGlKMkJYclAzdmhGcGtySDY0bmNyTnRTbXlsQ1JYMXJwY292Q1VZd2FidmlfVnE0YW5IZnZhSmdQX0UwUGVBckoxMzJWMXhTUjlEN3JEcjRsOU5iMWM0Qm56MXQxMndBdmZuZXViaUFUbFVYSzJ3Qk9lYXNqd0owRzJxNTFMWWJnUjdMUkdyUEU?oc=5",
-      "level": "warning",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMi4AZBVV95cUxNNm5LTnh4aUVJTG51eEVSZUppYVd3N3daOVhyMmFtVnQtbWNkd3VLTS1IcXN0Vk12cWxv..."
-    },
-    {
-      "id": "news-1zw0sm8",
-      "province": "bangkok",
-      "title": "THE STANDARD. . สรุปสถานการณ์น้ำท่วม กทม. และ 31 จังหวัด ที่ไหนเป็นอย่างไรบ้าง? #น้ำท่วม #TheStandardNewsDigest",
-      "date": "Fri, 02 Oct 2026 07:00:00 GMT",
-      "source": "Facebook",
-      "link": "https://news.google.com/rss/articles/CBMi5gZBVV95cUxQeHVfSTlLa1owcW5RUHZ0aFBMODFacWZ0N1hJR2lGeWtYZWFocVY2bHZlT0E5Zlp4OFN1ajYwYUVWblhSV2I0OEM2XzdOcFpILUlMLWpmR00zdFlWVGp0RjE3YlVlS0ZkamxSSUdybGY4NXpQbXJvd3BTMF8wMHlibmU1d3llNVpZQmFkX0xFRDNtNWhDNHZpa3hIREpQYzF1cTFRVk16S3ZVOTZCQkVhZG1QLVljVGRYZkNsYzctZ2VWSUctQlV3N2xmcF9ISlJUOEhsWTBMNktiZlk3SUduU0MwMWtPMm9FSlRoVTJRUFpOYnpDaTZwRjhyVS1wVlUyNjgwX2FONVRONFo5b2tXQ1JCWC1EUWdJUTJndWhtVWVDWWtJckpvbjQzNDZuNF9pT0c4a2Q1eXZxWkxQV3BEc0NJVGxFUVhQREw3V2lMcVB3TFRHcWE0c0NWaHB0UEoxUkNMaFFsSHdxTHN3bC1sbVNkVVR3dDY4U28tTWMwdXZFRWt2NkVIU1Fmb19CamZ4d1NTR0hPN0hRemwyM3RMN1NjNmpUNWh5NFRFeFQ2eWhaMm9qZkZrc1dkNmxwaC11WHVCLWI0TEN2SGZQcGVJMWpoSDNoSTZvUENJUUNZU0RnN3BBb0ZfUmkzcDBiZjVvQXNVd2ItdndhSGk2WFQxc0VpOWVKMm5uTS1rMGd3UTdRdUJEdnFkYXh2M2FXX3VmQmFGNUt2Zm9wSHFGUzlaTWY3cHl1X2NTbnFDWWJTV3YyS2ludXBoU1FSeXhFVmxJU3d0dW9tTUZaV1FFZmhJcms5ZG9fdXZFZ05MUEU0WlZLZnFxa2p1VkdVY3lCM1RNOFJSN0R2andfdHpyMi1IU0pKZDN2UkpjelYxRlh1LW1BS2sxejF3R202Ql9Mamk1dklRaHFjWWtuakhxYmd5dXFMQkxKaGc2dmgxQ0lLMERNb2dUZndKWDRLaFBjSTkwOUdsNU1CcENQQkY1WDNSNFpmVnMycTIxZWpCeUczZVV0TC1RTmh0aVhQZ0l2U1FISGgwMHdJdVFBVFVmTkpzWnJ4OXRwS2ZWWkRMbnZtSnRUNVhXLThONlJjMXpxUlUzWEl5Q3pPM3dBRW1wU0ZoZ0RsS1pNZHQxNVoycHNfOWphZTdkWEE?oc=5",
-      "level": "info",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMi5gZBVV95cUxQeHVfSTlLa1owcW5RUHZ0aFBMODFacWZ0N1hJR2lGeWtYZWFocVY2bHZlT0E5Zlp4OFN1..."
-    },
-    {
-      "id": "news-3liwb9f",
-      "province": "bangkok",
-      "title": "16.57 น. ทางพิเศษด่วนบูรพาวิถี (บางนา-ชลบุรี) ทิศทางวิ่งเข้า กทม. เวลานี้ รถหนาแน่น เคลื่อนตัวช้า ท้ายแถวสะสมอยู่ช่วง \"บางบ่อ\" เนื่องจากทางราบด้านล่างยังมีสถานการณ์น้ำท่วม แนะวางแผน เผื่อเวลาในการเดินทาง #น้ําท่วม2569",
-      "date": "Fri, 02 Oct 2026 07:00:00 GMT",
-      "source": "Facebook",
-      "link": "https://news.google.com/rss/articles/CBMipwdBVV95cUxNSm9Mc0NDVWFwcGlCa3pFa1cxY1Z6MVhXOHhsMmRTVVYyQjRaY2s5eWZqek5qcjZ1VzhRNkZueVdoNGNsaXZvUUVFT1VGVEExejZQdXc4OGxYeGNEQ09vTEs4bTNVVjNRM0RZdVdTLURTanJ5TTFEdk8wYjFIdzRZMHM2XzFvNTZ0dTNhV3NRUDJZd3dETmRfOHZTc1hSamxvSE0teGFiN0NQU2cwamlsUFNhM2R0bXJDWXZMYVBMTEh5LXRHLTQ5ajRabXFhTDY4VlpDbm5SVF9NbllGMTVZenItZzA1WlBxUGg4MURpZ05OUy12SHYxZEo4M25oVnVfcWR6TEhxUXBnaW52bWdKUW44azUxdlhWaWxhUkJ5RkJyVk1TRHYyUHpMMl82YkpMaTUyZEtzVVlNWWN5dU9zRWZVUEktTWZ3NHJpZklYR0NmZTlvM1htdnZBeGUwWjE4dzg5VjN1aVlJUkZEM0RaYVNnMl9NX3p2VGN5RjVhRWVzUG1oMFNLQXBMZ3JBenAwU2k4SjVXOVJYYUJJYmU2MjZzR0JUQnlqdlVYT3RrVTF0Wi1Td2RuNmRBYm9mTlRhamlJdFZKdERKc3hJbF9pcGowbDFYLWZ4ak1hVXBIYVJFTEtGMlpNYWFmcC1xYlJhcEdPdG9SR2hhZmIyN3lXZjVjUGxKcFcwVHRxb0o1QzhBMVBsdVRjWEFSRENUQ2dxMnJ3d21maGx6bU9tXy0xT29PUGg3MmpVbjJGd21tVVl1MU9FOVVsR2lIeXRDMTNhSU9ROWtFaENoMk5HWFBFVDdqVTk2SEFicGVhTjZZaHg3ZzlweWZ3VWZTUGJXTFRUR1dLTlB6MUdqQkw4VXhyb3FLTjNwbWdTUEdObWZaLUZUaWVuX0tCSHpPZUIxSk1rX0VLMFhlMUxtallSdWQ1QldQdGI4SEJ2VlpoSFdIT0xrVlEtaEdpZlhkVGdHR19vTWRzdk8yRWYyTkd4STROb3dNU1ptb0EwMDk1dHJQVkNobnBwM1BmUjlqT3ZZSTlKTGI0cGttZ3I4YlJfTmZNTHdfTUtaM2VQQkRTTUhScFpvak5vaFlIMzZGZkVEenRXdlVhTURPOXpvX0xCb3ZPWmFwNXgyNl9ONG4wSzJHRWRHNHdQSGw4LXVTQy1aYUdKTTMwTEFfVndaNGxCTjlGWjd5VHk4NUhNYnNkYlN0aUh3U0lza1JxVWtFVW54YTNZRnRFNTk5SQ?oc=5",
-      "level": "info",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMipwdBVV95cUxNSm9Mc0NDVWFwcGlCa3pFa1cxY1Z6MVhXOHhsMmRTVVYyQjRaY2s5eWZqek5qcjZ1VzhR..."
-    },
-    {
-      "id": "news-2zbhrb9",
-      "province": "bangkok",
-      "title": "2 ต.ค. 69 เวลา 19.30 น. ถ.มอเตอร์เวย์ ขาเข้า กรุงเทพฯ กม.29+400 มีการซ่อมทางเร่งด่วน และเข้าด่านลาดกระบัง มีน้ำท่วมขังสายทาง ปิดบริการตู้เก็บเงินช่องที่ 1-2 ท้ายสะสม 18 กม. #มอเตอร์เวย์ #น้ำท่วม #ข่าวจราจรสวพFM91",
-      "date": "Fri, 02 Oct 2026 07:00:00 GMT",
-      "source": "Facebook",
-      "link": "https://news.google.com/rss/articles/CBMiyAZBVV95cUxNV2pjbW1pajJLVVAwTF9SSVhwVHNYZndFaURNSVJKSzJERV9kZzdhcllrWGIyX2k3cXBJX3NYaXBmWU9OSUx0NllyZWJ2YUlVMlpFdnQ3RjQyTUxoR1NEMnJPYWhDT0licVkyRnlzckJtd1YtN1Z2VjA1S2QyTm1QM1BOMHZFQVdxUkhiLVRpamd2NXoxWDNhemZCVTVSaU9sRGRoSm9yN00tY0VBXzBQeTNlV3hUd0VfSDlwWEZGYlM2bUpPMUxaVFBaeUxNVmZydk51OFNwempzcUFWckl1ZG1jM2RjUUN2c1RnY1NwUjJzOUJzWjFTQVpKaGo2cG9ZWi1sV1g2ZklQaVZwQ19LcUdIcDJxSFFQOG5OZGhNZ09neVhjRC1JMGk1a2hHcmlPczVfNFl5aGtMUjkza0ttWktVVms1LVh2YzltZkNVVmZnWXVaS0xZUTVNWUxTMVZrVHduYUdHdUVxRk95eDk1cGhYMVdZdGNRcDJyQmZhRXFsb29BeEdZa1dlQUZwb0tFckFJX0JaakRhcEY3MVRoU2xEZnRITVpTMV9OaEQ5RGZkM2dzcGcxUURQcTdhS1FVU1ppMV9FVGN3MS1TSE5aRll1cndnWm1XbVZhcml1c1N0NnFPR1BTUVItejU2dEZlOHQ4Yy1uX2lPaGtDbkpIQ0dKN0tmVHVsUDZMcnBmMTBqV1ViUDEzdWFZeENwckF6NEtBdjRvOFk4ZDR2c3BlQjV0V3pRVG9SWHJJOGFDanFWZ2VtS2xQTy1IdEJGa1hmZVd6aURMWF9iU2trZ0JmUTZuUG9TZ1J2UG9vOGMzTjFOMktDQXAyQWdkRkhzMjVQRGtEeElScmhORWJBaUpvUG9ELWQyM2w0b3A3VmZGQnVhdXNYcXFZZmE1WDV5TWM1ZmVZdWRTR3dkcl9jUUhhZFFFRDEtQkNoUVJmSGtkQmRXYVZnY0xhckZpVGJSMVBMWVM5Z0hZZE1uZUgycm00RmdKRm5iTXN5M0o4b1pOMzJncUxCTXhOMDZVb1p0NTlkRlZIbTE0M0NlOWZ2UEpOVGh1alBlaVdmak5fVVpod1UwSmpFVWZXaUVQckVxMlN1enFPSEYta3Y?oc=5",
-      "level": "warning",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiyAZBVV95cUxNV2pjbW1pajJLVVAwTF9SSVhwVHNYZndFaURNSVJKSzJERV9kZzdhcllrWGIyX2k3cXBJ..."
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE5XYmtTQW80XzZVNDM3WnJHYkFfUHpuZ0Z2RmVCZmNobVZ6WExqNU5HalBwd25sRGRoUDhx..."
     }
   ]
 }
